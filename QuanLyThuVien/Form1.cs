@@ -5,6 +5,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -18,7 +20,7 @@ namespace QuanLyThuVien
             InitializeComponent();
         }
 
-        string Nguon = @"Data Source=.\SQLEXPRESS01;Initial Catalog=libraryManagement;Integrated Security=True;Encrypt=True;TrustServerCertificate=True";
+        string Nguon = @"Data Source=DESKTOP-A4F70E0;Initial Catalog=LibraryManagement;Integrated Security=True;TrustServerCertificate=True";
         SqlConnection Ketnoi;
         SqlCommand Thuchien;
         SqlDataReader Doc;
@@ -93,5 +95,61 @@ namespace QuanLyThuVien
             }
 
         }
+
+        private void btnQuenMatKhau_Click(object sender, EventArgs e)
+        {
+         
+            string email = txtEmail.Text.Trim();
+
+            if (string.IsNullOrEmpty(email))
+            {
+                MessageBox.Show("Vui lòng nhập email đã đăng ký!");
+                return;
+            }
+
+            // Kiểm tra email trong DB
+            using (var conn = new SqlConnection("Data Source=DESKTOP-A4F70E0.;Initial Catalog=YourDb;Integrated Security=True"))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM Users WHERE Email=@Email", conn);
+                cmd.Parameters.AddWithValue("@Email", email);
+
+                int count = (int)cmd.ExecuteScalar();
+
+                if (count == 0)
+                {
+                    MessageBox.Show("Email không tồn tại trong hệ thống!");
+                    return;
+                }
+            }
+
+            // Sinh mã reset (OTP)
+            string resetCode = Guid.NewGuid().ToString().Substring(0, 6);
+
+            try
+            {
+                // Gửi mail qua Gmail SMTP
+                MailMessage mail = new MailMessage();
+                mail.To.Add(email);
+                mail.From = new MailAddress("yourgmail@gmail.com");
+                mail.Subject = "Mã khôi phục mật khẩu";
+                mail.Body = $"Mã reset mật khẩu của bạn là: {resetCode}";
+                mail.IsBodyHtml = false;
+
+                SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+                smtp.Credentials = new NetworkCredential("yourgmail@gmail.com", "APP_PASSWORD");
+                smtp.EnableSsl = true;
+
+                smtp.Send(mail);
+
+                MessageBox.Show("Mã reset đã được gửi đến email. Vui lòng kiểm tra hộp thư!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi gửi mail: " + ex.Message);
+            }
+        }
+
     }
 }
+

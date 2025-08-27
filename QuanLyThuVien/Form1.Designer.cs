@@ -37,9 +37,9 @@
             this.txtMatKhau = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.btnDangKy = new System.Windows.Forms.Button();
-            this.btnQuenMatKhau = new System.Windows.Forms.Button();
             this.chkHienThiMatKhau = new System.Windows.Forms.CheckBox();
             this.btnDangNhap = new System.Windows.Forms.Button();
+            this.chkQuenMK = new System.Windows.Forms.LinkLabel();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
@@ -51,7 +51,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 36.22951F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 63.77049F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 679F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 119F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 122F));
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label2, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.label3, 1, 2);
@@ -89,9 +89,9 @@
             this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label2.Font = new System.Drawing.Font("Times New Roman", 13.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.Aqua;
-            this.label2.Location = new System.Drawing.Point(129, 224);
+            this.label2.Location = new System.Drawing.Point(128, 224);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(217, 40);
+            this.label2.Size = new System.Drawing.Size(215, 40);
             this.label2.TabIndex = 1;
             this.label2.Text = "Tên đăng nhập :";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -102,9 +102,9 @@
             this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label3.Font = new System.Drawing.Font("Times New Roman", 13.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.Aqua;
-            this.label3.Location = new System.Drawing.Point(129, 264);
+            this.label3.Location = new System.Drawing.Point(128, 264);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(217, 39);
+            this.label3.Size = new System.Drawing.Size(215, 39);
             this.label3.TabIndex = 2;
             this.label3.Text = "Nhập mật khẩu :";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -114,7 +114,7 @@
             this.txtTenDangNhap.BackColor = System.Drawing.SystemColors.HighlightText;
             this.txtTenDangNhap.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtTenDangNhap.Font = new System.Drawing.Font("Times New Roman", 13.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTenDangNhap.Location = new System.Drawing.Point(352, 227);
+            this.txtTenDangNhap.Location = new System.Drawing.Point(349, 227);
             this.txtTenDangNhap.Name = "txtTenDangNhap";
             this.txtTenDangNhap.Size = new System.Drawing.Size(673, 33);
             this.txtTenDangNhap.TabIndex = 3;
@@ -125,7 +125,7 @@
             this.txtMatKhau.BackColor = System.Drawing.SystemColors.HighlightText;
             this.txtMatKhau.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtMatKhau.Font = new System.Drawing.Font("Times New Roman", 13.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMatKhau.Location = new System.Drawing.Point(352, 267);
+            this.txtMatKhau.Location = new System.Drawing.Point(349, 267);
             this.txtMatKhau.Name = "txtMatKhau";
             this.txtMatKhau.Size = new System.Drawing.Size(673, 33);
             this.txtMatKhau.TabIndex = 4;
@@ -137,16 +137,16 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.Controls.Add(this.btnDangKy, 1, 1);
-            this.tableLayoutPanel2.Controls.Add(this.btnQuenMatKhau, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.chkHienThiMatKhau, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.btnDangNhap, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.chkQuenMK, 1, 0);
             this.tableLayoutPanel2.Font = new System.Drawing.Font("Times New Roman", 13.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(129, 306);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(128, 306);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 47.5F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 52.5F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(896, 110);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(894, 110);
             this.tableLayoutPanel2.TabIndex = 5;
             // 
             // btnDangKy
@@ -154,7 +154,7 @@
             this.btnDangKy.BackColor = System.Drawing.Color.IndianRed;
             this.btnDangKy.Dock = System.Windows.Forms.DockStyle.Left;
             this.btnDangKy.ForeColor = System.Drawing.Color.Aqua;
-            this.btnDangKy.Location = new System.Drawing.Point(451, 55);
+            this.btnDangKy.Location = new System.Drawing.Point(450, 55);
             this.btnDangKy.Name = "btnDangKy";
             this.btnDangKy.Size = new System.Drawing.Size(199, 52);
             this.btnDangKy.TabIndex = 4;
@@ -162,25 +162,12 @@
             this.btnDangKy.UseVisualStyleBackColor = false;
             this.btnDangKy.Click += new System.EventHandler(this.btnDangKy_Click);
             // 
-            // btnQuenMatKhau
-            // 
-            this.btnQuenMatKhau.BackColor = System.Drawing.Color.Orange;
-            this.btnQuenMatKhau.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnQuenMatKhau.ForeColor = System.Drawing.Color.Aqua;
-            this.btnQuenMatKhau.Location = new System.Drawing.Point(451, 3);
-            this.btnQuenMatKhau.Name = "btnQuenMatKhau";
-            this.btnQuenMatKhau.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.btnQuenMatKhau.Size = new System.Drawing.Size(207, 46);
-            this.btnQuenMatKhau.TabIndex = 1;
-            this.btnQuenMatKhau.Text = "Quên mật khẩu";
-            this.btnQuenMatKhau.UseVisualStyleBackColor = false;
-            // 
             // chkHienThiMatKhau
             // 
             this.chkHienThiMatKhau.AutoSize = true;
             this.chkHienThiMatKhau.Dock = System.Windows.Forms.DockStyle.Right;
             this.chkHienThiMatKhau.ForeColor = System.Drawing.Color.Aqua;
-            this.chkHienThiMatKhau.Location = new System.Drawing.Point(256, 3);
+            this.chkHienThiMatKhau.Location = new System.Drawing.Point(255, 3);
             this.chkHienThiMatKhau.Name = "chkHienThiMatKhau";
             this.chkHienThiMatKhau.Size = new System.Drawing.Size(189, 46);
             this.chkHienThiMatKhau.TabIndex = 2;
@@ -194,13 +181,26 @@
             this.btnDangNhap.BackColor = System.Drawing.Color.IndianRed;
             this.btnDangNhap.Dock = System.Windows.Forms.DockStyle.Right;
             this.btnDangNhap.ForeColor = System.Drawing.Color.Aqua;
-            this.btnDangNhap.Location = new System.Drawing.Point(246, 55);
+            this.btnDangNhap.Location = new System.Drawing.Point(245, 55);
             this.btnDangNhap.Name = "btnDangNhap";
             this.btnDangNhap.Size = new System.Drawing.Size(199, 52);
             this.btnDangNhap.TabIndex = 3;
             this.btnDangNhap.Text = "Đăng nhập";
             this.btnDangNhap.UseVisualStyleBackColor = false;
             this.btnDangNhap.Click += new System.EventHandler(this.btnDangNhap_Click);
+            // 
+            // chkQuenMK
+            // 
+            this.chkQuenMK.AutoSize = true;
+            this.chkQuenMK.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chkQuenMK.LinkColor = System.Drawing.Color.Cyan;
+            this.chkQuenMK.Location = new System.Drawing.Point(450, 0);
+            this.chkQuenMK.Name = "chkQuenMK";
+            this.chkQuenMK.Size = new System.Drawing.Size(441, 52);
+            this.chkQuenMK.TabIndex = 5;
+            this.chkQuenMK.TabStop = true;
+            this.chkQuenMK.Text = "Quên mật khẩu";
+            this.chkQuenMK.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // FormDangNhap
             // 
@@ -230,10 +230,10 @@
         private System.Windows.Forms.TextBox txtTenDangNhap;
         private System.Windows.Forms.TextBox txtMatKhau;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.Button btnQuenMatKhau;
         private System.Windows.Forms.CheckBox chkHienThiMatKhau;
         private System.Windows.Forms.Button btnDangNhap;
         private System.Windows.Forms.Button btnDangKy;
+        private System.Windows.Forms.LinkLabel chkQuenMK;
     }
 }
 
