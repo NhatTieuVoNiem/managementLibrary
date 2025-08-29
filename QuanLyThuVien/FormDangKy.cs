@@ -2,6 +2,7 @@
 using System.Data.SqlClient;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace QuanLyThuVien
@@ -28,8 +29,17 @@ namespace QuanLyThuVien
                 return builder.ToString();
             }
         }
+        private bool IsValidEmail(string email)
+        {
+            string pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+            return Regex.IsMatch(email, pattern);
+        }
         private void btnRegister_Click(object sender, EventArgs e)
         {
+            // Chuỗi kết nối
+            Ketnoi = new SqlConnection(@"Data Source=.;Initial Catalog=libraryManagement;Integrated Security=True;");
+            Ketnoi.Open();
+
             string username = txtUsername.Text.Trim();
             string password = txtPassword.Text.Trim();
             string confirmPassword = txtConfirmPassword.Text.Trim(); // Nhập lại mật khẩu
@@ -49,6 +59,11 @@ namespace QuanLyThuVien
                 MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+            if (!IsValidEmail(email))
+            {
+                MessageBox.Show("Email không hợp lệ. Vui lòng nhập lại.");
+                return;
+            }
 
             // Kiểm tra nhập lại mật khẩu
             if (password != confirmPassword)
@@ -65,15 +80,36 @@ namespace QuanLyThuVien
                 MessageBox.Show("Vui lòng nhập đầy đủ 3 câu hỏi và câu trả lời bảo mật!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+            // Kiểm tra Username
+            string checkUsername = "SELECT COUNT(*) FROM Users WHERE Username = @Username";
+            SqlCommand checkUsernameCmd = new SqlCommand(checkUsername, Ketnoi);
+            checkUsernameCmd.Parameters.AddWithValue("@Username", username);
+            int usernameExists = (int)checkUsernameCmd.ExecuteScalar();
+
+            if (usernameExists > 0)
+            {
+                MessageBox.Show("Tên đăng nhập đã tồn tại. Vui lòng chọn tên khác!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                Ketnoi.Close();
+                return;
+            }
+
+            // Kiểm tra Email
+            string checkEmail = "SELECT COUNT(*) FROM Users WHERE Email = @Email";
+            SqlCommand checkEmailCmd = new SqlCommand(checkEmail, Ketnoi);
+            checkEmailCmd.Parameters.AddWithValue("@Email", email);
+            int emailExists = (int)checkEmailCmd.ExecuteScalar();
+
+            if (emailExists > 0)
+            {
+                MessageBox.Show("Email đã được sử dụng. Vui lòng dùng email khác!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                Ketnoi.Close();
+                return;
+            }
 
             try
             {
                 // Hash mật khẩu
                 string hashedPassword = HashPassword(password);
-
-                // Chuỗi kết nối
-                Ketnoi = new SqlConnection(@"Data Source=.;Initial Catalog=libraryManagement;Integrated Security=True;");
-                Ketnoi.Open();
 
                 // Lệnh insert
                 string sql = @"INSERT INTO Users (Username, PasswordHash, FullName, Email, 
@@ -102,7 +138,6 @@ namespace QuanLyThuVien
 
                  FormDangNhap fLogin = new FormDangNhap();
                  fLogin.ShowDialog();
-
                  this.Close(); // Đóng hẳn form đăng ký sau khi login đóng
                 }
                 else
@@ -120,11 +155,23 @@ namespace QuanLyThuVien
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            // Đóng form
+            FormDangNhap fLogin = new FormDangNhap();
+            fLogin.ShowDialog();
             this.Close();
+
         }
 
         private void FormDangKy_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtAnswer3_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
 
         }
