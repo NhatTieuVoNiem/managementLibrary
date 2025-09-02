@@ -18,7 +18,7 @@ namespace QuanLyThuVien
             InitializeComponent();
         }
 
-        string Nguon = @"Data Source=.\SQLEXPRESS01;Initial Catalog=libraryManagement;Integrated Security=True;Encrypt=True;TrustServerCertificate=True";
+        string Nguon = @"Data Source=.;Initial Catalog=libraryManagement;Integrated Security=True;Encrypt=True;TrustServerCertificate=True";
         SqlConnection Ketnoi;
         SqlCommand Thuchien;
         SqlDataReader Doc;
