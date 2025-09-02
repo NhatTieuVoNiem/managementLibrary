@@ -37,6 +37,7 @@
             this.txtMatKhau = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.btnDangKy = new System.Windows.Forms.Button();
+            this.btnQuenMatKhau = new System.Windows.Forms.Button();
             this.chkHienThiMatKhau = new System.Windows.Forms.CheckBox();
             this.btnDangNhap = new System.Windows.Forms.Button();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
@@ -245,6 +246,7 @@
         private System.Windows.Forms.TextBox txtMatKhau;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.CheckBox chkHienThiMatKhau;
+        private System.Windows.Forms.Button btnQuenMatKhau;
         private System.Windows.Forms.Button btnDangNhap;
         private System.Windows.Forms.Button btnDangKy;
         private System.Windows.Forms.LinkLabel linkLabel1;
