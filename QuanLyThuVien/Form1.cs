@@ -93,5 +93,10 @@ namespace QuanLyThuVien
             }
 
         }
+
+        private void btnQuenMatKhau_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

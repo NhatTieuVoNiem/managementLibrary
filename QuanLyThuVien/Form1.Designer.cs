@@ -162,6 +162,20 @@
             this.btnDangKy.UseVisualStyleBackColor = false;
             this.btnDangKy.Click += new System.EventHandler(this.btnDangKy_Click);
             // 
+            // btnQuenMatKhau
+            // 
+            this.btnQuenMatKhau.BackColor = System.Drawing.Color.Orange;
+            this.btnQuenMatKhau.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnQuenMatKhau.ForeColor = System.Drawing.Color.Aqua;
+            this.btnQuenMatKhau.Location = new System.Drawing.Point(450, 3);
+            this.btnQuenMatKhau.Name = "btnQuenMatKhau";
+            this.btnQuenMatKhau.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.btnQuenMatKhau.Size = new System.Drawing.Size(207, 46);
+            this.btnQuenMatKhau.TabIndex = 1;
+            this.btnQuenMatKhau.Text = "Quên mật khẩu";
+            this.btnQuenMatKhau.UseVisualStyleBackColor = false;
+            this.btnQuenMatKhau.Click += new System.EventHandler(this.btnQuenMatKhau_Click);
+            // 
             // chkHienThiMatKhau
             // 
             this.chkHienThiMatKhau.AutoSize = true;
