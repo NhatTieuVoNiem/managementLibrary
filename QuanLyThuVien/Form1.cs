@@ -59,7 +59,7 @@ namespace QuanLyThuVien
                 using (SqlConnection conn = new SqlConnection(Nguon))
                 {
                     conn.Open();  // Kiểm tra kết nối
-
+                    string hashedPassword = HashPassword(password);
                     string sql = "SELECT COUNT(*) FROM Users WHERE Username=@user AND PasswordHash=@pass";
                     SqlCommand cmd = new SqlCommand(sql, conn);
                     cmd.Parameters.AddWithValue("@user", username);
@@ -99,7 +99,7 @@ namespace QuanLyThuVien
         {
             try
             {
-                FormDangKy F = new FormDangKy();
+                FormQuenMatKhau F = new FormQuenMatKhau();
                 F.Show();
                 this.Hide();
             }
