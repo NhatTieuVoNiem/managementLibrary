@@ -28,6 +28,7 @@ namespace QuanLyThuVien
         string Lenh = @"";
 
 
+
         private void FormDangNhap_Load(object sender, EventArgs e)
         {
             txtMatKhau.UseSystemPasswordChar = true;
@@ -36,6 +37,21 @@ namespace QuanLyThuVien
         private void txtTenDangNhap_TextChanged(object sender, EventArgs e)
         {
         }
+        private string HashPassword(string password)
+        {
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+                StringBuilder builder = new StringBuilder();
+                foreach (byte b in bytes)
+                {
+                    builder.Append(b.ToString("x2"));
+                }
+                return builder.ToString();
+            }
+        }
+
+
 
         private void btnDangNhap_Click(object sender, EventArgs e)
         {
@@ -46,11 +62,11 @@ namespace QuanLyThuVien
                 using (SqlConnection conn = new SqlConnection(Nguon))
                 {
                     conn.Open();  // Kiểm tra kết nối
-
+                    string hashedPassword = HashPassword(password);
                     string sql = "SELECT COUNT(*) FROM Users WHERE Username=@user AND PasswordHash=@pass";
                     SqlCommand cmd = new SqlCommand(sql, conn);
                     cmd.Parameters.AddWithValue("@user", username);
-                    cmd.Parameters.AddWithValue("@pass", password);
+                    cmd.Parameters.AddWithValue("@pass", hashedPassword);
 
                     int result = (int)cmd.ExecuteScalar();
 

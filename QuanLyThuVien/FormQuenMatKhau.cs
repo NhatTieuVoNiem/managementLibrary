@@ -56,10 +56,83 @@ namespace QuanLyThuVien
                 reader.Close();
             }
         }
-        
+        private string HashPassword(string password)
+        {
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+                StringBuilder builder = new StringBuilder();
+                foreach (byte b in bytes)
+                {
+                    builder.Append(b.ToString("x2"));
+                }
+                return builder.ToString();
+            }
+        }
+        private void btnXacNhan_Click(object sender, EventArgs e)
+        {
+            using (SqlConnection Ketnoi = new SqlConnection(
+                @"Data Source=.;Initial Catalog=LibraryManagement;Integrated Security=True;TrustServerCertificate=True"))
+            {
+                Ketnoi.Open();
+                string userOrEmail = txtUsername.Text.Trim();
+                string answer1 = txtAnswer1.Text.Trim();
+                string answer2 = txtAnswer2.Text.Trim();
+                string answer3 = txtAnswer3.Text.Trim();
 
-        
+                string sql = @"SELECT SecurityAnswerHash1, SecurityAnswerHash2, SecurityAnswerHash3
+                       FROM Users 
+                       WHERE Username=@UserOrEmail OR Email=@UserOrEmail";
+
+                SqlCommand cmd = new SqlCommand(sql, Ketnoi);
+                cmd.Parameters.AddWithValue("@UserOrEmail", userOrEmail);
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    string ans1 = reader["SecurityAnswerHash1"].ToString();
+                    string ans2 = reader["SecurityAnswerHash2"].ToString();
+                    string ans3 = reader["SecurityAnswerHash3"].ToString();
+                    reader.Close();
+
+                    
+                    if (answer1 == ans1 && answer2 == ans2 && answer3 == ans3)
+                    {
+                        if (txtNewPassword.Text != txtConfirmPassword.Text)
+                        {
+                            MessageBox.Show("Mật khẩu xác nhận không khớp!");
+                            return;
+                        }
+
+                        string hashedPassword = HashPassword(txtNewPassword.Text);
+
+                        string update = "UPDATE Users SET PasswordHash=@Password WHERE Username=@UserOrEmail OR Email=@UserOrEmail";
+                        SqlCommand updateCmd = new SqlCommand(update, Ketnoi);
+                        updateCmd.Parameters.AddWithValue("@Password", hashedPassword);
+                        updateCmd.Parameters.AddWithValue("@UserOrEmail", userOrEmail);
+                        updateCmd.ExecuteNonQuery();
+
+                        MessageBox.Show("Đổi mật khẩu thành công!");
+
+                        // Quay về form đăng nhập
+                        this.Hide(); // ẩn form quên mật khẩu
+                        FormDangNhap frm = new FormDangNhap();
+                        frm.Show();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Câu trả lời bảo mật không đúng!");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Không tìm thấy Username hoặc Email!");
+                }
+            }
+        }
 
     }
 }
+        
+
 
