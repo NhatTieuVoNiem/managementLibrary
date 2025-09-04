@@ -39,7 +39,7 @@
             this.btnDangKy = new System.Windows.Forms.Button();
             this.chkHienThiMatKhau = new System.Windows.Forms.CheckBox();
             this.btnDangNhap = new System.Windows.Forms.Button();
-            this.cnkQuenMK = new System.Windows.Forms.LinkLabel();
+            this.chkQuenMK = new System.Windows.Forms.LinkLabel();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
@@ -51,7 +51,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 36.22951F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 63.77049F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 679F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 126F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 128F));
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label2, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.label3, 1, 2);
@@ -82,7 +82,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Đăng nhập tài khoản";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-
             // 
             // label2
             // 
@@ -90,9 +89,9 @@
             this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label2.Font = new System.Drawing.Font("Times New Roman", 13.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.Aqua;
-            this.label2.Location = new System.Drawing.Point(127, 224);
+            this.label2.Location = new System.Drawing.Point(126, 224);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(212, 40);
+            this.label2.Size = new System.Drawing.Size(211, 40);
             this.label2.TabIndex = 1;
             this.label2.Text = "Tên đăng nhập :";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -103,9 +102,9 @@
             this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label3.Font = new System.Drawing.Font("Times New Roman", 13.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.Aqua;
-            this.label3.Location = new System.Drawing.Point(127, 264);
+            this.label3.Location = new System.Drawing.Point(126, 264);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(212, 39);
+            this.label3.Size = new System.Drawing.Size(211, 39);
             this.label3.TabIndex = 2;
             this.label3.Text = "Nhập mật khẩu :";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -115,7 +114,7 @@
             this.txtTenDangNhap.BackColor = System.Drawing.SystemColors.HighlightText;
             this.txtTenDangNhap.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtTenDangNhap.Font = new System.Drawing.Font("Times New Roman", 13.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTenDangNhap.Location = new System.Drawing.Point(345, 227);
+            this.txtTenDangNhap.Location = new System.Drawing.Point(343, 227);
             this.txtTenDangNhap.Name = "txtTenDangNhap";
             this.txtTenDangNhap.Size = new System.Drawing.Size(673, 33);
             this.txtTenDangNhap.TabIndex = 3;
@@ -126,7 +125,7 @@
             this.txtMatKhau.BackColor = System.Drawing.SystemColors.HighlightText;
             this.txtMatKhau.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtMatKhau.Font = new System.Drawing.Font("Times New Roman", 13.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMatKhau.Location = new System.Drawing.Point(345, 267);
+            this.txtMatKhau.Location = new System.Drawing.Point(343, 267);
             this.txtMatKhau.Name = "txtMatKhau";
             this.txtMatKhau.Size = new System.Drawing.Size(673, 33);
             this.txtMatKhau.TabIndex = 4;
@@ -142,12 +141,12 @@
             this.tableLayoutPanel2.Controls.Add(this.btnDangNhap, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.chkQuenMK, 1, 0);
             this.tableLayoutPanel2.Font = new System.Drawing.Font("Times New Roman", 13.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(127, 306);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(126, 306);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 47.5F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 52.5F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(891, 110);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(890, 110);
             this.tableLayoutPanel2.TabIndex = 5;
             // 
             // btnDangKy
@@ -161,6 +160,7 @@
             this.btnDangKy.TabIndex = 4;
             this.btnDangKy.Text = "Đăng ký";
             this.btnDangKy.UseVisualStyleBackColor = false;
+            this.btnDangKy.Click += new System.EventHandler(this.btnDangKy_Click);
             // 
             // chkHienThiMatKhau
             // 
@@ -196,7 +196,7 @@
             this.chkQuenMK.LinkColor = System.Drawing.Color.Cyan;
             this.chkQuenMK.Location = new System.Drawing.Point(448, 0);
             this.chkQuenMK.Name = "chkQuenMK";
-            this.chkQuenMK.Size = new System.Drawing.Size(440, 52);
+            this.chkQuenMK.Size = new System.Drawing.Size(439, 52);
             this.chkQuenMK.TabIndex = 5;
             this.chkQuenMK.TabStop = true;
             this.chkQuenMK.Text = "Quên mật khẩu";

@@ -102,7 +102,7 @@ namespace QuanLyThuVien
         {
             try
             {
-                FormDangKy F = new FormDangKy();
+                FormQuenMatKhau F = new FormQuenMatKhau();
                 F.Show();
                 this.Hide();
             }
@@ -113,9 +113,18 @@ namespace QuanLyThuVien
 
         }
 
-        private void btnQuenMatKhau_Click(object sender, EventArgs e)
+        private void btnDangKy_Click(object sender, EventArgs e)
         {
-
+            try
+            {
+                FormDangKy F = new FormDangKy();
+                F.Show();
+                this.Hide();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi: " + ex.Message);
+            }
         }
     }
 }
