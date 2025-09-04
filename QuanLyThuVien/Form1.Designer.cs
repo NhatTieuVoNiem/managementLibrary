@@ -40,7 +40,7 @@
             this.btnQuenMatKhau = new System.Windows.Forms.Button();
             this.chkHienThiMatKhau = new System.Windows.Forms.CheckBox();
             this.btnDangNhap = new System.Windows.Forms.Button();
-            this.chkQuenMK = new System.Windows.Forms.LinkLabel();
+            this.cnkQuenMK = new System.Windows.Forms.LinkLabel();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
@@ -141,7 +141,7 @@
             this.tableLayoutPanel2.Controls.Add(this.btnDangKy, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.chkHienThiMatKhau, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.btnDangNhap, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.linkLabel1, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.cnkQuenMK, 1, 0);
             this.tableLayoutPanel2.Font = new System.Drawing.Font("Times New Roman", 13.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tableLayoutPanel2.Location = new System.Drawing.Point(126, 306);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -207,16 +207,16 @@
             // 
             // linkLabel1
             // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.linkLabel1.LinkColor = System.Drawing.Color.Aqua;
-            this.linkLabel1.Location = new System.Drawing.Point(450, 0);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(442, 52);
-            this.linkLabel1.TabIndex = 5;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Quên mật khẩu";
-            this.linkLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cnkQuenMK.AutoSize = true;
+            this.cnkQuenMK.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cnkQuenMK.LinkColor = System.Drawing.Color.Aqua;
+            this.cnkQuenMK.Location = new System.Drawing.Point(450, 0);
+            this.cnkQuenMK.Name = "linkLabel1";
+            this.cnkQuenMK.Size = new System.Drawing.Size(442, 52);
+            this.cnkQuenMK.TabIndex = 5;
+            this.cnkQuenMK.TabStop = true;
+            this.cnkQuenMK.Text = "Quên mật khẩu";
+            this.cnkQuenMK.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // FormDangNhap
             // 
@@ -250,6 +250,6 @@
         private System.Windows.Forms.Button btnQuenMatKhau;
         private System.Windows.Forms.Button btnDangNhap;
         private System.Windows.Forms.Button btnDangKy;
-        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.LinkLabel cnkQuenMK;
     }
 }
