@@ -5,6 +5,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -59,7 +61,7 @@ namespace QuanLyThuVien
                 using (SqlConnection conn = new SqlConnection(Nguon))
                 {
                     conn.Open();  // Kiểm tra kết nối
-
+                    string hashedPassword = HashPassword(password);
                     string sql = "SELECT COUNT(*) FROM Users WHERE Username=@user AND PasswordHash=@pass";
                     SqlCommand cmd = new SqlCommand(sql, conn);
                     cmd.Parameters.AddWithValue("@user", username);
@@ -95,7 +97,9 @@ namespace QuanLyThuVien
             txtMatKhau.UseSystemPasswordChar = !chkHienThiMatKhau.Checked;
         }
 
-        private void btnDangKy_Click(object sender, EventArgs e)
+     
+
+        private void chkQuenMK_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             try
             {
@@ -116,3 +120,4 @@ namespace QuanLyThuVien
         }
     }
 }
+
