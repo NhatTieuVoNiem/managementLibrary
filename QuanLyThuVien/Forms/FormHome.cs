@@ -21,5 +21,12 @@ namespace QuanLyThuVien
         {
 
         }
+
+        private void thểLoạiToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormCategory F = new FormCategory();
+            F.Show();
+            this.Hide();
+        }
     }
 }

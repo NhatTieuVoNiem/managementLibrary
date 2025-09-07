@@ -29,9 +29,9 @@
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
             this.dgvCategory = new System.Windows.Forms.DataGridView();
-            this.IDCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CategoryName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Note = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colIDCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCategoryName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colNote = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCategory)).BeginInit();
@@ -131,7 +131,7 @@
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(318, 193);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 54F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(444, 54);
             this.tableLayoutPanel2.TabIndex = 5;
             // 
@@ -177,11 +177,12 @@
             // 
             // dgvCategory
             // 
+            this.dgvCategory.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvCategory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCategory.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.IDCategory,
-            this.CategoryName,
-            this.Note});
+            this.colIDCategory,
+            this.colCategoryName,
+            this.colNote});
             this.tableLayoutPanel1.SetColumnSpan(this.dgvCategory, 4);
             this.dgvCategory.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvCategory.Location = new System.Drawing.Point(3, 253);
@@ -190,26 +191,26 @@
             this.dgvCategory.Size = new System.Drawing.Size(894, 344);
             this.dgvCategory.TabIndex = 6;
             // 
-            // IDCategory
+            // colIDCategory
             // 
-            this.IDCategory.HeaderText = "ID";
-            this.IDCategory.MinimumWidth = 6;
-            this.IDCategory.Name = "IDCategory";
-            this.IDCategory.Width = 50;
+            this.colIDCategory.DataPropertyName = "CategoryID";
+            this.colIDCategory.HeaderText = "Mã thể loại";
+            this.colIDCategory.MinimumWidth = 6;
+            this.colIDCategory.Name = "colIDCategory";
             // 
-            // CategoryName
+            // colCategoryName
             // 
-            this.CategoryName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.CategoryName.HeaderText = "Thể loại";
-            this.CategoryName.MinimumWidth = 6;
-            this.CategoryName.Name = "CategoryName";
+            this.colCategoryName.DataPropertyName = "CategoryName";
+            this.colCategoryName.HeaderText = "Tên thể loại";
+            this.colCategoryName.MinimumWidth = 6;
+            this.colCategoryName.Name = "colCategoryName";
             // 
-            // Note
+            // colNote
             // 
-            this.Note.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Note.HeaderText = "Ghi chú";
-            this.Note.MinimumWidth = 6;
-            this.Note.Name = "Note";
+            this.colNote.DataPropertyName = "Note";
+            this.colNote.HeaderText = "Ghi chú";
+            this.colNote.MinimumWidth = 6;
+            this.colNote.Name = "colNote";
             // 
             // FormCategory
             // 
@@ -241,8 +242,8 @@
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.DataGridView dgvCategory;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IDCategory;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CategoryName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Note;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colIDCategory;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colCategoryName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colNote;
     }
 }

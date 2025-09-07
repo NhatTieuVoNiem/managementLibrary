@@ -15,16 +15,23 @@ namespace QuanLyThuVien
             LoadData();
         }
 
-        // Hàm load dữ liệu từ DB lên DataGridView
         private void LoadData()
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                conn.Open();
-                SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM Category", conn);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-                dgvCategory.DataSource = dt;
+                try
+                {
+                    conn.Open();
+                    string query = "SELECT CategoryID, CategoryName, Note FROM Categories"; // table Category
+                    SqlDataAdapter da = new SqlDataAdapter(query, conn);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+                    dgvCategory.DataSource = dt;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi tải dữ liệu: " + ex.Message);
+                }
             }
         }
 
@@ -40,7 +47,7 @@ namespace QuanLyThuVien
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                string sql = "INSERT INTO Category (CategoryName, Note) VALUES (@name, @note)";
+                string sql = "INSERT INTO Categories (CategoryName, Note) VALUES (@name, @note)";
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("@name", txtCategoryName.Text);
                 cmd.Parameters.AddWithValue("@note", txtNote.Text);
@@ -65,7 +72,7 @@ namespace QuanLyThuVien
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                string sql = "UPDATE Category SET CategoryName=@name, Note=@note WHERE ID=@id";
+                string sql = "UPDATE Categories SET CategoryName=@name, Note=@note WHERE ID=@id";
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("@id", id);
                 cmd.Parameters.AddWithValue("@name", txtCategoryName.Text);
@@ -94,7 +101,7 @@ namespace QuanLyThuVien
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    string sql = "DELETE FROM Category WHERE ID=@id";
+                    string sql = "DELETE FROM Categories WHERE ID=@id";
                     SqlCommand cmd = new SqlCommand(sql, conn);
                     cmd.Parameters.AddWithValue("@id", id);
                     cmd.ExecuteNonQuery();
@@ -110,7 +117,7 @@ namespace QuanLyThuVien
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                string sql = "SELECT * FROM Category WHERE CategoryName LIKE @name";
+                string sql = "SELECT * FROM Categories WHERE CategoryName LIKE @name";
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("@name", "%" + txtCategoryName.Text + "%");
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -135,5 +142,6 @@ namespace QuanLyThuVien
             txtCategoryName.Clear();
             txtNote.Clear();
         }
+
     }
 }
