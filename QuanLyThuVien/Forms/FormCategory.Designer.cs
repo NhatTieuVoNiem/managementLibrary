@@ -29,9 +29,6 @@
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
             this.dgvCategory = new System.Windows.Forms.DataGridView();
-            this.colIDCategory = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCategoryName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colNote = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCategory)).BeginInit();
@@ -179,10 +176,6 @@
             // 
             this.dgvCategory.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvCategory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvCategory.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.colIDCategory,
-            this.colCategoryName,
-            this.colNote});
             this.tableLayoutPanel1.SetColumnSpan(this.dgvCategory, 4);
             this.dgvCategory.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvCategory.Location = new System.Drawing.Point(3, 253);
@@ -190,27 +183,7 @@
             this.dgvCategory.RowHeadersWidth = 51;
             this.dgvCategory.Size = new System.Drawing.Size(894, 344);
             this.dgvCategory.TabIndex = 6;
-            // 
-            // colIDCategory
-            // 
-            this.colIDCategory.DataPropertyName = "CategoryID";
-            this.colIDCategory.HeaderText = "Mã thể loại";
-            this.colIDCategory.MinimumWidth = 6;
-            this.colIDCategory.Name = "colIDCategory";
-            // 
-            // colCategoryName
-            // 
-            this.colCategoryName.DataPropertyName = "CategoryName";
-            this.colCategoryName.HeaderText = "Tên thể loại";
-            this.colCategoryName.MinimumWidth = 6;
-            this.colCategoryName.Name = "colCategoryName";
-            // 
-            // colNote
-            // 
-            this.colNote.DataPropertyName = "Note";
-            this.colNote.HeaderText = "Ghi chú";
-            this.colNote.MinimumWidth = 6;
-            this.colNote.Name = "colNote";
+            this.dgvCategory.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCategory_CellClick);
             // 
             // FormCategory
             // 
@@ -242,8 +215,5 @@
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.DataGridView dgvCategory;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colIDCategory;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colCategoryName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colNote;
     }
 }

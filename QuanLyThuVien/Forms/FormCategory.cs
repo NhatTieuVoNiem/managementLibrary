@@ -59,7 +59,7 @@ namespace QuanLyThuVien
         }
 
         // Sửa
-        private void btnUpdate_Click(object sender, EventArgs e) 
+        private void btnUpdate_Click(object sender, EventArgs e)
         {
             if (dgvCategory.CurrentRow == null)
             {
@@ -67,12 +67,12 @@ namespace QuanLyThuVien
                 return;
             }
 
-            int id = Convert.ToInt32(dgvCategory.CurrentRow.Cells["ID"].Value);
+            int id = Convert.ToInt32(dgvCategory.CurrentRow.Cells["CategoryID"].Value);
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                string sql = "UPDATE Categories SET CategoryName=@name, Note=@note WHERE ID=@id";
+                string sql = "UPDATE Categories SET CategoryName=@name, Note=@note WHERE CategoryID=@id";
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("@id", id);
                 cmd.Parameters.AddWithValue("@name", txtCategoryName.Text);
@@ -84,8 +84,9 @@ namespace QuanLyThuVien
             ClearForm();
         }
 
+
         // Xoá
-        private void btnDelete_Click(object sender, EventArgs e) 
+        private void btnDelete_Click(object sender, EventArgs e)
         {
             if (dgvCategory.CurrentRow == null)
             {
@@ -93,7 +94,7 @@ namespace QuanLyThuVien
                 return;
             }
 
-            int id = Convert.ToInt32(dgvCategory.CurrentRow.Cells["ID"].Value);
+            int id = Convert.ToInt32(dgvCategory.CurrentRow.Cells["CategoryID"].Value);
 
             DialogResult dr = MessageBox.Show("Bạn có chắc chắn muốn xoá?", "Xác nhận", MessageBoxButtons.YesNo);
             if (dr == DialogResult.Yes)
@@ -101,7 +102,7 @@ namespace QuanLyThuVien
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    string sql = "DELETE FROM Categories WHERE ID=@id";
+                    string sql = "DELETE FROM Categories WHERE CategoryID=@id";
                     SqlCommand cmd = new SqlCommand(sql, conn);
                     cmd.Parameters.AddWithValue("@id", id);
                     cmd.ExecuteNonQuery();
@@ -112,12 +113,12 @@ namespace QuanLyThuVien
         }
 
         // Tìm kiếm
-        private void btnSearch_Click(object sender, EventArgs e) 
+        private void btnSearch_Click(object sender, EventArgs e)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                string sql = "SELECT * FROM Categories WHERE CategoryName LIKE @name";
+                string sql = "SELECT CategoryID, CategoryName, Note FROM Categories WHERE CategoryName LIKE @name";
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("@name", "%" + txtCategoryName.Text + "%");
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -127,15 +128,17 @@ namespace QuanLyThuVien
             }
         }
 
+
         // Khi click chọn 1 dòng trong DataGridView -> hiển thị lên textbox
         private void dgvCategory_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0 && dgvCategory.Rows[e.RowIndex].Cells["ID"].Value != null)
+            if (e.RowIndex >= 0 && dgvCategory.Rows[e.RowIndex].Cells["CategoryID"].Value != null)
             {
                 txtCategoryName.Text = dgvCategory.Rows[e.RowIndex].Cells["CategoryName"].Value.ToString();
                 txtNote.Text = dgvCategory.Rows[e.RowIndex].Cells["Note"].Value.ToString();
             }
         }
+
 
         private void ClearForm()
         {

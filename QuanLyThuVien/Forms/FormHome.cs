@@ -28,5 +28,10 @@ namespace QuanLyThuVien
             F.Show();
             this.Hide();
         }
+
+        private void FormHome_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
