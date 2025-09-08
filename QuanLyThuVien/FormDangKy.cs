@@ -37,7 +37,7 @@ namespace QuanLyThuVien
         private void btnRegister_Click(object sender, EventArgs e)
         {
             // Chuỗi kết nối
-            Ketnoi = new SqlConnection(@"Data Source=.;Initial Catalog=libraryManagement;Integrated Security=True;");
+            Ketnoi = new SqlConnection(@"Data Source=.\SQLEXPRESS01;Initial Catalog=libraryManagement;Integrated Security=True;");
             Ketnoi.Open();
 
             string username = txtUsername.Text.Trim();
