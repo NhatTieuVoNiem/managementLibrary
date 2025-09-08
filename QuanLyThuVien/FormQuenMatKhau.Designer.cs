@@ -201,6 +201,8 @@
             this.txtNewPassword.Name = "txtNewPassword";
             this.txtNewPassword.Size = new System.Drawing.Size(196, 30);
             this.txtNewPassword.TabIndex = 1;
+            this.txtNewPassword.UseSystemPasswordChar = true;
+            this.txtConfirmPassword.UseSystemPasswordChar = true;
             // 
             // label2
             // 
@@ -211,6 +213,7 @@
             this.label2.Size = new System.Drawing.Size(124, 22);
             this.label2.TabIndex = 0;
             this.label2.Text = "Mật khẩu mới:";
+
             // 
             // btnXacNhan
             // 
