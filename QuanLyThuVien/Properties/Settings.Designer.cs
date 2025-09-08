@@ -33,5 +33,16 @@ namespace QuanLyThuVien.Properties {
                 return ((string)(this["libraryManagementConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.;Initial Catalog=libraryManagement;Integrated Security=True;TrustSer" +
+            "verCertificate=True")]
+        public string libraryManagementConnectionString1 {
+            get {
+                return ((string)(this["libraryManagementConnectionString1"]));
+            }
+        }
     }
 }
