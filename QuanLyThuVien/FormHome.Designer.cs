@@ -102,7 +102,7 @@
             this.sáchThamKhảoToolStripMenuItem,
             this.tàiLiệuToolStripMenuItem});
             this.giáoDụcToolStripMenuItem.Name = "giáoDụcToolStripMenuItem";
-            this.giáoDụcToolStripMenuItem.Size = new System.Drawing.Size(224, 30);
+            this.giáoDụcToolStripMenuItem.Size = new System.Drawing.Size(198, 30);
             this.giáoDụcToolStripMenuItem.Text = "Giáo dục";
             // 
             // sáchGiáoKhoaToolStripMenuItem
@@ -129,7 +129,7 @@
             this.thơToolStripMenuItem,
             this.truyệnToolStripMenuItem});
             this.vănHọcToolStripMenuItem.Name = "vănHọcToolStripMenuItem";
-            this.vănHọcToolStripMenuItem.Size = new System.Drawing.Size(224, 30);
+            this.vănHọcToolStripMenuItem.Size = new System.Drawing.Size(198, 30);
             this.vănHọcToolStripMenuItem.Text = "Văn học";
             // 
             // thơToolStripMenuItem
@@ -162,7 +162,7 @@
             this.trọngSinhToolStripMenuItem,
             this.trinhThámToolStripMenuItem});
             this.tiểuThiếtToolStripMenuItem.Name = "tiểuThiếtToolStripMenuItem";
-            this.tiểuThiếtToolStripMenuItem.Size = new System.Drawing.Size(224, 30);
+            this.tiểuThiếtToolStripMenuItem.Size = new System.Drawing.Size(198, 30);
             this.tiểuThiếtToolStripMenuItem.Text = "Tiểu thuyết";
             // 
             // tiênHiệpToolStripMenuItem
@@ -255,7 +255,7 @@
             this.truyệnNgụNgônToolStripMenuItem,
             this.truyệnCổTíchToolStripMenuItem});
             this.thiếuNhiToolStripMenuItem.Name = "thiếuNhiToolStripMenuItem";
-            this.thiếuNhiToolStripMenuItem.Size = new System.Drawing.Size(224, 30);
+            this.thiếuNhiToolStripMenuItem.Size = new System.Drawing.Size(198, 30);
             this.thiếuNhiToolStripMenuItem.Text = "Thiếu nhi";
             // 
             // truyệnNgụNgônToolStripMenuItem
@@ -294,7 +294,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 24.35345F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75.64655F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 497F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 172F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 173F));
             this.tableLayoutPanel1.Controls.Add(this.btnTimKiem, 3, 0);
             this.tableLayoutPanel1.Controls.Add(this.textBox1, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.label1, 1, 2);
@@ -316,9 +316,9 @@
             this.btnTimKiem.BackColor = System.Drawing.Color.Violet;
             this.btnTimKiem.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnTimKiem.Font = new System.Drawing.Font("Times New Roman", 13.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTimKiem.Location = new System.Drawing.Point(977, 3);
+            this.btnTimKiem.Location = new System.Drawing.Point(976, 3);
             this.btnTimKiem.Name = "btnTimKiem";
-            this.btnTimKiem.Size = new System.Drawing.Size(167, 33);
+            this.btnTimKiem.Size = new System.Drawing.Size(168, 33);
             this.btnTimKiem.TabIndex = 0;
             this.btnTimKiem.Text = "Tìm kiếm";
             this.btnTimKiem.UseVisualStyleBackColor = false;
@@ -327,7 +327,7 @@
             // 
             this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBox1.Font = new System.Drawing.Font("Times New Roman", 13.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(480, 3);
+            this.textBox1.Location = new System.Drawing.Point(479, 3);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(491, 33);
             this.textBox1.TabIndex = 1;
@@ -341,7 +341,7 @@
             this.label1.ForeColor = System.Drawing.Color.DeepSkyBlue;
             this.label1.Location = new System.Drawing.Point(119, 162);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(852, 36);
+            this.label1.Size = new System.Drawing.Size(851, 36);
             this.label1.TabIndex = 2;
             this.label1.Text = "Truyện tiên hiệp";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -351,9 +351,9 @@
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.linkLabel1.Font = new System.Drawing.Font("Times New Roman", 13.2F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLabel1.Location = new System.Drawing.Point(977, 162);
+            this.linkLabel1.Location = new System.Drawing.Point(976, 162);
             this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(167, 36);
+            this.linkLabel1.Size = new System.Drawing.Size(168, 36);
             this.linkLabel1.TabIndex = 3;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "Xem thêm";

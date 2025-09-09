@@ -45,6 +45,7 @@
             this.txtNewPassword = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.btnXacNhan = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -111,7 +112,7 @@
             // txtAnswer3
             // 
             this.txtAnswer3.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtAnswer3.Location = new System.Drawing.Point(217, 155);
+            this.txtAnswer3.Location = new System.Drawing.Point(334, 150);
             this.txtAnswer3.Name = "txtAnswer3";
             this.txtAnswer3.Size = new System.Drawing.Size(344, 30);
             this.txtAnswer3.TabIndex = 5;
@@ -129,7 +130,7 @@
             // txtAnswer2
             // 
             this.txtAnswer2.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtAnswer2.Location = new System.Drawing.Point(217, 100);
+            this.txtAnswer2.Location = new System.Drawing.Point(334, 95);
             this.txtAnswer2.Name = "txtAnswer2";
             this.txtAnswer2.Size = new System.Drawing.Size(344, 30);
             this.txtAnswer2.TabIndex = 3;
@@ -147,7 +148,7 @@
             // txtAnswer1
             // 
             this.txtAnswer1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtAnswer1.Location = new System.Drawing.Point(217, 47);
+            this.txtAnswer1.Location = new System.Drawing.Point(334, 42);
             this.txtAnswer1.Name = "txtAnswer1";
             this.txtAnswer1.Size = new System.Drawing.Size(344, 30);
             this.txtAnswer1.TabIndex = 1;
@@ -183,6 +184,7 @@
             this.txtConfirmPassword.Name = "txtConfirmPassword";
             this.txtConfirmPassword.Size = new System.Drawing.Size(196, 30);
             this.txtConfirmPassword.TabIndex = 3;
+            this.txtConfirmPassword.UseSystemPasswordChar = true;
             // 
             // label3
             // 
@@ -202,7 +204,6 @@
             this.txtNewPassword.Size = new System.Drawing.Size(196, 30);
             this.txtNewPassword.TabIndex = 1;
             this.txtNewPassword.UseSystemPasswordChar = true;
-            this.txtConfirmPassword.UseSystemPasswordChar = true;
             // 
             // label2
             // 
@@ -213,12 +214,11 @@
             this.label2.Size = new System.Drawing.Size(124, 22);
             this.label2.TabIndex = 0;
             this.label2.Text = "Mật khẩu mới:";
-
             // 
             // btnXacNhan
             // 
             this.btnXacNhan.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnXacNhan.Location = new System.Drawing.Point(364, 523);
+            this.btnXacNhan.Location = new System.Drawing.Point(248, 523);
             this.btnXacNhan.Name = "btnXacNhan";
             this.btnXacNhan.Size = new System.Drawing.Size(124, 36);
             this.btnXacNhan.TabIndex = 3;
@@ -226,11 +226,23 @@
             this.btnXacNhan.UseVisualStyleBackColor = true;
             this.btnXacNhan.Click += new System.EventHandler(this.btnXacNhan_Click);
             // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(430, 523);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(116, 36);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "Quay lại";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // FormQuenMatKhau
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 571);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnXacNhan);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -266,5 +278,6 @@
         private System.Windows.Forms.TextBox txtConfirmPassword;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnXacNhan;
+        private System.Windows.Forms.Button button1;
     }
 }

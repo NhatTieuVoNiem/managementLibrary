@@ -301,7 +301,7 @@
             this.txtAnswer3.Name = "txtAnswer3";
             this.txtAnswer3.Size = new System.Drawing.Size(516, 30);
             this.txtAnswer3.TabIndex = 10;
-            this.txtAnswer3.TextChanged += new System.EventHandler(this.txtAnswer3_TextChanged);
+            
             // 
             // btnRegister
             // 
@@ -381,7 +381,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1044, 565);
             this.tableLayoutPanel1.TabIndex = 13;
-            this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
+            
             // 
             // tittleRegister
             // 

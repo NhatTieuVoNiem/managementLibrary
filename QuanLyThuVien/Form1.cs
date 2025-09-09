@@ -21,12 +21,6 @@ namespace QuanLyThuVien
             InitializeComponent();
         }
 
-        string Nguon = @"Data Source=.;Initial Catalog=libraryManagement;Integrated Security=True;";
-        SqlConnection Ketnoi;
-        SqlCommand Thuchien;
-        SqlDataReader Doc;
-        string Lenh = @"";
-
         private string HashPassword(string password)
         {
             using (SHA256 sha256 = SHA256.Create())
@@ -48,7 +42,7 @@ namespace QuanLyThuVien
         private void txtTenDangNhap_TextChanged(object sender, EventArgs e)
         {
         }
-
+        connectData c = new connectData();
         private void btnDangNhap_Click(object sender, EventArgs e)
         {
             string username = txtTenDangNhap.Text.Trim();
@@ -58,11 +52,10 @@ namespace QuanLyThuVien
             string hashedPassword = HashPassword(password);
             try
             {
-                using (SqlConnection conn = new SqlConnection(Nguon))
+                c.connect();
+                string sql = "SELECT COUNT(*) FROM Users WHERE Username=@user AND PasswordHash=@pass";
+                using (SqlCommand cmd = new SqlCommand(sql ,c.conn))
                 {
-                    conn.Open();  // Kiểm tra kết nối
-                    string sql = "SELECT COUNT(*) FROM Users WHERE Username=@user AND PasswordHash=@pass";
-                    SqlCommand cmd = new SqlCommand(sql, conn);
                     cmd.Parameters.AddWithValue("@user", username);
                     cmd.Parameters.AddWithValue("@pass", hashedPassword);
 
@@ -79,6 +72,7 @@ namespace QuanLyThuVien
                     {
                         MessageBox.Show("Sai tài khoản hoặc mật khẩu!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
+                    
                 }
             }
             catch (SqlException ex)
@@ -89,6 +83,7 @@ namespace QuanLyThuVien
             {
                 MessageBox.Show("Đã xảy ra lỗi không xác định!\nChi tiết: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            c.disconnect();
         }
 
         private void chkHienThiMatKhau_CheckedChanged(object sender, EventArgs e)
