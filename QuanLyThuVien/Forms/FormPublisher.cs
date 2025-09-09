@@ -2,19 +2,21 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
-namespace QuanLyThuVien
+namespace QuanLyThuVien.Forms
 {
-    public partial class FormCategory : Form
+    public partial class FormPublisher : Form
     {
         string connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=libraryManagement;Integrated Security=True;";
 
-        public FormCategory()
+        public FormPublisher()
         {
             InitializeComponent();
             LoadData();
         }
 
+        // Load dữ liệu vào DataGridView
         private void LoadData()
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -22,11 +24,11 @@ namespace QuanLyThuVien
                 try
                 {
                     conn.Open();
-                    string query = "SELECT CategoryID, CategoryName, Note FROM Categories"; // table Category
+                    string query = "SELECT PublisherID, PublisherName, Address, Phone, Note FROM Publishers";
                     SqlDataAdapter da = new SqlDataAdapter(query, conn);
                     DataTable dt = new DataTable();
                     da.Fill(dt);
-                    dgvCategory.DataSource = dt;
+                    dgvPublisher.DataSource = dt;
                 }
                 catch (Exception ex)
                 {
@@ -35,21 +37,31 @@ namespace QuanLyThuVien
             }
         }
 
-        // Thêm
-        private void btnInsert_Click(object sender, EventArgs e) 
+        private void ClearForm()
         {
-            if (string.IsNullOrWhiteSpace(txtCategoryName.Text))
+            txtName.Clear();
+            txtAddress.Clear();
+            txtPhone.Clear();
+            txtNote.Clear();
+        }
+
+        // Thêm
+        private void btnInsert_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtName.Text))
             {
-                MessageBox.Show("Tên thể loại không được để trống!");
+                MessageBox.Show("Tên NXB không được để trống!");
                 return;
             }
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                string sql = "INSERT INTO Categories (CategoryName, Note) VALUES (@name, @note)";
+                string sql = "INSERT INTO Publishers (PublisherName, Address, Phone, Note) VALUES (@name, @addr, @phone, @note)";
                 SqlCommand cmd = new SqlCommand(sql, conn);
-                cmd.Parameters.AddWithValue("@name", txtCategoryName.Text);
+                cmd.Parameters.AddWithValue("@name", txtName.Text);
+                cmd.Parameters.AddWithValue("@addr", txtAddress.Text);
+                cmd.Parameters.AddWithValue("@phone", txtPhone.Text);
                 cmd.Parameters.AddWithValue("@note", txtNote.Text);
                 cmd.ExecuteNonQuery();
             }
@@ -59,23 +71,25 @@ namespace QuanLyThuVien
         }
 
         // Sửa
-        private void btnUpdate_Click(object sender, EventArgs e)
+        private void btnEdit_Click(object sender, EventArgs e)
         {
-            if (dgvCategory.CurrentRow == null)
+            if (dgvPublisher.CurrentRow == null)
             {
-                MessageBox.Show("Hãy chọn một thể loại để sửa!");
+                MessageBox.Show("Hãy chọn một NXB để sửa!");
                 return;
             }
 
-            int id = Convert.ToInt32(dgvCategory.CurrentRow.Cells["CategoryID"].Value);
+            int id = Convert.ToInt32(dgvPublisher.CurrentRow.Cells["PublisherID"].Value);
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                string sql = "UPDATE Categories SET CategoryName=@name, Note=@note WHERE CategoryID=@id";
+                string sql = "UPDATE Publishers SET PublisherName=@name, Address=@addr, Phone=@phone, Note=@note WHERE PublisherID=@id";
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("@id", id);
-                cmd.Parameters.AddWithValue("@name", txtCategoryName.Text);
+                cmd.Parameters.AddWithValue("@name", txtName.Text);
+                cmd.Parameters.AddWithValue("@addr", txtAddress.Text);
+                cmd.Parameters.AddWithValue("@phone", txtPhone.Text);
                 cmd.Parameters.AddWithValue("@note", txtNote.Text);
                 cmd.ExecuteNonQuery();
             }
@@ -84,19 +98,22 @@ namespace QuanLyThuVien
             ClearForm();
         }
 
-
-        // Xoá
+        // Xóa
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (dgvCategory.CurrentRow == null)
+            if (dgvPublisher.CurrentRow == null)
             {
-                MessageBox.Show("Hãy chọn một thể loại để xoá!");
+                MessageBox.Show("Hãy chọn một NXB để xoá!");
                 return;
             }
 
-            int id = Convert.ToInt32(dgvCategory.CurrentRow.Cells["CategoryID"].Value);
+            int id = Convert.ToInt32(dgvPublisher.CurrentRow.Cells["PublisherID"].Value);
 
-            DialogResult dr = MessageBox.Show("Bạn có chắc chắn muốn xoá?", "Xác nhận", MessageBoxButtons.YesNo);
+            DialogResult dr = MessageBox.Show("Bạn có chắc chắn muốn xoá NXB này?",
+                                              "Xác nhận",
+                                              MessageBoxButtons.YesNo,
+                                              MessageBoxIcon.Question);
+
             if (dr == DialogResult.Yes)
             {
                 try
@@ -104,11 +121,12 @@ namespace QuanLyThuVien
                     using (SqlConnection conn = new SqlConnection(connectionString))
                     {
                         conn.Open();
-                        string sql = "DELETE FROM Categories WHERE CategoryID=@id";
+                        string sql = "DELETE FROM Publishers WHERE PublisherID = @id";
                         SqlCommand cmd = new SqlCommand(sql, conn);
                         cmd.Parameters.AddWithValue("@id", id);
                         cmd.ExecuteNonQuery();
                     }
+
                     LoadData();
                     ClearForm();
                 }
@@ -117,7 +135,7 @@ namespace QuanLyThuVien
                     // Bắt lỗi ràng buộc FK
                     if (ex.Number == 547) // 547 = Foreign Key violation
                     {
-                        MessageBox.Show("Không thể xoá thể loại này vì có sách đang trong thể loại này!",
+                        MessageBox.Show("Không thể xoá NXB này vì có sách được xuất bản từ NXB này!",
                                         "Lỗi",
                                         MessageBoxButtons.OK,
                                         MessageBoxIcon.Error);
@@ -127,43 +145,43 @@ namespace QuanLyThuVien
                         MessageBox.Show("Lỗi SQL: " + ex.Message);
                     }
                 }
-
             }
         }
 
-        // Tìm kiếm
+
+        // Tìm kiếm theo tên
         private void btnSearch_Click(object sender, EventArgs e)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                string sql = "SELECT CategoryID, CategoryName, Note FROM Categories WHERE CategoryName LIKE @name";
+                string sql = "SELECT * FROM Publishers WHERE PublisherName LIKE @name";
                 SqlCommand cmd = new SqlCommand(sql, conn);
-                cmd.Parameters.AddWithValue("@name", "%" + txtCategoryName.Text + "%");
+                cmd.Parameters.AddWithValue("@name", "%" + txtName.Text + "%");
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
-                dgvCategory.DataSource = dt;
+                dgvPublisher.DataSource = dt;
             }
         }
 
-
-        // Khi click chọn 1 dòng trong DataGridView -> hiển thị lên textbox
-        private void dgvCategory_CellClick(object sender, DataGridViewCellEventArgs e)
+        // Làm mới
+        private void btnRefresh_Click(object sender, EventArgs e)
         {
-            if (e.RowIndex >= 0 && dgvCategory.Rows[e.RowIndex].Cells["CategoryID"].Value != null)
+            LoadData();
+            ClearForm();
+        }
+
+        // CellClick hiển thị dữ liệu lên textbox
+        private void dgvPublisher_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && dgvPublisher.Rows[e.RowIndex].Cells["PublisherID"].Value != null)
             {
-                txtCategoryName.Text = dgvCategory.Rows[e.RowIndex].Cells["CategoryName"].Value.ToString();
-                txtNote.Text = dgvCategory.Rows[e.RowIndex].Cells["Note"].Value.ToString();
+                txtName.Text = dgvPublisher.Rows[e.RowIndex].Cells["PublisherName"].Value?.ToString();
+                txtAddress.Text = dgvPublisher.Rows[e.RowIndex].Cells["Address"].Value?.ToString();
+                txtPhone.Text = dgvPublisher.Rows[e.RowIndex].Cells["Phone"].Value?.ToString();
+                txtNote.Text = dgvPublisher.Rows[e.RowIndex].Cells["Note"].Value?.ToString();
             }
         }
-
-
-        private void ClearForm()
-        {
-            txtCategoryName.Clear();
-            txtNote.Clear();
-        }
-
     }
 }

@@ -58,13 +58,16 @@
             this.xếpHạngToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bộLọcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bìnhLuậnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sáchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.btnTimKiem = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.sáchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nXBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tácGiảToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.vịTríSáchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -79,7 +82,10 @@
             this.xếpHạngToolStripMenuItem,
             this.bộLọcToolStripMenuItem,
             this.bìnhLuậnToolStripMenuItem,
-            this.sáchToolStripMenuItem});
+            this.sáchToolStripMenuItem,
+            this.nXBToolStripMenuItem,
+            this.tácGiảToolStripMenuItem,
+            this.vịTríSáchToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1147, 33);
@@ -291,13 +297,20 @@
             this.bìnhLuậnToolStripMenuItem.Size = new System.Drawing.Size(109, 29);
             this.bìnhLuậnToolStripMenuItem.Text = "Bình luận";
             // 
+            // sáchToolStripMenuItem
+            // 
+            this.sáchToolStripMenuItem.Name = "sáchToolStripMenuItem";
+            this.sáchToolStripMenuItem.Size = new System.Drawing.Size(68, 29);
+            this.sáchToolStripMenuItem.Text = "Sách";
+            this.sáchToolStripMenuItem.Click += new System.EventHandler(this.sáchToolStripMenuItem_Click);
+            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 4;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 24.35345F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75.64655F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 497F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 174F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 175F));
             this.tableLayoutPanel1.Controls.Add(this.btnTimKiem, 3, 0);
             this.tableLayoutPanel1.Controls.Add(this.textBox1, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.label1, 1, 2);
@@ -319,9 +332,9 @@
             this.btnTimKiem.BackColor = System.Drawing.Color.Violet;
             this.btnTimKiem.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnTimKiem.Font = new System.Drawing.Font("Times New Roman", 13.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTimKiem.Location = new System.Drawing.Point(975, 3);
+            this.btnTimKiem.Location = new System.Drawing.Point(974, 3);
             this.btnTimKiem.Name = "btnTimKiem";
-            this.btnTimKiem.Size = new System.Drawing.Size(169, 33);
+            this.btnTimKiem.Size = new System.Drawing.Size(170, 33);
             this.btnTimKiem.TabIndex = 0;
             this.btnTimKiem.Text = "Tìm kiếm";
             this.btnTimKiem.UseVisualStyleBackColor = false;
@@ -330,7 +343,7 @@
             // 
             this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBox1.Font = new System.Drawing.Font("Times New Roman", 13.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(478, 3);
+            this.textBox1.Location = new System.Drawing.Point(477, 3);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(491, 33);
             this.textBox1.TabIndex = 1;
@@ -344,7 +357,7 @@
             this.label1.ForeColor = System.Drawing.Color.DeepSkyBlue;
             this.label1.Location = new System.Drawing.Point(118, 162);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(851, 36);
+            this.label1.Size = new System.Drawing.Size(850, 36);
             this.label1.TabIndex = 2;
             this.label1.Text = "Truyện tiên hiệp";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -354,9 +367,9 @@
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.linkLabel1.Font = new System.Drawing.Font("Times New Roman", 13.2F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLabel1.Location = new System.Drawing.Point(975, 162);
+            this.linkLabel1.Location = new System.Drawing.Point(974, 162);
             this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(169, 36);
+            this.linkLabel1.Size = new System.Drawing.Size(170, 36);
             this.linkLabel1.TabIndex = 3;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "Xem thêm";
@@ -379,11 +392,26 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(1026, 330);
             this.tableLayoutPanel2.TabIndex = 4;
             // 
-            // sáchToolStripMenuItem
+            // nXBToolStripMenuItem
             // 
-            this.sáchToolStripMenuItem.Name = "sáchToolStripMenuItem";
-            this.sáchToolStripMenuItem.Size = new System.Drawing.Size(68, 29);
-            this.sáchToolStripMenuItem.Text = "Sách";
+            this.nXBToolStripMenuItem.Name = "nXBToolStripMenuItem";
+            this.nXBToolStripMenuItem.Size = new System.Drawing.Size(71, 29);
+            this.nXBToolStripMenuItem.Text = "NXB";
+            this.nXBToolStripMenuItem.Click += new System.EventHandler(this.nXBToolStripMenuItem_Click);
+            // 
+            // tácGiảToolStripMenuItem
+            // 
+            this.tácGiảToolStripMenuItem.Name = "tácGiảToolStripMenuItem";
+            this.tácGiảToolStripMenuItem.Size = new System.Drawing.Size(98, 29);
+            this.tácGiảToolStripMenuItem.Text = "Tác Giả";
+            this.tácGiảToolStripMenuItem.Click += new System.EventHandler(this.tácGiảToolStripMenuItem_Click);
+            // 
+            // vịTríSáchToolStripMenuItem
+            // 
+            this.vịTríSáchToolStripMenuItem.Name = "vịTríSáchToolStripMenuItem";
+            this.vịTríSáchToolStripMenuItem.Size = new System.Drawing.Size(127, 29);
+            this.vịTríSáchToolStripMenuItem.Text = "Vị Trí Sách";
+            this.vịTríSáchToolStripMenuItem.Click += new System.EventHandler(this.vịTríSáchToolStripMenuItem_Click);
             // 
             // FormHome
             // 
@@ -445,5 +473,8 @@
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.ToolStripMenuItem sáchToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem nXBToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tácGiảToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem vịTríSáchToolStripMenuItem;
     }
 }

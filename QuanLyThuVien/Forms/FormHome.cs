@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuanLyThuVien.Forms;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -32,6 +33,34 @@ namespace QuanLyThuVien
         private void FormHome_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void nXBToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormPublisher F = new FormPublisher();
+            F.Show();
+            this.Hide();
+        }
+
+        private void tácGiảToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormAuthor F = new FormAuthor();
+            F.Show();
+            this.Hide();
+        }
+
+        private void sáchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormBook F = new FormBook();
+            F.Show();
+            this.Hide();
+        }
+
+        private void vịTríSáchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormBookLocation F = new FormBookLocation();
+            F.Show();
+            this.Hide();
         }
     }
 }
