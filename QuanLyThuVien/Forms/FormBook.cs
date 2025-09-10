@@ -33,10 +33,25 @@ namespace QuanLyThuVien.Forms
         // Load dữ liệu cho các combobox (Author, Category, Publisher, Location)
         private void LoadComboboxes()
         {
-            LoadComboBox(cbAuthor, "SELECT AuthorID, (LastName + ' ' + FirstName) as AuthorName FROM Authors", "AuthorName", "AuthorID");
-            LoadComboBox(cbCategory, "SELECT CategoryID, CategoryName FROM Categories", "CategoryName", "CategoryID");
-            LoadComboBox(cbPublisher, "SELECT PublisherID, PublisherName FROM Publishers", "PublisherName", "PublisherID");
-            LoadComboBox(cbLocation, "SELECT LocationID, LocationName FROM BookLocations", "LocationName", "LocationID");
+            // Author
+            LoadComboBox(cbAuthor,
+                "SELECT AuthorID, (LastName + ' ' + FirstName) AS AuthorName FROM Authors",
+                "AuthorName", "AuthorID");
+
+            // Category
+            LoadComboBox(cbCategory,
+                "SELECT CategoryID, CategoryName FROM Categories",
+                "CategoryName", "CategoryID");
+
+            // Publisher
+            LoadComboBox(cbPublisher,
+                "SELECT PublisherID, PublisherName FROM Publishers",
+                "PublisherName", "PublisherID");
+
+            // Location (hiển thị chi tiết hơn)
+            LoadComboBox(cbLocation,
+                "SELECT LocationID, (Floor + ' - ' + Room + ' - ' + ShelfCode) AS LocationName FROM BookLocations",
+                "LocationName", "LocationID");
         }
 
         private void LoadComboBox(ComboBox comboBox, string query, string display, string value)
@@ -72,6 +87,57 @@ namespace QuanLyThuVien.Forms
         // Thêm sách
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            // Kiểm tra nhập liệu
+            if (string.IsNullOrWhiteSpace(txtBookTitle.Text))
+            {
+                MessageBox.Show("Tên sách không được để trống!", "Cảnh báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (cbAuthor.SelectedValue == null)
+            {
+                MessageBox.Show("Vui lòng chọn Tác giả!", "Cảnh báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (cbCategory.SelectedValue == null)
+            {
+                MessageBox.Show("Vui lòng chọn Thể loại!", "Cảnh báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (cbPublisher.SelectedValue == null)
+            {
+                MessageBox.Show("Vui lòng chọn Nhà xuất bản!", "Cảnh báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (cbLocation.SelectedValue == null)
+            {
+                MessageBox.Show("Vui lòng chọn Vị trí sách!", "Cảnh báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            int year, quantity, available;
+
+            if (!int.TryParse(txtYear.Text, out year))
+            {
+                MessageBox.Show("Năm xuất bản phải là số!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (!int.TryParse(txtQuantity.Text, out quantity))
+            {
+                MessageBox.Show("Số lượng phải là số!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (!int.TryParse(txtAvailable.Text, out available))
+            {
+                MessageBox.Show("Số lượng có sẵn phải là số!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Nếu dữ liệu hợp lệ thì thêm vào DB
             string sql = "INSERT INTO Books (Title, AuthorID, CategoryID, PublisherID, YearPublished, LocationID, Quantity, Available, Note) " +
                          "VALUES (@Title, @AuthorID, @CategoryID, @PublisherID, @YearPublished, @LocationID, @Quantity, @Available, @Note)";
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -81,17 +147,19 @@ namespace QuanLyThuVien.Forms
                 cmd.Parameters.AddWithValue("@AuthorID", cbAuthor.SelectedValue);
                 cmd.Parameters.AddWithValue("@CategoryID", cbCategory.SelectedValue);
                 cmd.Parameters.AddWithValue("@PublisherID", cbPublisher.SelectedValue);
-                cmd.Parameters.AddWithValue("@YearPublished", txtYear.Text);
+                cmd.Parameters.AddWithValue("@YearPublished", year);
                 cmd.Parameters.AddWithValue("@LocationID", cbLocation.SelectedValue);
-                cmd.Parameters.AddWithValue("@Quantity", txtQuantity.Text);
-                cmd.Parameters.AddWithValue("@Available", txtAvailable.Text);
+                cmd.Parameters.AddWithValue("@Quantity", quantity);
+                cmd.Parameters.AddWithValue("@Available", available);
                 cmd.Parameters.AddWithValue("@Note", txtNote.Text);
 
                 conn.Open();
                 cmd.ExecuteNonQuery();
             }
             LoadData();
+            MessageBox.Show("Thêm sách thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
 
         // Sửa thông tin sách
         private void btnEdit_Click(object sender, EventArgs e)
@@ -126,21 +194,63 @@ namespace QuanLyThuVien.Forms
         // Xóa sách
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (dgvBook.CurrentRow != null)
+            if (dgvBook.CurrentRow == null)
             {
-                int bookId = Convert.ToInt32(dgvBook.CurrentRow.Cells["BookID"].Value);
-                string sql = "DELETE FROM Books WHERE BookID=@BookID";
+                MessageBox.Show("Hãy chọn một quyển sách để xoá!",
+                                "Thông báo",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
+                return;
+            }
 
-                using (SqlConnection conn = new SqlConnection(connectionString))
+            int bookId = Convert.ToInt32(dgvBook.CurrentRow.Cells["BookID"].Value);
+
+            DialogResult dr = MessageBox.Show("Bạn có chắc chắn muốn xoá quyển sách này không?",
+                                              "Xác nhận xoá",
+                                              MessageBoxButtons.YesNo,
+                                              MessageBoxIcon.Question);
+
+            if (dr == DialogResult.Yes)
+            {
+                try
                 {
-                    SqlCommand cmd = new SqlCommand(sql, conn);
-                    cmd.Parameters.AddWithValue("@BookID", bookId);
-                    conn.Open();
-                    cmd.ExecuteNonQuery();
+                    using (SqlConnection conn = new SqlConnection(connectionString))
+                    {
+                        conn.Open();
+                        string sql = "DELETE FROM Books WHERE BookID=@BookID";
+                        SqlCommand cmd = new SqlCommand(sql, conn);
+                        cmd.Parameters.AddWithValue("@BookID", bookId);
+
+                        int rowsAffected = cmd.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            MessageBox.Show("Xoá sách thành công!",
+                                            "Thông báo",
+                                            MessageBoxButtons.OK,
+                                            MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Không tìm thấy sách để xoá!",
+                                            "Thông báo",
+                                            MessageBoxButtons.OK,
+                                            MessageBoxIcon.Warning);
+                        }
+                    }
+
+                    LoadData();
                 }
-                LoadData();
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi khi xoá: " + ex.Message,
+                                    "Lỗi",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                }
             }
         }
+
 
         // Tìm kiếm sách theo tên
         private void btnSearch_Click(object sender, EventArgs e)

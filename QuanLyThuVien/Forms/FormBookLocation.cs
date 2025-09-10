@@ -135,7 +135,7 @@ namespace QuanLyThuVien.Forms
                 {
                     if (ex.Number == 547) // FK constraint
                     {
-                        MessageBox.Show("Không thể xoá vì có sách đang tham chiếu vị trí này!",
+                        MessageBox.Show("Không thể xoá vì có sách đang để vị trí này!",
                                         "Lỗi",
                                         MessageBoxButtons.OK,
                                         MessageBoxIcon.Error);

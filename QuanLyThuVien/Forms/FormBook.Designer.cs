@@ -1,4 +1,6 @@
-﻿namespace QuanLyThuVien.Forms
+﻿using System.Windows.Forms;
+
+namespace QuanLyThuVien.Forms
 {
     partial class FormBook
     {
@@ -142,6 +144,7 @@
             this.cbAuthor.Name = "cbAuthor";
             this.cbAuthor.Size = new System.Drawing.Size(494, 24);
             this.cbAuthor.TabIndex = 4;
+            cbAuthor.DropDownStyle = ComboBoxStyle.DropDownList;
             // 
             // labelCategory
             // 
@@ -160,6 +163,7 @@
             this.cbCategory.Name = "cbCategory";
             this.cbCategory.Size = new System.Drawing.Size(494, 24);
             this.cbCategory.TabIndex = 6;
+            cbCategory.DropDownStyle = ComboBoxStyle.DropDownList;
             // 
             // labelPublisher
             // 
@@ -178,6 +182,7 @@
             this.cbPublisher.Name = "cbPublisher";
             this.cbPublisher.Size = new System.Drawing.Size(494, 24);
             this.cbPublisher.TabIndex = 8;
+            cbPublisher.DropDownStyle = ComboBoxStyle.DropDownList;
             // 
             // labelYear
             // 
@@ -214,6 +219,7 @@
             this.cbLocation.Name = "cbLocation";
             this.cbLocation.Size = new System.Drawing.Size(494, 24);
             this.cbLocation.TabIndex = 12;
+            cbLocation.DropDownStyle = ComboBoxStyle.DropDownList;
             // 
             // labelQuantity
             // 
