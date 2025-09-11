@@ -7,7 +7,9 @@ namespace QuanLyThuVien.Forms
 {
     public partial class FormBookLocation : Form
     {
-        string connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=libraryManagement;Integrated Security=True;";
+        connectData c = new connectData();
+        SqlDataAdapter da;
+        DataTable dt;
 
         public FormBookLocation()
         {
@@ -18,21 +20,22 @@ namespace QuanLyThuVien.Forms
         // Load dữ liệu
         private void LoadData()
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            try
             {
-                try
-                {
-                    conn.Open();
-                    string query = "SELECT LocationID, ShelfCode, Floor, Room, Note FROM BookLocations";
-                    SqlDataAdapter da = new SqlDataAdapter(query, conn);
-                    DataTable dt = new DataTable();
-                    da.Fill(dt);
-                    dgvBookLocation.DataSource = dt;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Lỗi tải dữ liệu: " + ex.Message);
-                }
+                c.connect();
+                string query = "SELECT LocationID, ShelfCode, Floor, Room, Note FROM BookLocations";
+                da = new SqlDataAdapter(query, c.conn);
+                dt = new DataTable();
+                da.Fill(dt);
+                dgvBookLocation.DataSource = dt;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi tải dữ liệu: " + ex.Message);
+            }
+            finally
+            {
+                c.disconnect();
             }
         }
 
@@ -47,26 +50,35 @@ namespace QuanLyThuVien.Forms
         // Thêm
         private void btnInsert_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtShelfCode.Text) || string.IsNullOrWhiteSpace(txtFloor.Text) || string.IsNullOrWhiteSpace(txtRoom.Text))
+            if (string.IsNullOrWhiteSpace(txtShelfCode.Text) ||
+                string.IsNullOrWhiteSpace(txtFloor.Text) ||
+                string.IsNullOrWhiteSpace(txtRoom.Text))
             {
                 MessageBox.Show("Mã kệ, tầng và phòng không được để trống!");
                 return;
             }
 
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            try
             {
-                conn.Open();
-                string sql = "INSERT INTO BookLocations (ShelfCode, Floor, Room, Note) VALUES (@shelf, @floor, @room, @note)";
-                SqlCommand cmd = new SqlCommand(sql, conn);
-                cmd.Parameters.AddWithValue("@shelf", txtShelfCode.Text);
-                cmd.Parameters.AddWithValue("@floor", txtFloor.Text);
-                cmd.Parameters.AddWithValue("@room", txtRoom.Text);
-                cmd.Parameters.AddWithValue("@note", txtNote.Text);
-                cmd.ExecuteNonQuery();
+                c.connect();
+                string sql = "INSERT INTO BookLocations (ShelfCode, Floor, Room, Note) " +
+                             "VALUES (@shelf, @floor, @room, @note)";
+                using (SqlCommand cmd = new SqlCommand(sql, c.conn))
+                {
+                    cmd.Parameters.AddWithValue("@shelf", txtShelfCode.Text);
+                    cmd.Parameters.AddWithValue("@floor", txtFloor.Text);
+                    cmd.Parameters.AddWithValue("@room", txtRoom.Text);
+                    cmd.Parameters.AddWithValue("@note", txtNote.Text);
+                    cmd.ExecuteNonQuery();
+                }
+                MessageBox.Show("Thêm vị trí thành công!", "Thông báo");
+                LoadData();
+                ClearForm();
             }
-
-            LoadData();
-            ClearForm();
+            finally
+            {
+                c.disconnect();
+            }
         }
 
         // Sửa
@@ -77,7 +89,10 @@ namespace QuanLyThuVien.Forms
                 MessageBox.Show("Hãy chọn một vị trí để sửa!");
                 return;
             }
-            if (string.IsNullOrWhiteSpace(txtShelfCode.Text) || string.IsNullOrWhiteSpace(txtFloor.Text) || string.IsNullOrWhiteSpace(txtRoom.Text))
+
+            if (string.IsNullOrWhiteSpace(txtShelfCode.Text) ||
+                string.IsNullOrWhiteSpace(txtFloor.Text) ||
+                string.IsNullOrWhiteSpace(txtRoom.Text))
             {
                 MessageBox.Show("Mã kệ, tầng và phòng không được để trống!");
                 return;
@@ -85,23 +100,31 @@ namespace QuanLyThuVien.Forms
 
             int id = Convert.ToInt32(dgvBookLocation.CurrentRow.Cells["LocationID"].Value);
 
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            try
             {
-                conn.Open();
+                c.connect();
                 string sql = @"UPDATE BookLocations 
                                SET ShelfCode=@shelf, Floor=@floor, Room=@room, Note=@note 
                                WHERE LocationID=@id";
-                SqlCommand cmd = new SqlCommand(sql, conn);
-                cmd.Parameters.AddWithValue("@id", id);
-                cmd.Parameters.AddWithValue("@shelf", txtShelfCode.Text);
-                cmd.Parameters.AddWithValue("@floor", txtFloor.Text);
-                cmd.Parameters.AddWithValue("@room", txtRoom.Text);
-                cmd.Parameters.AddWithValue("@note", txtNote.Text);
-                cmd.ExecuteNonQuery();
-            }
 
-            LoadData();
-            ClearForm();
+                using (SqlCommand cmd = new SqlCommand(sql, c.conn))
+                {
+                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.Parameters.AddWithValue("@shelf", txtShelfCode.Text);
+                    cmd.Parameters.AddWithValue("@floor", txtFloor.Text);
+                    cmd.Parameters.AddWithValue("@room", txtRoom.Text);
+                    cmd.Parameters.AddWithValue("@note", txtNote.Text);
+                    cmd.ExecuteNonQuery();
+                }
+
+                MessageBox.Show("Cập nhật thành công!", "Thông báo");
+                LoadData();
+                ClearForm();
+            }
+            finally
+            {
+                c.disconnect();
+            }
         }
 
         // Xóa
@@ -124,15 +147,15 @@ namespace QuanLyThuVien.Forms
             {
                 try
                 {
-                    using (SqlConnection conn = new SqlConnection(connectionString))
+                    c.connect();
+                    string sql = "DELETE FROM BookLocations WHERE LocationID = @id";
+                    using (SqlCommand cmd = new SqlCommand(sql, c.conn))
                     {
-                        conn.Open();
-                        string sql = "DELETE FROM BookLocations WHERE LocationID = @id";
-                        SqlCommand cmd = new SqlCommand(sql, conn);
                         cmd.Parameters.AddWithValue("@id", id);
                         cmd.ExecuteNonQuery();
                     }
 
+                    MessageBox.Show("Xoá thành công!", "Thông báo");
                     LoadData();
                     ClearForm();
                 }
@@ -150,22 +173,30 @@ namespace QuanLyThuVien.Forms
                         MessageBox.Show("Lỗi SQL: " + ex.Message);
                     }
                 }
+                finally
+                {
+                    c.disconnect();
+                }
             }
         }
 
         // Tìm kiếm theo ShelfCode hoặc Room
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            try
             {
-                conn.Open();
+                c.connect();
                 string sql = "SELECT * FROM BookLocations WHERE ShelfCode LIKE @kw OR Room LIKE @kw";
-                SqlCommand cmd = new SqlCommand(sql, conn);
-                cmd.Parameters.AddWithValue("@kw", "%" + txtShelfCode.Text + "%");
+                SqlCommand cmd = new SqlCommand(sql, c.conn);
+                cmd.Parameters.AddWithValue("@kw", "%" + txtShelfCode.Text.Trim() + "%");
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
                 dgvBookLocation.DataSource = dt;
+            }
+            finally
+            {
+                c.disconnect();
             }
         }
 

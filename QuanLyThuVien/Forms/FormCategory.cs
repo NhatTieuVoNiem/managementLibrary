@@ -7,7 +7,9 @@ namespace QuanLyThuVien
 {
     public partial class FormCategory : Form
     {
-        string connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=libraryManagement;Integrated Security=True;";
+        connectData c = new connectData();
+        SqlDataAdapter da;
+        DataTable dt;
 
         public FormCategory()
         {
@@ -15,28 +17,36 @@ namespace QuanLyThuVien
             LoadData();
         }
 
+        // Load dữ liệu
         private void LoadData()
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            try
             {
-                try
-                {
-                    conn.Open();
-                    string query = "SELECT CategoryID, CategoryName, Note FROM Categories"; // table Category
-                    SqlDataAdapter da = new SqlDataAdapter(query, conn);
-                    DataTable dt = new DataTable();
-                    da.Fill(dt);
-                    dgvCategory.DataSource = dt;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Lỗi tải dữ liệu: " + ex.Message);
-                }
+                c.connect();
+                string query = "SELECT CategoryID, CategoryName, Note FROM Categories";
+                da = new SqlDataAdapter(query, c.conn);
+                dt = new DataTable();
+                da.Fill(dt);
+                dgvCategory.DataSource = dt;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi tải dữ liệu: " + ex.Message);
+            }
+            finally
+            {
+                c.disconnect();
             }
         }
 
+        private void ClearForm()
+        {
+            txtCategoryName.Clear();
+            txtNote.Clear();
+        }
+
         // Thêm
-        private void btnInsert_Click(object sender, EventArgs e) 
+        private void btnInsert_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtCategoryName.Text))
             {
@@ -44,18 +54,24 @@ namespace QuanLyThuVien
                 return;
             }
 
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            try
             {
-                conn.Open();
+                c.connect();
                 string sql = "INSERT INTO Categories (CategoryName, Note) VALUES (@name, @note)";
-                SqlCommand cmd = new SqlCommand(sql, conn);
-                cmd.Parameters.AddWithValue("@name", txtCategoryName.Text);
-                cmd.Parameters.AddWithValue("@note", txtNote.Text);
-                cmd.ExecuteNonQuery();
+                using (SqlCommand cmd = new SqlCommand(sql, c.conn))
+                {
+                    cmd.Parameters.AddWithValue("@name", txtCategoryName.Text);
+                    cmd.Parameters.AddWithValue("@note", txtNote.Text);
+                    cmd.ExecuteNonQuery();
+                }
+                MessageBox.Show("Thêm thể loại thành công!");
+                LoadData();
+                ClearForm();
             }
-
-            LoadData();
-            ClearForm();
+            finally
+            {
+                c.disconnect();
+            }
         }
 
         // Sửa
@@ -74,21 +90,26 @@ namespace QuanLyThuVien
 
             int id = Convert.ToInt32(dgvCategory.CurrentRow.Cells["CategoryID"].Value);
 
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            try
             {
-                conn.Open();
+                c.connect();
                 string sql = "UPDATE Categories SET CategoryName=@name, Note=@note WHERE CategoryID=@id";
-                SqlCommand cmd = new SqlCommand(sql, conn);
-                cmd.Parameters.AddWithValue("@id", id);
-                cmd.Parameters.AddWithValue("@name", txtCategoryName.Text);
-                cmd.Parameters.AddWithValue("@note", txtNote.Text);
-                cmd.ExecuteNonQuery();
+                using (SqlCommand cmd = new SqlCommand(sql, c.conn))
+                {
+                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.Parameters.AddWithValue("@name", txtCategoryName.Text);
+                    cmd.Parameters.AddWithValue("@note", txtNote.Text);
+                    cmd.ExecuteNonQuery();
+                }
+                MessageBox.Show("Cập nhật thành công!");
+                LoadData();
+                ClearForm();
             }
-
-            LoadData();
-            ClearForm();
+            finally
+            {
+                c.disconnect();
+            }
         }
-
 
         // Xoá
         private void btnDelete_Click(object sender, EventArgs e)
@@ -106,23 +127,22 @@ namespace QuanLyThuVien
             {
                 try
                 {
-                    using (SqlConnection conn = new SqlConnection(connectionString))
+                    c.connect();
+                    string sql = "DELETE FROM Categories WHERE CategoryID=@id";
+                    using (SqlCommand cmd = new SqlCommand(sql, c.conn))
                     {
-                        conn.Open();
-                        string sql = "DELETE FROM Categories WHERE CategoryID=@id";
-                        SqlCommand cmd = new SqlCommand(sql, conn);
                         cmd.Parameters.AddWithValue("@id", id);
                         cmd.ExecuteNonQuery();
                     }
+                    MessageBox.Show("Xoá thành công!");
                     LoadData();
                     ClearForm();
                 }
                 catch (SqlException ex)
                 {
-                    // Bắt lỗi ràng buộc FK
-                    if (ex.Number == 547) // 547 = Foreign Key violation
+                    if (ex.Number == 547) // Foreign Key constraint
                     {
-                        MessageBox.Show("Không thể xoá thể loại này vì có sách đang trong thể loại này!",
+                        MessageBox.Show("Không thể xoá thể loại này vì có sách đang thuộc thể loại!",
                                         "Lỗi",
                                         MessageBoxButtons.OK,
                                         MessageBoxIcon.Error);
@@ -132,43 +152,41 @@ namespace QuanLyThuVien
                         MessageBox.Show("Lỗi SQL: " + ex.Message);
                     }
                 }
-
+                finally
+                {
+                    c.disconnect();
+                }
             }
         }
 
         // Tìm kiếm
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            try
             {
-                conn.Open();
+                c.connect();
                 string sql = "SELECT CategoryID, CategoryName, Note FROM Categories WHERE CategoryName LIKE @name";
-                SqlCommand cmd = new SqlCommand(sql, conn);
+                SqlCommand cmd = new SqlCommand(sql, c.conn);
                 cmd.Parameters.AddWithValue("@name", "%" + txtCategoryName.Text + "%");
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
                 dgvCategory.DataSource = dt;
             }
+            finally
+            {
+                c.disconnect();
+            }
         }
 
-
-        // Khi click chọn 1 dòng trong DataGridView -> hiển thị lên textbox
+        // Click lên DataGridView -> hiển thị dữ liệu
         private void dgvCategory_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0 && dgvCategory.Rows[e.RowIndex].Cells["CategoryID"].Value != null)
             {
-                txtCategoryName.Text = dgvCategory.Rows[e.RowIndex].Cells["CategoryName"].Value.ToString();
-                txtNote.Text = dgvCategory.Rows[e.RowIndex].Cells["Note"].Value.ToString();
+                txtCategoryName.Text = dgvCategory.Rows[e.RowIndex].Cells["CategoryName"].Value?.ToString();
+                txtNote.Text = dgvCategory.Rows[e.RowIndex].Cells["Note"].Value?.ToString();
             }
         }
-
-
-        private void ClearForm()
-        {
-            txtCategoryName.Clear();
-            txtNote.Clear();
-        }
-
     }
 }

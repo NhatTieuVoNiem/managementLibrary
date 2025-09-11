@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="connectData.cs" />
     <Compile Include="Forms\FormDangNhap.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -168,8 +169,6 @@
   <ItemGroup>
     <None Include="Resources\thu vien.jpg" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DAL\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
