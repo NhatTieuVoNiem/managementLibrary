@@ -46,29 +46,58 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="connectData.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="Forms\FormDangNhap.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Forms\FormDangNhap.Designer.cs">
+      <DependentUpon>FormDangNhap.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormDangKy.cs">
+    <Compile Include="Forms\FormBookLocation.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormDangKy.Designer.cs">
+    <Compile Include="Forms\FormBookLocation.Designer.cs">
+      <DependentUpon>FormBookLocation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormAuthor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormAuthor.Designer.cs">
+      <DependentUpon>FormAuthor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormBook.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormBook.Designer.cs">
+      <DependentUpon>FormBook.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormCategory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormCategory.Designer.cs">
+      <DependentUpon>FormCategory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormDangKy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormDangKy.Designer.cs">
       <DependentUpon>FormDangKy.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormHome.cs">
+    <Compile Include="Forms\FormHome.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormHome.Designer.cs">
+    <Compile Include="Forms\FormHome.Designer.cs">
       <DependentUpon>FormHome.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormQuenMatKhau.cs">
+    <Compile Include="Forms\FormPublisher.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormQuenMatKhau.Designer.cs">
+    <Compile Include="Forms\FormPublisher.Designer.cs">
+      <DependentUpon>FormPublisher.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormQuenMatKhau.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormQuenMatKhau.Designer.cs">
       <DependentUpon>FormQuenMatKhau.cs</DependentUpon>
     </Compile>
     <Compile Include="libraryManagementDataSet.cs">
@@ -81,13 +110,25 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\FormDangNhap.resx">
+      <DependentUpon>FormDangNhap.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormHome.resx">
+    <EmbeddedResource Include="Forms\FormAuthor.resx">
+      <DependentUpon>FormAuthor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormBook.resx">
+      <DependentUpon>FormBook.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormCategory.resx">
+      <DependentUpon>FormCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormHome.resx">
       <DependentUpon>FormHome.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormQuenMatKhau.resx">
+    <EmbeddedResource Include="Forms\FormPublisher.resx">
+      <DependentUpon>FormPublisher.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormQuenMatKhau.resx">
       <DependentUpon>FormQuenMatKhau.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -126,6 +167,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\thu vien.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DAL\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -23,7 +23,7 @@ CREATE TABLE Publishers (
     PublisherID INT IDENTITY(1,1) PRIMARY KEY,
     PublisherName NVARCHAR(255) NOT NULL,
     Address NVARCHAR(255),
-    Phone VARCHAR(20),
+    Phone VARCHAR(10),
     Note NVARCHAR(255) NULL            -- Ghi chú
 );
 
@@ -160,6 +160,7 @@ INSERT INTO BorrowingDetails (BorrowID, BookID, Quantity, Note) VALUES
 (3, 3, 2, N'Mượn cho nhóm học'),
 (4, 4, 1, NULL),
 (5, 5, 1, N'Sách học tiếng Anh');
+GO
 ALTER TABLE Users
 ADD SecurityQuestion1 NVARCHAR(255) NULL,
     SecurityAnswerHash1 NVARCHAR(255) NULL,

@@ -51,7 +51,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 36.22951F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 63.77049F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 679F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 130F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 129F));
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label2, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.label3, 1, 2);
@@ -114,7 +114,7 @@
             this.txtTenDangNhap.BackColor = System.Drawing.SystemColors.HighlightText;
             this.txtTenDangNhap.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtTenDangNhap.Font = new System.Drawing.Font("Times New Roman", 13.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTenDangNhap.Location = new System.Drawing.Point(341, 227);
+            this.txtTenDangNhap.Location = new System.Drawing.Point(342, 227);
             this.txtTenDangNhap.Name = "txtTenDangNhap";
             this.txtTenDangNhap.Size = new System.Drawing.Size(673, 33);
             this.txtTenDangNhap.TabIndex = 3;
@@ -125,7 +125,7 @@
             this.txtMatKhau.BackColor = System.Drawing.SystemColors.HighlightText;
             this.txtMatKhau.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtMatKhau.Font = new System.Drawing.Font("Times New Roman", 13.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMatKhau.Location = new System.Drawing.Point(341, 267);
+            this.txtMatKhau.Location = new System.Drawing.Point(342, 267);
             this.txtMatKhau.Name = "txtMatKhau";
             this.txtMatKhau.Size = new System.Drawing.Size(673, 33);
             this.txtMatKhau.TabIndex = 4;
