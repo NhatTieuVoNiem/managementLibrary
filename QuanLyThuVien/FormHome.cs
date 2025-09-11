@@ -17,38 +17,36 @@ namespace QuanLyThuVien
             InitializeComponent();
         }
 
-        private void danhMụcToolStripMenuItem(object sender, ToolStripItemClickedEventArgs e)
+        private void danhMụcToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void danhMụcToolStripMenuItem_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             Form frm = new Form();
             switch (e.ClickedItem.Name)
             {
-                case "MenuNhanVien":
-                    F_NhanVien f_nhanvien = new F_NhanVien();
+                case "menuNhanVien":
+                    QuanLyNhanVien f_nhanvien = new QuanLyNhanVien();
                     frm = f_nhanvien;
                     break;
-                case "MenuKhachHang":
-                    F_KhachHang f_KhachHang = new F_KhachHang();
-                    frm = f_KhachHang;
+                case "quảnLýKháchHàngToolStripMenuItem":
+                    QuanLyKhachHang f_khachHang = new QuanLyKhachHang();
+                    frm = f_khachHang;
                     break;
-
-                case "MenuHangHoa":
-                    F_HangHoa f_hanghoa = new F_HangHoa();
-                    frm = f_hanghoa;
+                case "quảnLýSáchToolStripMenuItem":
+                    QuanLySach f_nhanVien = new QuanLySach();
+                    frm = f_nhanVien;
                     break;
-                case "MenuHoaDon":
-                    F_HoaDon f_HoaDon = new F_HoaDon();
-                    frm = f_HoaDon;
+                case "quảnLýHóaĐơnToolStripMenuItem":
+                    QuanLyHoaDon f_hoaDon = new QuanLyHoaDon();
+                    frm = f_hoaDon;
                     break;
             }
-            frm.MdiParent = this;
-            frm.WindowState = FormWindowState.Maximized;
-            frm.Show();
-            frm.BringToFront();
-        }
-
-        private void trợGiúpToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
+             frm.MdiParent = this;
+             frm.WindowState = FormWindowState.Maximized;
+             frm.Show();
+             frm.BringToFront();  
         }
     }
 }
