@@ -101,6 +101,26 @@ CREATE TABLE Users (
     CreatedAt DATETIME DEFAULT GETDATE(),       
     Note NVARCHAR(255) NULL                    
 );
+CREATE TABLE Employees (
+    EmployeeID NVARCHAR(10) PRIMARY KEY,
+    FullName NVARCHAR(50) NOT NULL,
+    Gender NVARCHAR(10),
+    BirthDate DATE,
+    Phone NVARCHAR(15),
+    Address NVARCHAR(100),
+    Position NVARCHAR(30)
+);
+CREATE TABLE Customers (
+    CustomerID NVARCHAR(10) PRIMARY KEY,
+    FullName NVARCHAR(50) NOT NULL,
+    Gender NVARCHAR(10),
+    BirthDate DATE,
+    Phone NVARCHAR(15),
+    Address NVARCHAR(100),
+    Email NVARCHAR(50),
+    RegisterDate DATE
+);
+
 
 GO
 -- them du lieu
