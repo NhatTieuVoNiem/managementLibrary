@@ -164,31 +164,91 @@ namespace QuanLyThuVien.Forms
         // Sửa thông tin sách
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            if (dgvBook.CurrentRow != null)
+            if (dgvBook.CurrentRow == null)
             {
-                int bookId = Convert.ToInt32(dgvBook.CurrentRow.Cells["BookID"].Value);
-                string sql = "UPDATE Books SET Title=@Title, AuthorID=@AuthorID, CategoryID=@CategoryID, PublisherID=@PublisherID, " +
-                             "YearPublished=@YearPublished, LocationID=@LocationID, Quantity=@Quantity, Available=@Available, Note=@Note WHERE BookID=@BookID";
-
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    SqlCommand cmd = new SqlCommand(sql, conn);
-                    cmd.Parameters.AddWithValue("@BookID", bookId);
-                    cmd.Parameters.AddWithValue("@Title", txtBookTitle.Text);
-                    cmd.Parameters.AddWithValue("@AuthorID", cbAuthor.SelectedValue);
-                    cmd.Parameters.AddWithValue("@CategoryID", cbCategory.SelectedValue);
-                    cmd.Parameters.AddWithValue("@PublisherID", cbPublisher.SelectedValue);
-                    cmd.Parameters.AddWithValue("@YearPublished", txtYear.Text);
-                    cmd.Parameters.AddWithValue("@LocationID", cbLocation.SelectedValue);
-                    cmd.Parameters.AddWithValue("@Quantity", txtQuantity.Text);
-                    cmd.Parameters.AddWithValue("@Available", txtAvailable.Text);
-                    cmd.Parameters.AddWithValue("@Note", txtNote.Text);
-
-                    conn.Open();
-                    cmd.ExecuteNonQuery();
-                }
-                LoadData();
+                MessageBox.Show("Hãy chọn một cuốn sách để sửa!",
+                                "Thông báo",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
+                return;
             }
+
+            // Validate
+            if (string.IsNullOrWhiteSpace(txtBookTitle.Text))
+            {
+                MessageBox.Show("Tên sách không được để trống!", "Cảnh báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (cbAuthor.SelectedValue == null)
+            {
+                MessageBox.Show("Vui lòng chọn Tác giả!", "Cảnh báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (cbCategory.SelectedValue == null)
+            {
+                MessageBox.Show("Vui lòng chọn Thể loại!", "Cảnh báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (cbPublisher.SelectedValue == null)
+            {
+                MessageBox.Show("Vui lòng chọn Nhà xuất bản!", "Cảnh báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (cbLocation.SelectedValue == null)
+            {
+                MessageBox.Show("Vui lòng chọn Vị trí sách!", "Cảnh báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            int year, quantity, available;
+
+            if (!int.TryParse(txtYear.Text, out year))
+            {
+                MessageBox.Show("Năm xuất bản phải là số!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (!int.TryParse(txtQuantity.Text, out quantity))
+            {
+                MessageBox.Show("Số lượng phải là số!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (!int.TryParse(txtAvailable.Text, out available))
+            {
+                MessageBox.Show("Số lượng có sẵn phải là số!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Nếu dữ liệu hợp lệ thì tiến hành update
+            int bookId = Convert.ToInt32(dgvBook.CurrentRow.Cells["BookID"].Value);
+            string sql = "UPDATE Books SET Title=@Title, AuthorID=@AuthorID, CategoryID=@CategoryID, PublisherID=@PublisherID, " +
+                         "YearPublished=@YearPublished, LocationID=@LocationID, Quantity=@Quantity, Available=@Available, Note=@Note " +
+                         "WHERE BookID=@BookID";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@BookID", bookId);
+                cmd.Parameters.AddWithValue("@Title", txtBookTitle.Text);
+                cmd.Parameters.AddWithValue("@AuthorID", cbAuthor.SelectedValue);
+                cmd.Parameters.AddWithValue("@CategoryID", cbCategory.SelectedValue);
+                cmd.Parameters.AddWithValue("@PublisherID", cbPublisher.SelectedValue);
+                cmd.Parameters.AddWithValue("@YearPublished", year);
+                cmd.Parameters.AddWithValue("@LocationID", cbLocation.SelectedValue);
+                cmd.Parameters.AddWithValue("@Quantity", quantity);
+                cmd.Parameters.AddWithValue("@Available", available);
+                cmd.Parameters.AddWithValue("@Note", txtNote.Text);
+
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+
+            LoadData();
+            MessageBox.Show("Cập nhật sách thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         // Xóa sách

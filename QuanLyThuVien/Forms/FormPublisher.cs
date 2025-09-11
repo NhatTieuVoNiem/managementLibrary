@@ -48,55 +48,159 @@ namespace QuanLyThuVien.Forms
         // Thêm
         private void btnInsert_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtName.Text))
+            string name = txtName.Text.Trim();
+            string address = txtAddress.Text.Trim();
+            string phone = txtPhone.Text.Trim();
+            string note = txtNote.Text.Trim();
+
+            // 1. Kiểm tra tên NXB
+            if (string.IsNullOrWhiteSpace(name))
             {
-                MessageBox.Show("Tên NXB không được để trống!");
+                MessageBox.Show("Tên NXB không được để trống!",
+                                "Lỗi",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
                 return;
             }
+
+            // 2. Kiểm tra số điện thoại
+            if (!string.IsNullOrWhiteSpace(phone))
+            {
+                if (!System.Text.RegularExpressions.Regex.IsMatch(phone, @"^\d{10}$"))
+                {
+                    MessageBox.Show("Số điện thoại phải gồm đúng 10 chữ số!",
+                                    "Lỗi",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning);
+                    return;
+                }
+            }
+
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                string sql = "INSERT INTO Publishers (PublisherName, Address, Phone, Note) VALUES (@name, @addr, @phone, @note)";
+
+                // 3. Check trùng tên NXB
+                string checkSql = "SELECT COUNT(*) FROM Publishers WHERE PublisherName = @name";
+                SqlCommand checkCmd = new SqlCommand(checkSql, conn);
+                checkCmd.Parameters.AddWithValue("@name", name);
+
+                int exists = (int)checkCmd.ExecuteScalar();
+                if (exists > 0)
+                {
+                    MessageBox.Show("Tên NXB đã tồn tại trong hệ thống!",
+                                    "Lỗi",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // 4. Thêm NXB mới
+                string sql = "INSERT INTO Publishers (PublisherName, Address, Phone, Note) " +
+                             "VALUES (@name, @addr, @phone, @note)";
                 SqlCommand cmd = new SqlCommand(sql, conn);
-                cmd.Parameters.AddWithValue("@name", txtName.Text);
-                cmd.Parameters.AddWithValue("@addr", txtAddress.Text);
-                cmd.Parameters.AddWithValue("@phone", txtPhone.Text);
-                cmd.Parameters.AddWithValue("@note", txtNote.Text);
+                cmd.Parameters.AddWithValue("@name", name);
+                cmd.Parameters.AddWithValue("@addr", address);
+                cmd.Parameters.AddWithValue("@phone", phone);
+                cmd.Parameters.AddWithValue("@note", note);
+
                 cmd.ExecuteNonQuery();
             }
+
+            MessageBox.Show("Thêm NXB thành công!",
+                            "Thông báo",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
 
             LoadData();
             ClearForm();
         }
+
 
         // Sửa
         private void btnEdit_Click(object sender, EventArgs e)
         {
             if (dgvPublisher.CurrentRow == null)
             {
-                MessageBox.Show("Hãy chọn một NXB để sửa!");
+                MessageBox.Show("Hãy chọn một NXB để sửa!",
+                                "Thông báo",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
                 return;
             }
 
             int id = Convert.ToInt32(dgvPublisher.CurrentRow.Cells["PublisherID"].Value);
 
+            string name = txtName.Text.Trim();
+            string address = txtAddress.Text.Trim();
+            string phone = txtPhone.Text.Trim();
+            string note = txtNote.Text.Trim();
+
+            // 1. Kiểm tra tên NXB
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                MessageBox.Show("Tên NXB không được để trống!",
+                                "Lỗi",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
+                return;
+            }
+
+            // 2. Kiểm tra số điện thoại (phải đúng 10 số)
+            if (!string.IsNullOrWhiteSpace(phone))
+            {
+                if (!System.Text.RegularExpressions.Regex.IsMatch(phone, @"^\d{10}$"))
+                {
+                    MessageBox.Show("Số điện thoại phải gồm đúng 10 chữ số!",
+                                    "Lỗi",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning);
+                    return;
+                }
+            }
+
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
+
+                // 3. Check trùng tên NXB (ngoại trừ chính nó)
+                string checkSql = "SELECT COUNT(*) FROM Publishers WHERE PublisherName = @name AND PublisherID <> @id";
+                SqlCommand checkCmd = new SqlCommand(checkSql, conn);
+                checkCmd.Parameters.AddWithValue("@name", name);
+                checkCmd.Parameters.AddWithValue("@id", id);
+
+                int exists = (int)checkCmd.ExecuteScalar();
+                if (exists > 0)
+                {
+                    MessageBox.Show("Tên NXB đã tồn tại trong hệ thống!",
+                                    "Lỗi",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // 4. Cập nhật
                 string sql = "UPDATE Publishers SET PublisherName=@name, Address=@addr, Phone=@phone, Note=@note WHERE PublisherID=@id";
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("@id", id);
-                cmd.Parameters.AddWithValue("@name", txtName.Text);
-                cmd.Parameters.AddWithValue("@addr", txtAddress.Text);
-                cmd.Parameters.AddWithValue("@phone", txtPhone.Text);
-                cmd.Parameters.AddWithValue("@note", txtNote.Text);
+                cmd.Parameters.AddWithValue("@name", name);
+                cmd.Parameters.AddWithValue("@addr", address);
+                cmd.Parameters.AddWithValue("@phone", phone);
+                cmd.Parameters.AddWithValue("@note", note);
+
                 cmd.ExecuteNonQuery();
             }
+
+            MessageBox.Show("Cập nhật NXB thành công!",
+                            "Thông báo",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
 
             LoadData();
             ClearForm();
         }
+
 
         // Xóa
         private void btnDelete_Click(object sender, EventArgs e)

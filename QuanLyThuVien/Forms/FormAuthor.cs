@@ -77,6 +77,11 @@ namespace QuanLyThuVien.Forms
                 MessageBox.Show("Hãy chọn một tác giả để sửa!");
                 return;
             }
+            if (string.IsNullOrWhiteSpace(txtLastName.Text) || string.IsNullOrWhiteSpace(txtFirstName.Text))
+            {
+                MessageBox.Show("Họ và Tên tác giả không được để trống!");
+                return;
+            }
 
             int id = Convert.ToInt32(dgvAuthor.CurrentRow.Cells["AuthorID"].Value);
 

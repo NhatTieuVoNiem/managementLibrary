@@ -47,9 +47,9 @@ namespace QuanLyThuVien.Forms
         // Thêm
         private void btnInsert_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtShelfCode.Text) || string.IsNullOrWhiteSpace(txtFloor.Text))
+            if (string.IsNullOrWhiteSpace(txtShelfCode.Text) || string.IsNullOrWhiteSpace(txtFloor.Text) || string.IsNullOrWhiteSpace(txtRoom.Text))
             {
-                MessageBox.Show("Mã kệ và Tầng không được để trống!");
+                MessageBox.Show("Mã kệ, tầng và phòng không được để trống!");
                 return;
             }
 
@@ -75,6 +75,11 @@ namespace QuanLyThuVien.Forms
             if (dgvBookLocation.CurrentRow == null)
             {
                 MessageBox.Show("Hãy chọn một vị trí để sửa!");
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(txtShelfCode.Text) || string.IsNullOrWhiteSpace(txtFloor.Text) || string.IsNullOrWhiteSpace(txtRoom.Text))
+            {
+                MessageBox.Show("Mã kệ, tầng và phòng không được để trống!");
                 return;
             }
 
