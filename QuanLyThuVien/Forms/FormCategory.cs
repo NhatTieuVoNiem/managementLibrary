@@ -61,6 +61,11 @@ namespace QuanLyThuVien
         // Sửa
         private void btnUpdate_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(txtCategoryName.Text))
+            {
+                MessageBox.Show("Tên thể loại không được để trống!");
+                return;
+            }
             if (dgvCategory.CurrentRow == null)
             {
                 MessageBox.Show("Hãy chọn một thể loại để sửa!");
