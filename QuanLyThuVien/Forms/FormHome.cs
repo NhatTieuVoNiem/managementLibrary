@@ -18,49 +18,54 @@ namespace QuanLyThuVien
             InitializeComponent();
         }
 
-        private void bộLọcToolStripMenuItem_Click(object sender, EventArgs e)
+        private void danhMụcToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
         }
 
-        private void thểLoạiToolStripMenuItem_Click(object sender, EventArgs e)
+        private void danhMụcToolStripMenuItem_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            FormCategory F = new FormCategory();
-            F.Show();
-            this.Hide();
+            Form frm = new Form();
+            switch (e.ClickedItem.Name)
+            {
+                case "menuNhanVien":
+                    QuanLyNhanVien f_nhanvien = new QuanLyNhanVien();
+                    frm = f_nhanvien;
+                    break;
+                case "quảnLýKháchHàngToolStripMenuItem":
+                    QuanLyKhachHang f_khachHang = new QuanLyKhachHang();
+                    frm = f_khachHang;
+                    break;
+                case "quảnLýHóaĐơnToolStripMenuItem":
+                    QuanLyHoaDon f_hoaDon = new QuanLyHoaDon();
+                    frm = f_hoaDon;
+                    break;
+                case "quảnLýSáchToolStripMenuItem1":
+                    FormBook f_book = new FormBook();
+                    frm = f_book;
+                    break;
+                case "quảnLýTácGiảToolStripMenuItem":
+                    FormAuthor f_author = new FormAuthor();
+                    frm = f_author;
+                    break;
+                case "quảnLýNSXToolStripMenuItem":
+                    FormPublisher f_publisher = new FormPublisher();
+                    frm = f_publisher;
+                    break;
+                case "quảnLýThểLoạiToolStripMenuItem":
+                    FormCategory f_category = new FormCategory();
+                    frm = f_category;
+                    break;
+                case "quảnLýVịTríSáchToolStripMenuItem":
+                    FormBookLocation f_locationBook = new FormBookLocation();
+                    frm = f_locationBook;
+                    break;
+            }
+            frm.MdiParent = this;
+            frm.WindowState = FormWindowState.Maximized;
+            frm.Show();
+            frm.BringToFront();
         }
 
-        private void FormHome_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void nXBToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            FormPublisher F = new FormPublisher();
-            F.Show();
-            this.Hide();
-        }
-
-        private void tácGiảToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            FormAuthor F = new FormAuthor();
-            F.Show();
-            this.Hide();
-        }
-
-        private void sáchToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            FormBook F = new FormBook();
-            F.Show();
-            this.Hide();
-        }
-
-        private void vịTríSáchToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            FormBookLocation F = new FormBookLocation();
-            F.Show();
-            this.Hide();
-        }
+       
     }
 }
