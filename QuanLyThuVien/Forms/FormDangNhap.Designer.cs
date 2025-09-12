@@ -50,7 +50,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 36.22951F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 63.77049F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 679F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 134F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 135F));
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label2, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.label3, 1, 2);
@@ -90,7 +90,7 @@
             this.label2.ForeColor = System.Drawing.Color.Aqua;
             this.label2.Location = new System.Drawing.Point(124, 224);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(207, 40);
+            this.label2.Size = new System.Drawing.Size(206, 40);
             this.label2.TabIndex = 1;
             this.label2.Text = "Tên đăng nhập :";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -103,7 +103,7 @@
             this.label3.ForeColor = System.Drawing.Color.Aqua;
             this.label3.Location = new System.Drawing.Point(124, 264);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(207, 39);
+            this.label3.Size = new System.Drawing.Size(206, 39);
             this.label3.TabIndex = 2;
             this.label3.Text = "Nhập mật khẩu :";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -113,7 +113,7 @@
             this.txtTenDangNhap.BackColor = System.Drawing.SystemColors.HighlightText;
             this.txtTenDangNhap.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtTenDangNhap.Font = new System.Drawing.Font("Times New Roman", 13.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTenDangNhap.Location = new System.Drawing.Point(337, 227);
+            this.txtTenDangNhap.Location = new System.Drawing.Point(336, 227);
             this.txtTenDangNhap.Name = "txtTenDangNhap";
             this.txtTenDangNhap.Size = new System.Drawing.Size(673, 33);
             this.txtTenDangNhap.TabIndex = 3;
@@ -124,7 +124,7 @@
             this.txtMatKhau.BackColor = System.Drawing.SystemColors.HighlightText;
             this.txtMatKhau.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtMatKhau.Font = new System.Drawing.Font("Times New Roman", 13.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMatKhau.Location = new System.Drawing.Point(337, 267);
+            this.txtMatKhau.Location = new System.Drawing.Point(336, 267);
             this.txtMatKhau.Name = "txtMatKhau";
             this.txtMatKhau.Size = new System.Drawing.Size(673, 33);
             this.txtMatKhau.TabIndex = 4;
@@ -145,7 +145,7 @@
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 47.5F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 52.5F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(886, 110);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(885, 110);
             this.tableLayoutPanel2.TabIndex = 5;
             // 
             // btnDangKy
@@ -153,7 +153,7 @@
             this.btnDangKy.BackColor = System.Drawing.Color.IndianRed;
             this.btnDangKy.Dock = System.Windows.Forms.DockStyle.Left;
             this.btnDangKy.ForeColor = System.Drawing.Color.Aqua;
-            this.btnDangKy.Location = new System.Drawing.Point(446, 55);
+            this.btnDangKy.Location = new System.Drawing.Point(445, 55);
             this.btnDangKy.Name = "btnDangKy";
             this.btnDangKy.Size = new System.Drawing.Size(199, 52);
             this.btnDangKy.TabIndex = 4;
@@ -166,7 +166,7 @@
             this.chkHienThiMatKhau.AutoSize = true;
             this.chkHienThiMatKhau.Dock = System.Windows.Forms.DockStyle.Right;
             this.chkHienThiMatKhau.ForeColor = System.Drawing.Color.Aqua;
-            this.chkHienThiMatKhau.Location = new System.Drawing.Point(251, 3);
+            this.chkHienThiMatKhau.Location = new System.Drawing.Point(250, 3);
             this.chkHienThiMatKhau.Name = "chkHienThiMatKhau";
             this.chkHienThiMatKhau.Size = new System.Drawing.Size(189, 46);
             this.chkHienThiMatKhau.TabIndex = 2;
@@ -180,7 +180,7 @@
             this.btnDangNhap.BackColor = System.Drawing.Color.IndianRed;
             this.btnDangNhap.Dock = System.Windows.Forms.DockStyle.Right;
             this.btnDangNhap.ForeColor = System.Drawing.Color.Aqua;
-            this.btnDangNhap.Location = new System.Drawing.Point(241, 55);
+            this.btnDangNhap.Location = new System.Drawing.Point(240, 55);
             this.btnDangNhap.Name = "btnDangNhap";
             this.btnDangNhap.Size = new System.Drawing.Size(199, 52);
             this.btnDangNhap.TabIndex = 3;
@@ -193,7 +193,7 @@
             this.chkQuenMK.AutoSize = true;
             this.chkQuenMK.Dock = System.Windows.Forms.DockStyle.Fill;
             this.chkQuenMK.LinkColor = System.Drawing.Color.Cyan;
-            this.chkQuenMK.Location = new System.Drawing.Point(446, 0);
+            this.chkQuenMK.Location = new System.Drawing.Point(445, 0);
             this.chkQuenMK.Name = "chkQuenMK";
             this.chkQuenMK.Size = new System.Drawing.Size(437, 52);
             this.chkQuenMK.TabIndex = 5;

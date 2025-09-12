@@ -1,4 +1,4 @@
-﻿namespace QuanLyThuVien.Forms
+﻿namespace QuanLyThuVien
 {
     partial class QuanLyNhanVien
     {

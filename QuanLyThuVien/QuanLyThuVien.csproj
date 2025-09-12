@@ -46,10 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChiTietHoaDon.cs">
+    <Compile Include="Forms\ChiTietHoaDon.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ChiTietHoaDon.Designer.cs">
+    <Compile Include="Forms\ChiTietHoaDon.Designer.cs">
       <DependentUpon>ChiTietHoaDon.cs</DependentUpon>
     </Compile>
     <Compile Include="connectData.cs" />
@@ -128,19 +128,19 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QuanLyHoaDon.cs">
+    <Compile Include="Forms\QuanLyHoaDon.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="QuanLyHoaDon.Designer.cs">
+    <Compile Include="Forms\QuanLyHoaDon.Designer.cs">
       <DependentUpon>QuanLyHoaDon.cs</DependentUpon>
     </Compile>
-    <Compile Include="QuanLyNhanVien.cs">
+    <Compile Include="Forms\QuanLyNhanVien.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="QuanLyNhanVien.Designer.cs">
+    <Compile Include="Forms\QuanLyNhanVien.Designer.cs">
       <DependentUpon>QuanLyNhanVien.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="ChiTietHoaDon.resx">
+    <EmbeddedResource Include="Forms\ChiTietHoaDon.resx">
       <DependentUpon>ChiTietHoaDon.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormBook.resx">
@@ -167,7 +167,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="QuanLyHoaDon.resx">
+    <EmbeddedResource Include="Forms\QuanLyHoaDon.resx">
       <DependentUpon>QuanLyHoaDon.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="libraryManagementDataSet.xsc">
