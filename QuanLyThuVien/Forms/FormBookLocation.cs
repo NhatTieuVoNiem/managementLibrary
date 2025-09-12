@@ -218,5 +218,10 @@ namespace QuanLyThuVien.Forms
                 txtNote.Text = dgvBookLocation.Rows[e.RowIndex].Cells["Note"].Value?.ToString();
             }
         }
+
+        private void FormBookLocation_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -140,11 +140,11 @@ namespace QuanLyThuVien.Forms
             // cbAuthor
             // 
             this.cbAuthor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cbAuthor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbAuthor.Location = new System.Drawing.Point(353, 93);
             this.cbAuthor.Name = "cbAuthor";
             this.cbAuthor.Size = new System.Drawing.Size(494, 24);
             this.cbAuthor.TabIndex = 4;
-            cbAuthor.DropDownStyle = ComboBoxStyle.DropDownList;
             // 
             // labelCategory
             // 
@@ -159,11 +159,11 @@ namespace QuanLyThuVien.Forms
             // cbCategory
             // 
             this.cbCategory.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cbCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbCategory.Location = new System.Drawing.Point(353, 133);
             this.cbCategory.Name = "cbCategory";
             this.cbCategory.Size = new System.Drawing.Size(494, 24);
             this.cbCategory.TabIndex = 6;
-            cbCategory.DropDownStyle = ComboBoxStyle.DropDownList;
             // 
             // labelPublisher
             // 
@@ -178,11 +178,11 @@ namespace QuanLyThuVien.Forms
             // cbPublisher
             // 
             this.cbPublisher.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cbPublisher.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbPublisher.Location = new System.Drawing.Point(353, 173);
             this.cbPublisher.Name = "cbPublisher";
             this.cbPublisher.Size = new System.Drawing.Size(494, 24);
             this.cbPublisher.TabIndex = 8;
-            cbPublisher.DropDownStyle = ComboBoxStyle.DropDownList;
             // 
             // labelYear
             // 
@@ -215,11 +215,11 @@ namespace QuanLyThuVien.Forms
             // cbLocation
             // 
             this.cbLocation.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cbLocation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbLocation.Location = new System.Drawing.Point(353, 253);
             this.cbLocation.Name = "cbLocation";
             this.cbLocation.Size = new System.Drawing.Size(494, 24);
             this.cbLocation.TabIndex = 12;
-            cbLocation.DropDownStyle = ComboBoxStyle.DropDownList;
             // 
             // labelQuantity
             // 
