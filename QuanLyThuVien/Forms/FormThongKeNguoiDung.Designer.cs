@@ -1,4 +1,6 @@
-﻿namespace QuanLyThuVien.Forms
+﻿using System.Windows.Forms;
+
+namespace QuanLyThuVien.Forms
 {
     partial class FormThongKeNguoiDung
     {
@@ -37,6 +39,7 @@
             this.dgvThongKe.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
+            dgvThongKe.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvThongKe.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvThongKe.Location = new System.Drawing.Point(12, 60);
             this.dgvThongKe.Name = "dgvThongKe";
