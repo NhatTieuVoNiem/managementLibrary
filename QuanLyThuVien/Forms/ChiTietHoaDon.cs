@@ -20,8 +20,7 @@ namespace QuanLyThuVien
         private int borrowId;
         private int detailID;
         connectData c = new connectData();
-        SqlDataAdapter da;
-        DataTable dt;
+        
 
         public ChiTietHoaDon(int id)
         {
@@ -188,6 +187,8 @@ namespace QuanLyThuVien
 
         private void btnXuat_Click(object sender, EventArgs e)
         {
+            FormXuatHoaDon f = new FormXuatHoaDon(borrowId);
+            f.ShowDialog();
         }
     }
 }
