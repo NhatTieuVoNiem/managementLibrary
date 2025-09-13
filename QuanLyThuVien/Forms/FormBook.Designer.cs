@@ -382,8 +382,8 @@ namespace QuanLyThuVien.Forms
             // 
             // dgvBook
             // 
+            this.dgvBook.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvBook.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvBook.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             this.tableLayoutPanel1.SetColumnSpan(this.dgvBook, 4);
             this.dgvBook.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvBook.Location = new System.Drawing.Point(3, 573);

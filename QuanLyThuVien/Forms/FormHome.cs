@@ -60,14 +60,6 @@ namespace QuanLyThuVien
                     FormBookLocation f_locationBook = new FormBookLocation();
                     frm = f_locationBook;
                     break;
-                case "thốngKếSáchToolStripMenuItem":
-                    FormThongKeSach f_sachThongKe = new FormThongKeSach();
-                    frm = f_sachThongKe;
-                    break;
-                case "thốngKêUserToolStripMenuItem":
-                    FormThongKeNguoiDung f_thongKeUser = new FormThongKeNguoiDung();
-                    frm = f_thongKeUser;
-                    break;
             }
             frm.MdiParent = this;
             frm.WindowState = FormWindowState.Maximized;
@@ -84,14 +76,14 @@ namespace QuanLyThuVien
                     FormThongKeNhanVien f_TK_nhanvien = new FormThongKeNhanVien();
                     frm = f_TK_nhanvien;
                     break;
-                case "menuThongKeSach":
-                    FormThongKeSach f_TK_khachHang = new FormThongKeSach();
-                    frm = f_TK_khachHang;
+                case "thốngKếSáchToolStripMenuItem":
+                    FormThongKeSach f_sachThongKe = new FormThongKeSach();
+                    frm = f_sachThongKe;
                     break;
-                case "menuThongKeKhachHang":
-                    FormThongKeKhachHang f_TK_hoaDon = new FormThongKeKhachHang();
-                    frm = f_TK_hoaDon;
-                    break;                
+                case "thốngKêUserToolStripMenuItem":
+                    FormThongKeNguoiDung f_thongKeUser = new FormThongKeNguoiDung();
+                    frm = f_thongKeUser;
+                    break;
             }
             frm.MdiParent = this;
             frm.WindowState = FormWindowState.Maximized;
