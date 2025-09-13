@@ -75,5 +75,28 @@ namespace QuanLyThuVien
             frm.BringToFront();
         }
 
+        private void báoCáoThốngKêToolStripMenuItem_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            Form frm = new Form();
+            switch (e.ClickedItem.Name)
+            {
+                case "menuThongKeNhanVien":
+                    FormThongKeNhanVien f_TK_nhanvien = new FormThongKeNhanVien();
+                    frm = f_TK_nhanvien;
+                    break;
+                case "menuThongKeSach":
+                    FormThongKeSach f_TK_khachHang = new FormThongKeSach();
+                    frm = f_TK_khachHang;
+                    break;
+                case "menuThongKeKhachHang":
+                    FormThongKeKhachHang f_TK_hoaDon = new FormThongKeKhachHang();
+                    frm = f_TK_hoaDon;
+                    break;                
+            }
+            frm.MdiParent = this;
+            frm.WindowState = FormWindowState.Maximized;
+            frm.Show();
+            frm.BringToFront();
+        }
     }
 }

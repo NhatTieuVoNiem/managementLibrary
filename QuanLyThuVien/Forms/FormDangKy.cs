@@ -10,7 +10,8 @@ namespace QuanLyThuVien
     public partial class FormDangKy : Form
     {
         connectData c = new connectData(); // dùng class connectData
-        SqlCommand Lenh;
+   
+
 
         public FormDangKy()
         {
