@@ -127,11 +127,6 @@
     <Compile Include="Forms\FormDangKy.Designer.cs">
       <DependentUpon>FormDangKy.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FormDangNhap1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>FormDangNhap.resx</DependentUpon>
-    </Compile>
     <Compile Include="Forms\FormHome.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -168,16 +163,10 @@
     <Compile Include="Forms\QuanLyKhachHang.Designer.cs">
       <DependentUpon>QuanLyKhachHang.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormThongKeKhachHang.cs">
+    <Compile Include="Forms\FormThongKeNhanVien.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormThongKeKhachHang.Designer.cs">
-      <DependentUpon>FormThongKeKhachHang.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormThongKeNhanVien.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormThongKeNhanVien.Designer.cs">
+    <Compile Include="Forms\FormThongKeNhanVien.Designer.cs">
       <DependentUpon>FormThongKeNhanVien.cs</DependentUpon>
     </Compile>
     <Compile Include="libraryManagementDataSet.Designer.cs">

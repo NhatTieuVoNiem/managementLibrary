@@ -1,15 +1,6 @@
-﻿using DocumentFormat.OpenXml.Office.Word;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System;
 using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Reflection;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace QuanLyThuVien
@@ -39,7 +30,7 @@ namespace QuanLyThuVien
                 txtNgayLap.Text = row.Cells["Ngày tạo"].Value?.ToString();
                 cbKhachHang.Text = row.Cells["Khách hàng"].Value?.ToString();
                 cbSach.Text = row.Cells["Tên sách"].Value?.ToString();
-                txtGhiChu.Text = row.Cells["Ghi Chú"].Value?.ToString();
+                txtGhiChu.Text = row.Cells["Ghi chú"].Value?.ToString();
             }
         }
 
@@ -48,7 +39,19 @@ namespace QuanLyThuVien
             try
             {
                 c.connect();
-                string sql = "SELECT Borrowing.BorrowID AS [Mã hóa đơn], Borrowing.BorrowDate AS [Ngày tạo], Members.FirstName AS [Nhân viên lập], Users.FullName AS [Khách hàng], Books.Title AS [Tên sách], Borrowing.Note AS [Ghi chú] FROM  Borrowing INNER JOIN Books ON Borrowing.BookID = Books.BookID INNER JOIN  Users ON Borrowing.UserID = Users.UserID INNER JOIN  Members ON Borrowing.MemberID = Members.MemberID";
+                string sql = @"
+                    SELECT 
+                        Borrowing.BorrowID AS [Mã hóa đơn], 
+                        Borrowing.BorrowDate AS [Ngày tạo], 
+                        Users.FullName AS [Nhân viên lập], 
+                        Members.FirstName + ' ' + Members.LastName AS [Khách hàng], 
+                        Books.Title AS [Tên sách], 
+                        Borrowing.Note AS [Ghi chú]
+                    FROM Borrowing
+                    INNER JOIN Books ON Borrowing.BookID = Books.BookID
+                    INNER JOIN Members ON Borrowing.MemberID = Members.MemberID
+                    INNER JOIN Users ON Borrowing.UserID = Users.UserID
+                    WHERE Users.Role = 'staff'"; // chỉ lấy nhân viên
                 da = new SqlDataAdapter(sql, c.conn);
                 dt = new DataTable();
                 da.Fill(dt);
@@ -75,8 +78,8 @@ namespace QuanLyThuVien
                 da.Fill(dt);
 
                 cbSach.DataSource = dt;
-                cbSach.DisplayMember = "Title";   
-                cbSach.ValueMember = "BookID";    
+                cbSach.DisplayMember = "Title";
+                cbSach.ValueMember = "BookID";
             }
             catch (Exception ex)
             {
@@ -93,14 +96,14 @@ namespace QuanLyThuVien
             try
             {
                 c.connect();
-                string sql = "SELECT MemberID, FirstName + ' ' + LastName AS FullName FROM Members";
+                string sql = "SELECT UserID, FullName FROM Users WHERE Role = 'staff'";
                 SqlDataAdapter da = new SqlDataAdapter(sql, c.conn);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
 
                 cbNhanVien.DataSource = dt;
-                cbNhanVien.DisplayMember = "FullName";  
-                cbNhanVien.ValueMember = "MemberID";    
+                cbNhanVien.DisplayMember = "FullName";
+                cbNhanVien.ValueMember = "UserID";
             }
             catch (Exception ex)
             {
@@ -117,14 +120,14 @@ namespace QuanLyThuVien
             try
             {
                 c.connect();
-                string sql = "SELECT UserID, FullName FROM Users";
+                string sql = "SELECT MemberID, FirstName + ' ' + LastName AS FullName FROM Members";
                 SqlDataAdapter da = new SqlDataAdapter(sql, c.conn);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
 
                 cbKhachHang.DataSource = dt;
-                cbKhachHang.DisplayMember = "FullName";  
-                cbKhachHang.ValueMember = "UserID";      
+                cbKhachHang.DisplayMember = "FullName";
+                cbKhachHang.ValueMember = "MemberID";
             }
             catch (Exception ex)
             {
@@ -143,25 +146,21 @@ namespace QuanLyThuVien
                 c.connect();
 
                 // 1. Thêm hóa đơn và lấy BorrowID vừa tạo
-                string sql = "INSERT INTO Borrowing (MemberID, BookID, BorrowDate, Note, UserID) " +
-                             "VALUES (@MemberID, @BookID, @BorrowDate, @Note, @UserID); " +
+                string sql = "INSERT INTO Borrowing (UserID, MemberID, BookID, BorrowDate, Note) " +
+                             "VALUES (@UserID, @MemberID, @BookID, @BorrowDate, @Note); " +
                              "SELECT CAST(SCOPE_IDENTITY() AS INT)";
                 int borrowID;
                 using (SqlCommand cmd = new SqlCommand(sql, c.conn))
                 {
-                    cmd.Parameters.AddWithValue("@MemberID", cbNhanVien.SelectedValue);
-                    cmd.Parameters.AddWithValue("@UserID", cbKhachHang.SelectedValue);
+                    cmd.Parameters.AddWithValue("@UserID", cbNhanVien.SelectedValue);
+                    cmd.Parameters.AddWithValue("@MemberID", cbKhachHang.SelectedValue);
                     cmd.Parameters.AddWithValue("@BookID", cbSach.SelectedValue);
 
                     DateTime borrowDate = string.IsNullOrEmpty(txtNgayLap.Text) ? DateTime.Now : DateTime.Parse(txtNgayLap.Text);
                     cmd.Parameters.AddWithValue("@BorrowDate", borrowDate);
 
-                    if (string.IsNullOrEmpty(txtGhiChu.Text))
-                        cmd.Parameters.AddWithValue("@Note", DBNull.Value);
-                    else
-                        cmd.Parameters.AddWithValue("@Note", txtGhiChu.Text);
+                    cmd.Parameters.AddWithValue("@Note", string.IsNullOrEmpty(txtGhiChu.Text) ? DBNull.Value : (object)txtGhiChu.Text);
 
-                    // Lấy ID vừa tạo
                     borrowID = (int)cmd.ExecuteScalar();
                 }
 
@@ -172,10 +171,7 @@ namespace QuanLyThuVien
                 {
                     cmdDetail.Parameters.AddWithValue("@BorrowID", borrowID);
                     cmdDetail.Parameters.AddWithValue("@Quantity", 1);
-                    if (string.IsNullOrEmpty(txtGhiChu.Text))
-                        cmdDetail.Parameters.AddWithValue("@Note", DBNull.Value);
-                    else
-                        cmdDetail.Parameters.AddWithValue("@Note", txtGhiChu.Text);
+                    cmdDetail.Parameters.AddWithValue("@Note", string.IsNullOrEmpty(txtGhiChu.Text) ? DBNull.Value : (object)txtGhiChu.Text);
                     cmdDetail.ExecuteNonQuery();
                 }
 
@@ -203,39 +199,23 @@ namespace QuanLyThuVien
             try
             {
                 c.connect();
-                string sql = "UPDATE Borrowing SET MemberID = @MemberID,  BookID = @BookID, BorrowDate = @BorrowDate, Note = @Note,  UserID = @UserID WHERE BorrowID = @BorrowID";
+                string sql = "UPDATE Borrowing SET UserID = @UserID, MemberID = @MemberID, BookID = @BookID, BorrowDate = @BorrowDate, Note = @Note WHERE BorrowID = @BorrowID";
 
                 using (SqlCommand cmd = new SqlCommand(sql, c.conn))
                 {
                     cmd.Parameters.AddWithValue("@BorrowID", txtMaHoaDon.Text);
-                    cmd.Parameters.AddWithValue("@MemberID", cbNhanVien.SelectedValue);   
-                    cmd.Parameters.AddWithValue("@UserID", cbKhachHang.SelectedValue);   
-                    cmd.Parameters.AddWithValue("@BookID", cbSach.SelectedValue);        
+                    cmd.Parameters.AddWithValue("@UserID", cbNhanVien.SelectedValue);
+                    cmd.Parameters.AddWithValue("@MemberID", cbKhachHang.SelectedValue);
+                    cmd.Parameters.AddWithValue("@BookID", cbSach.SelectedValue);
 
-                    DateTime borrowDate;
-                    if (string.IsNullOrEmpty(txtNgayLap.Text))
-                        borrowDate = DateTime.Now;
-                    else
-                        borrowDate = DateTime.Parse(txtNgayLap.Text);
-
+                    DateTime borrowDate = string.IsNullOrEmpty(txtNgayLap.Text) ? DateTime.Now : DateTime.Parse(txtNgayLap.Text);
                     cmd.Parameters.AddWithValue("@BorrowDate", borrowDate);
 
-                    if (string.IsNullOrEmpty(txtGhiChu.Text))
-                        cmd.Parameters.AddWithValue("@Note", DBNull.Value);
-                    else
-                        cmd.Parameters.AddWithValue("@Note", txtGhiChu.Text);
+                    cmd.Parameters.AddWithValue("@Note", string.IsNullOrEmpty(txtGhiChu.Text) ? DBNull.Value : (object)txtGhiChu.Text);
 
                     int rows = cmd.ExecuteNonQuery();
-
-                    if (rows > 0)
-                    {
-                        MessageBox.Show("Cập nhật hóa đơn thành công!");
-                        LoadHoaDon();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Không tìm thấy hóa đơn để cập nhật!");
-                    }
+                    MessageBox.Show(rows > 0 ? "Cập nhật hóa đơn thành công!" : "Không tìm thấy hóa đơn để cập nhật!");
+                    LoadHoaDon();
                 }
             }
             catch (Exception ex)
@@ -273,23 +253,14 @@ namespace QuanLyThuVien
                         cmdDetail.Parameters.AddWithValue("@BorrowID", txtMaHoaDon.Text);
                         cmdDetail.ExecuteNonQuery();
                     }
-                    string sql = "DELETE FROM Borrowing WHERE BorrowID = @BorrowID";
 
+                    string sql = "DELETE FROM Borrowing WHERE BorrowID = @BorrowID";
                     using (SqlCommand cmd = new SqlCommand(sql, c.conn))
                     {
                         cmd.Parameters.AddWithValue("@BorrowID", txtMaHoaDon.Text);
-
                         int rows = cmd.ExecuteNonQuery();
-
-                        if (rows > 0)
-                        {
-                            MessageBox.Show("Xóa hóa đơn thành công!");
-                            LoadHoaDon();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Không tìm thấy hóa đơn để xóa!");
-                        }
+                        MessageBox.Show(rows > 0 ? "Xóa hóa đơn thành công!" : "Không tìm thấy hóa đơn để xóa!");
+                        LoadHoaDon();
                     }
                 }
             }
@@ -314,20 +285,27 @@ namespace QuanLyThuVien
             try
             {
                 c.connect();
-                string sql = "SELECT Borrowing.BorrowID AS[Mã Hóa Đơn], Borrowing.BorrowDate AS [Ngày Lập], Members.FirstName AS [Người Lập], Users.FullName AS [Khách Hàng], Borrowing.Note AS[Ghi Chú] FROM Borrowing INNER JOIN Users ON Borrowing.UserID = Users.UserID INNER JOIN Members ON Borrowing.MemberID = Members.MemberID WHERE BorrowID LIKE @Search ";
+                string sql = @"
+                    SELECT 
+                        Borrowing.BorrowID AS [Mã hóa đơn], 
+                        Borrowing.BorrowDate AS [Ngày tạo], 
+                        Users.FullName AS [Nhân viên lập], 
+                        Members.FirstName + ' ' + Members.LastName AS [Khách hàng], 
+                        Borrowing.Note AS [Ghi chú]
+                    FROM Borrowing
+                    INNER JOIN Members ON Borrowing.MemberID = Members.MemberID
+                    INNER JOIN Users ON Borrowing.UserID = Users.UserID
+                    WHERE Borrowing.BorrowID LIKE @Search";
 
                 using (SqlCommand cmd = new SqlCommand(sql, c.conn))
                 {
                     cmd.Parameters.AddWithValue("@Search", "%" + txtMaHoaDon.Text + "%");
-
                     SqlDataAdapter da = new SqlDataAdapter(cmd);
                     DataTable dt = new DataTable();
                     da.Fill(dt);
 
                     if (dt.Rows.Count > 0)
-                    {
                         dgvHoaDon.DataSource = dt;
-                    }
                     else
                     {
                         MessageBox.Show("Không tìm thấy dữ liệu phù hợp!");
@@ -350,7 +328,6 @@ namespace QuanLyThuVien
             if (e.RowIndex >= 0)
             {
                 int borrowId = Convert.ToInt32(dgvHoaDon.Rows[e.RowIndex].Cells["Mã hóa đơn"].Value);
-
                 ChiTietHoaDon frm = new ChiTietHoaDon(borrowId);
                 frm.ShowDialog();
             }

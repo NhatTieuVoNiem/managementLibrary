@@ -76,11 +76,11 @@ namespace QuanLyThuVien
                     FormThongKeNhanVien f_TK_nhanvien = new FormThongKeNhanVien();
                     frm = f_TK_nhanvien;
                     break;
-                case "thốngKếSáchToolStripMenuItem":
+                case "menuThongKeSach":
                     FormThongKeSach f_sachThongKe = new FormThongKeSach();
                     frm = f_sachThongKe;
                     break;
-                case "thốngKêUserToolStripMenuItem":
+                case "menuThongKeKhachHang":
                     FormThongKeNguoiDung f_thongKeUser = new FormThongKeNguoiDung();
                     frm = f_thongKeUser;
                     break;

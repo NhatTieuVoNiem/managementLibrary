@@ -9,47 +9,78 @@ namespace QuanLyThuVien.Forms
     public partial class FormThongKeNguoiDung : Form
     {
         connectData c = new connectData();
+        decimal tongTien = 0; // thêm biến tổng tiền
 
         public FormThongKeNguoiDung()
         {
             InitializeComponent();
         }
-
-        private void FormThongKeNguoiDung_Load(object sender, EventArgs e)
+        private void btnThongKe_Click(object sender, EventArgs e)
         {
-            LoadThongKe();
-        }
+            if (dtpTo.Value.Date < dtpFrom.Value.Date)
+            {
+                MessageBox.Show("Ngày kết thúc không được nhỏ hơn ngày bắt đầu!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                dtpTo.Focus();
+                return;
+            }
 
-        private void LoadThongKe()
-        {
-            c.connect();
-            string sql = @"
-               SELECT TOP 10
-    m.MemberID,
-    (m.FirstName + ' ' + m.LastName) AS TenNguoiMuon,
-    b.BookID,
-    b.Title AS TenSach,
-    (a.FirstName + ' ' + a.LastName) AS TacGia,
-    c.CategoryName AS TheLoai,
-    p.PublisherName AS NhaXuatBan,
-    SUM(bd.Quantity) AS SoLuongMuon
-FROM BorrowingDetails bd
-JOIN Borrowing br ON bd.BorrowID = br.BorrowID
-JOIN Members m    ON br.MemberID = m.MemberID
-JOIN Books b      ON br.BookID = b.BookID
-LEFT JOIN Authors a    ON b.AuthorID = a.AuthorID
-LEFT JOIN Categories c ON b.CategoryID = c.CategoryID
-LEFT JOIN Publishers p ON b.PublisherID = p.PublisherID
-GROUP BY m.MemberID, m.FirstName, m.LastName,
-         b.BookID, b.Title, a.FirstName, a.LastName, c.CategoryName, p.PublisherName
-ORDER BY SoLuongMuon DESC;
-";
+            try
+            {
+                c.connect();
+                string sql = @"
+                    SELECT 
+                        m.MemberID,
+                        (m.FirstName + ' ' + m.LastName) AS TenNguoiMuon,
+                        b.Title AS TenSach,
+                        (a.FirstName + ' ' + a.LastName) AS TacGia,
+                        c.CategoryName AS TheLoai,
+                        p.PublisherName AS NhaXuatBan,
+                        br.BorrowDate AS NgayMuon,
+                        SUM(bd.Quantity) AS SoLuongMuon,
+                        SUM(bd.Quantity * b.Price) AS TongTien
+                    FROM BorrowingDetails bd
+                    JOIN Borrowing br ON bd.BorrowID = br.BorrowID
+                    JOIN Members m ON br.MemberID = m.MemberID
+                    JOIN Books b ON br.BookID = b.BookID
+                    LEFT JOIN Authors a ON b.AuthorID = a.AuthorID
+                    LEFT JOIN Categories c ON b.CategoryID = c.CategoryID
+                    LEFT JOIN Publishers p ON b.PublisherID = p.PublisherID
+                    WHERE br.BorrowDate BETWEEN @From AND @To
+                    GROUP BY m.MemberID, m.FirstName, m.LastName,
+                             b.Title, a.FirstName, a.LastName, c.CategoryName, p.PublisherName, br.BorrowDate
+                    ORDER BY br.BorrowDate ASC, SoLuongMuon DESC;
+                ";
 
-            SqlDataAdapter da = new SqlDataAdapter(sql, c.conn);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            dgvThongKe.DataSource = dt;
-            c.disconnect();
+                SqlCommand cmd = new SqlCommand(sql, c.conn);
+                cmd.Parameters.AddWithValue("@From", dtpFrom.Value.Date);
+                cmd.Parameters.AddWithValue("@To", dtpTo.Value.Date.AddDays(1).AddSeconds(-1));
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                dgvThongKe.DataSource = dt;
+
+                // tính tổng tiền
+                tongTien = 0;
+                foreach (DataRow row in dt.Rows)
+                {
+                    if (decimal.TryParse(row["TongTien"].ToString(), out decimal tien))
+                        tongTien += tien;
+                }
+                lblTongTien.Text = $"Tổng tiền: {tongTien:N0} VND";
+
+                if (dt.Rows.Count == 0)
+                    MessageBox.Show("Không có dữ liệu trong khoảng thời gian này!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi tải dữ liệu: " + ex.Message);
+            }
+            finally
+            {
+                c.disconnect();
+            }
         }
 
         private void btnExportExcel_Click(object sender, EventArgs e)
@@ -74,11 +105,17 @@ ORDER BY SoLuongMuon DESC;
                     {
                         var ws = wb.Worksheets.Add("ThongKeNguoiDung");
 
+                        // Ghi chú ngày thống kê
+                        ws.Cell(1, 1).Value = $"Thống kê từ {dtpFrom.Value:dd/MM/yyyy} đến {dtpTo.Value:dd/MM/yyyy}";
+                        ws.Range(1, 1, 1, dgvThongKe.Columns.Count).Merge();
+                        ws.Cell(1, 1).Style.Font.Bold = true;
+                        ws.Cell(1, 1).Style.Alignment.Horizontal = ClosedXML.Excel.XLAlignmentHorizontalValues.Center;
+
                         // Header
                         for (int i = 0; i < dgvThongKe.Columns.Count; i++)
                         {
-                            ws.Cell(1, i + 1).Value = dgvThongKe.Columns[i].HeaderText;
-                            ws.Cell(1, i + 1).Style.Font.Bold = true;
+                            ws.Cell(2, i + 1).Value = dgvThongKe.Columns[i].HeaderText;
+                            ws.Cell(2, i + 1).Style.Font.Bold = true;
                         }
 
                         // Data
@@ -86,16 +123,26 @@ ORDER BY SoLuongMuon DESC;
                         {
                             for (int j = 0; j < dgvThongKe.Columns.Count; j++)
                             {
-                                ws.Cell(i + 2, j + 1).Value = dgvThongKe.Rows[i].Cells[j].Value?.ToString();
+                                var cell = ws.Cell(i + 3, j + 1);
+                                cell.Value = dgvThongKe.Rows[i].Cells[j].Value?.ToString();
+
+                                // định dạng ngày mượn
+                                if (dgvThongKe.Columns[j].HeaderText == "NgayMuon" &&
+                                    DateTime.TryParse(cell.Value.ToString(), out DateTime date))
+                                {
+                                    cell.Value = date;
+                                    cell.Style.DateFormat.Format = "dd/MM/yyyy";
+                                }
                             }
                         }
 
-                        // Border + auto size
-                        var range = ws.Range(1, 1, dgvThongKe.Rows.Count + 1, dgvThongKe.Columns.Count);
-                        range.Style.Border.OutsideBorder = ClosedXML.Excel.XLBorderStyleValues.Thin;
-                        range.Style.Border.InsideBorder = ClosedXML.Excel.XLBorderStyleValues.Thin;
-                        ws.Columns().AdjustToContents();
+                        // Dòng tổng tiền
+                        int lastRow = dgvThongKe.Rows.Count + 3;
+                        ws.Cell(lastRow, dgvThongKe.Columns.Count - 1).Value = "Tổng tiền:";
+                        ws.Cell(lastRow, dgvThongKe.Columns.Count).Value = tongTien;
+                        ws.Range(lastRow, dgvThongKe.Columns.Count - 1, lastRow, dgvThongKe.Columns.Count).Style.Font.Bold = true;
 
+                        ws.Columns().AdjustToContents();
                         wb.SaveAs(sfd.FileName);
                     }
                     MessageBox.Show("Xuất Excel thành công!");
