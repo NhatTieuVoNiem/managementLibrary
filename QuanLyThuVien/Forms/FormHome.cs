@@ -61,8 +61,12 @@ namespace QuanLyThuVien
                     frm = f_locationBook;
                     break;
                 case "thốngKếSáchToolStripMenuItem":
-                    FormSachThongKe f_sachThongKe = new FormSachThongKe();
+                    FormThongKeSach f_sachThongKe = new FormThongKeSach();
                     frm = f_sachThongKe;
+                    break;
+                case "thốngKêUserToolStripMenuItem":
+                    FormThongKeNguoiDung f_thongKeUser = new FormThongKeNguoiDung();
+                    frm = f_thongKeUser;
                     break;
             }
             frm.MdiParent = this;

@@ -2,47 +2,45 @@
 using System;
 using System.Data;
 using System.Data.SqlClient;
-using System.IO;
 using System.Windows.Forms;
 
 namespace QuanLyThuVien.Forms
 {
-    public partial class FormSachThongKe : Form
+    public partial class FormThongKeSach : Form
     {
+        connectData c = new connectData();
 
-        public FormSachThongKe()
+        public FormThongKeSach()
         {
             InitializeComponent();
         }
-        connectData c = new connectData();
-        private void FormThongKe_Load(object sender, EventArgs e)
+
+        private void FormThongKeSachMuonNhieu_Load(object sender, EventArgs e)
         {
             LoadThongKe();
         }
 
         private void LoadThongKe()
         {
-            {
-                c.connect();
-                // Tổng số sách
-                SqlCommand cmd1 = new SqlCommand("SELECT COUNT(*) FROM Books", c.conn);
-                int tongSach = (int)cmd1.ExecuteScalar();
-                lblTongSach.Text = "Tổng số sách: " + tongSach;
+            c.connect();
+            string sql = @"
+                SELECT TOP 10 
+                       b.BookID,
+                       b.Title AS [Tên sách],
+                       (a.FirstName + ' ' + a.LastName) AS [Tác giả],
+                       COUNT(br.BookID) AS [Số lượt mượn]
+                FROM Borrowing br
+                INNER JOIN Books b ON br.BookID = b.BookID
+                INNER JOIN Authors a ON b.AuthorID = a.AuthorID
+                GROUP BY b.BookID, b.Title, a.FirstName, a.LastName
+                ORDER BY [Số lượt mượn] DESC";
 
-                // Top 10 sách mượn nhiều nhất
-                SqlDataAdapter da = new SqlDataAdapter(@"
-                    SELECT TOP 10 b.Title AS [Tên sách], COUNT(*) AS [Số lượt mượn]
-                    FROM BorrowingDetails bd
-                    JOIN Books b ON bd.BookID = b.BookID
-                    GROUP BY b.Title
-                    ORDER BY [Số lượt mượn] DESC", c.conn);
-
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-                dgvThongKe.DataSource = dt;
-            }
+            SqlDataAdapter da = new SqlDataAdapter(sql, c.conn);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            dgvThongKe.DataSource = dt;
+            c.disconnect();
         }
-
 
         private void btnExportExcel_Click(object sender, EventArgs e)
         {
@@ -55,7 +53,7 @@ namespace QuanLyThuVien.Forms
             SaveFileDialog sfd = new SaveFileDialog
             {
                 Filter = "Excel Workbook|*.xlsx",
-                FileName = "ThongKeSach.xlsx"
+                FileName = "ThongKeSachMuonNhieu.xlsx"
             };
 
             if (sfd.ShowDialog() == DialogResult.OK)
@@ -64,16 +62,16 @@ namespace QuanLyThuVien.Forms
                 {
                     using (XLWorkbook wb = new XLWorkbook())
                     {
-                        var ws = wb.Worksheets.Add("ThongKe");
+                        var ws = wb.Worksheets.Add("ThongKeSachMuonNhieu");
 
-                        // Ghi header
+                        // Header
                         for (int i = 0; i < dgvThongKe.Columns.Count; i++)
                         {
                             ws.Cell(1, i + 1).Value = dgvThongKe.Columns[i].HeaderText;
                             ws.Cell(1, i + 1).Style.Font.Bold = true;
                         }
 
-                        // Ghi dữ liệu
+                        // Data
                         for (int i = 0; i < dgvThongKe.Rows.Count; i++)
                         {
                             for (int j = 0; j < dgvThongKe.Columns.Count; j++)
@@ -82,26 +80,21 @@ namespace QuanLyThuVien.Forms
                             }
                         }
 
-                        // Thêm border cho toàn bảng
+                        // Border + auto size
                         var range = ws.Range(1, 1, dgvThongKe.Rows.Count + 1, dgvThongKe.Columns.Count);
-                        range.Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
-                        range.Style.Border.InsideBorder = XLBorderStyleValues.Thin;
-
-                        // Tự động co giãn cột
+                        range.Style.Border.OutsideBorder = ClosedXML.Excel.XLBorderStyleValues.Thin;
+                        range.Style.Border.InsideBorder = ClosedXML.Excel.XLBorderStyleValues.Thin;
                         ws.Columns().AdjustToContents();
 
-                        // Lưu file
                         wb.SaveAs(sfd.FileName);
                     }
-
-                    MessageBox.Show("Xuất Excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Xuất Excel thành công!");
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Lỗi khi xuất Excel: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Lỗi khi xuất Excel: " + ex.Message);
                 }
             }
-
         }
     }
 }
