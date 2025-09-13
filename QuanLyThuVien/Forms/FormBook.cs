@@ -22,7 +22,9 @@ namespace QuanLyThuVien.Forms
             try
             {
                 c.connect();
-                string sql = "SELECT BookID, Title, AuthorID, CategoryID, PublisherID, YearPublished, LocationID, Quantity, Available, Note FROM Books";
+                string sql = @"SELECT BookID, Title, AuthorID, CategoryID, PublisherID, YearPublished, LocationID, 
+                                      Quantity, Available, BorrowPrice, Price, Note 
+                               FROM Books";
                 SqlDataAdapter da = new SqlDataAdapter(sql, c.conn);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
@@ -93,6 +95,8 @@ namespace QuanLyThuVien.Forms
                 cbLocation.SelectedValue = dgvBook.Rows[e.RowIndex].Cells["LocationID"].Value;
                 txtQuantity.Text = dgvBook.Rows[e.RowIndex].Cells["Quantity"].Value.ToString();
                 txtAvailable.Text = dgvBook.Rows[e.RowIndex].Cells["Available"].Value.ToString();
+                txtBorrowPrice.Text = dgvBook.Rows[e.RowIndex].Cells["BorrowPrice"].Value.ToString();
+                txtPrice.Text = dgvBook.Rows[e.RowIndex].Cells["Price"].Value.ToString();
                 txtNote.Text = dgvBook.Rows[e.RowIndex].Cells["Note"].Value.ToString();
             }
         }
@@ -115,9 +119,11 @@ namespace QuanLyThuVien.Forms
 
             if (!int.TryParse(txtYear.Text, out int year) ||
                 !int.TryParse(txtQuantity.Text, out int quantity) ||
-                !int.TryParse(txtAvailable.Text, out int available))
+                !int.TryParse(txtAvailable.Text, out int available) ||
+                !decimal.TryParse(txtBorrowPrice.Text, out decimal borrowPrice) ||
+                !decimal.TryParse(txtPrice.Text, out decimal Price))
             {
-                MessageBox.Show("Năm, số lượng, có sẵn phải là số!");
+                MessageBox.Show("Năm, số lượng, có sẵn, giá mượn, giá bán phải là số!");
                 return;
             }
 
@@ -125,8 +131,10 @@ namespace QuanLyThuVien.Forms
             {
                 c.connect();
                 string sql = @"INSERT INTO Books 
-                            (Title, AuthorID, CategoryID, PublisherID, YearPublished, LocationID, Quantity, Available, Note) 
-                            VALUES (@Title, @AuthorID, @CategoryID, @PublisherID, @YearPublished, @LocationID, @Quantity, @Available, @Note)";
+                            (Title, AuthorID, CategoryID, PublisherID, YearPublished, LocationID, 
+                             Quantity, Available, BorrowPrice, Price, Note) 
+                            VALUES (@Title, @AuthorID, @CategoryID, @PublisherID, @YearPublished, 
+                                    @LocationID, @Quantity, @Available, @BorrowPrice, @Price, @Note)";
                 SqlCommand cmd = new SqlCommand(sql, c.conn);
                 cmd.Parameters.AddWithValue("@Title", txtBookTitle.Text);
                 cmd.Parameters.AddWithValue("@AuthorID", cbAuthor.SelectedValue);
@@ -136,6 +144,8 @@ namespace QuanLyThuVien.Forms
                 cmd.Parameters.AddWithValue("@LocationID", cbLocation.SelectedValue);
                 cmd.Parameters.AddWithValue("@Quantity", quantity);
                 cmd.Parameters.AddWithValue("@Available", available);
+                cmd.Parameters.AddWithValue("@BorrowPrice", borrowPrice);
+                cmd.Parameters.AddWithValue("@Price", Price);
                 cmd.Parameters.AddWithValue("@Note", txtNote.Text);
                 cmd.ExecuteNonQuery();
 
@@ -164,9 +174,11 @@ namespace QuanLyThuVien.Forms
 
             if (!int.TryParse(txtYear.Text, out int year) ||
                 !int.TryParse(txtQuantity.Text, out int quantity) ||
-                !int.TryParse(txtAvailable.Text, out int available))
+                !int.TryParse(txtAvailable.Text, out int available) ||
+                !decimal.TryParse(txtBorrowPrice.Text, out decimal borrowPrice) ||
+                !decimal.TryParse(txtPrice.Text, out decimal Price))
             {
-                MessageBox.Show("Năm, số lượng, có sẵn phải là số!");
+                MessageBox.Show("Năm, số lượng, có sẵn, giá mượn, giá bán phải là số!");
                 return;
             }
 
@@ -177,7 +189,10 @@ namespace QuanLyThuVien.Forms
                 c.connect();
                 string sql = @"UPDATE Books 
                                SET Title=@Title, AuthorID=@AuthorID, CategoryID=@CategoryID, PublisherID=@PublisherID,
-                                   YearPublished=@YearPublished, LocationID=@LocationID, Quantity=@Quantity, Available=@Available, Note=@Note
+                                   YearPublished=@YearPublished, LocationID=@LocationID, 
+                                   Quantity=@Quantity, Available=@Available, 
+                                   BorrowPrice=@BorrowPrice, Price=@Price, 
+                                   Note=@Note
                                WHERE BookID=@BookID";
                 SqlCommand cmd = new SqlCommand(sql, c.conn);
                 cmd.Parameters.AddWithValue("@BookID", bookId);
@@ -189,6 +204,8 @@ namespace QuanLyThuVien.Forms
                 cmd.Parameters.AddWithValue("@LocationID", cbLocation.SelectedValue);
                 cmd.Parameters.AddWithValue("@Quantity", quantity);
                 cmd.Parameters.AddWithValue("@Available", available);
+                cmd.Parameters.AddWithValue("@BorrowPrice", borrowPrice);
+                cmd.Parameters.AddWithValue("@Price", Price);
                 cmd.Parameters.AddWithValue("@Note", txtNote.Text);
                 cmd.ExecuteNonQuery();
 
@@ -205,9 +222,8 @@ namespace QuanLyThuVien.Forms
 
             LoadData();
         }
-
-        // ===== Xoá sách =====
-        private void btnDelete_Click(object sender, EventArgs e)
+// ===== Xoá sách =====
+private void btnDelete_Click(object sender, EventArgs e)
         {
             if (dgvBook.CurrentRow == null)
             {

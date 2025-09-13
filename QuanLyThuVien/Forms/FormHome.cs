@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -59,6 +60,10 @@ namespace QuanLyThuVien
                     FormBookLocation f_locationBook = new FormBookLocation();
                     frm = f_locationBook;
                     break;
+                case "thốngKếSáchToolStripMenuItem":
+                    FormSachThongKe f_sachThongKe = new FormSachThongKe();
+                    frm = f_sachThongKe;
+                    break;
             }
             frm.MdiParent = this;
             frm.WindowState = FormWindowState.Maximized;
@@ -66,6 +71,5 @@ namespace QuanLyThuVien
             frm.BringToFront();
         }
 
-       
     }
 }

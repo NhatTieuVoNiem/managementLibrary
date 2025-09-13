@@ -39,6 +39,10 @@ namespace QuanLyThuVien.Forms
             this.txtAvailable = new System.Windows.Forms.TextBox();
             this.labelNote = new System.Windows.Forms.Label();
             this.txtNote = new System.Windows.Forms.TextBox();
+            this.labelBorrowPrice = new System.Windows.Forms.Label();
+            this.txtBorrowPrice = new System.Windows.Forms.TextBox();
+            this.labelSalePrice = new System.Windows.Forms.Label();
+            this.txtPrice = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
@@ -76,12 +80,16 @@ namespace QuanLyThuVien.Forms
             this.tableLayoutPanel1.Controls.Add(this.txtAvailable, 2, 8);
             this.tableLayoutPanel1.Controls.Add(this.labelNote, 1, 9);
             this.tableLayoutPanel1.Controls.Add(this.txtNote, 2, 9);
-            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 2, 10);
-            this.tableLayoutPanel1.Controls.Add(this.dgvBook, 0, 11);
+            this.tableLayoutPanel1.Controls.Add(this.labelBorrowPrice, 1, 10);
+            this.tableLayoutPanel1.Controls.Add(this.txtBorrowPrice, 2, 10);
+            this.tableLayoutPanel1.Controls.Add(this.labelSalePrice, 1, 11);
+            this.tableLayoutPanel1.Controls.Add(this.txtPrice, 2, 11);
+            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 2, 12);
+            this.tableLayoutPanel1.Controls.Add(this.dgvBook, 0, 13);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 12;
+            this.tableLayoutPanel1.RowCount = 14;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
@@ -92,6 +100,8 @@ namespace QuanLyThuVien.Forms
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1000, 700);
@@ -271,9 +281,46 @@ namespace QuanLyThuVien.Forms
             // 
             this.txtNote.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtNote.Location = new System.Drawing.Point(353, 373);
+            this.txtNote.Multiline = true;
             this.txtNote.Name = "txtNote";
-            this.txtNote.Size = new System.Drawing.Size(494, 22);
+            this.txtNote.Size = new System.Drawing.Size(494, 54);
             this.txtNote.TabIndex = 18;
+            // 
+            // labelBorrowPrice
+            // 
+            this.labelBorrowPrice.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelBorrowPrice.Location = new System.Drawing.Point(153, 430);
+            this.labelBorrowPrice.Name = "labelBorrowPrice";
+            this.labelBorrowPrice.Size = new System.Drawing.Size(194, 40);
+            this.labelBorrowPrice.TabIndex = 21;
+            this.labelBorrowPrice.Text = "Giá mượn:";
+            this.labelBorrowPrice.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtBorrowPrice
+            // 
+            this.txtBorrowPrice.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtBorrowPrice.Location = new System.Drawing.Point(353, 433);
+            this.txtBorrowPrice.Name = "txtBorrowPrice";
+            this.txtBorrowPrice.Size = new System.Drawing.Size(494, 22);
+            this.txtBorrowPrice.TabIndex = 22;
+            // 
+            // labelSalePrice
+            // 
+            this.labelSalePrice.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelSalePrice.Location = new System.Drawing.Point(153, 470);
+            this.labelSalePrice.Name = "labelSalePrice";
+            this.labelSalePrice.Size = new System.Drawing.Size(194, 40);
+            this.labelSalePrice.TabIndex = 23;
+            this.labelSalePrice.Text = "Giá bán:";
+            this.labelSalePrice.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtPrice
+            // 
+            this.txtPrice.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtPrice.Location = new System.Drawing.Point(353, 473);
+            this.txtPrice.Name = "txtPrice";
+            this.txtPrice.Size = new System.Drawing.Size(494, 22);
+            this.txtPrice.TabIndex = 24;
             // 
             // tableLayoutPanel2
             // 
@@ -287,9 +334,9 @@ namespace QuanLyThuVien.Forms
             this.tableLayoutPanel2.Controls.Add(this.btnDelete, 2, 0);
             this.tableLayoutPanel2.Controls.Add(this.btnSearch, 3, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(353, 433);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(353, 513);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 54F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(494, 54);
             this.tableLayoutPanel2.TabIndex = 19;
             // 
@@ -301,7 +348,7 @@ namespace QuanLyThuVien.Forms
             this.btnAdd.Size = new System.Drawing.Size(117, 48);
             this.btnAdd.TabIndex = 0;
             this.btnAdd.Text = "Thêm";
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            this.btnAdd.UseVisualStyleBackColor = true;
             // 
             // btnEdit
             // 
@@ -311,7 +358,7 @@ namespace QuanLyThuVien.Forms
             this.btnEdit.Size = new System.Drawing.Size(117, 48);
             this.btnEdit.TabIndex = 1;
             this.btnEdit.Text = "Sửa";
-            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
+            this.btnEdit.UseVisualStyleBackColor = true;
             // 
             // btnDelete
             // 
@@ -321,7 +368,7 @@ namespace QuanLyThuVien.Forms
             this.btnDelete.Size = new System.Drawing.Size(117, 48);
             this.btnDelete.TabIndex = 2;
             this.btnDelete.Text = "Xóa";
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            this.btnDelete.UseVisualStyleBackColor = true;
             // 
             // btnSearch
             // 
@@ -331,23 +378,25 @@ namespace QuanLyThuVien.Forms
             this.btnSearch.Size = new System.Drawing.Size(119, 48);
             this.btnSearch.TabIndex = 3;
             this.btnSearch.Text = "Tìm kiếm";
-            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            this.btnSearch.UseVisualStyleBackColor = true;
             // 
             // dgvBook
             // 
-            this.dgvBook.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvBook.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvBook.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             this.tableLayoutPanel1.SetColumnSpan(this.dgvBook, 4);
             this.dgvBook.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvBook.Location = new System.Drawing.Point(3, 493);
+            this.dgvBook.Location = new System.Drawing.Point(3, 573);
             this.dgvBook.Name = "dgvBook";
             this.dgvBook.RowHeadersWidth = 51;
-            this.dgvBook.Size = new System.Drawing.Size(994, 204);
+            this.dgvBook.RowTemplate.Height = 24;
+            this.dgvBook.Size = new System.Drawing.Size(994, 124);
             this.dgvBook.TabIndex = 20;
-            this.dgvBook.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvBook_CellClick);
             // 
             // FormBook
             // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1000, 700);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "FormBook";
@@ -382,6 +431,10 @@ namespace QuanLyThuVien.Forms
         private System.Windows.Forms.TextBox txtAvailable;
         private System.Windows.Forms.Label labelNote;
         private System.Windows.Forms.TextBox txtNote;
+        private System.Windows.Forms.Label labelBorrowPrice;
+        private System.Windows.Forms.TextBox txtBorrowPrice;
+        private System.Windows.Forms.Label labelSalePrice;
+        private System.Windows.Forms.TextBox txtPrice;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnEdit;
