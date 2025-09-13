@@ -32,8 +32,7 @@ namespace QuanLyThuVien.Forms
     (a.FirstName + ' ' + a.LastName) AS TacGia,
     c.CategoryName AS TheLoai,
     p.PublisherName AS NhaXuatBan,
-    SUM(bd.Quantity) AS SoLuongMuon,
-    
+    SUM(bd.Quantity) AS SoLuongMuon
 FROM BorrowingDetails bd
 JOIN Borrowing br ON bd.BorrowID = br.BorrowID
 JOIN Members m    ON br.MemberID = m.MemberID
