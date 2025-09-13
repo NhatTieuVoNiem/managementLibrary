@@ -120,6 +120,19 @@ CREATE TABLE Customers (
     Email NVARCHAR(50),
     RegisterDate DATE
 );
+CREATE TABLE Salaries (
+    SalaryID INT IDENTITY PRIMARY KEY,
+    EmployeeID NVARCHAR(10) FOREIGN KEY REFERENCES Employees(EmployeeID),
+    Month INT,
+    Year INT,
+    BaseSalary DECIMAL(18,2),
+    WorkDays INT,
+    Allowance DECIMAL(18,2),
+    Bonus DECIMAL(18,2),
+    Deduction DECIMAL(18,2),
+    TotalSalary AS (BaseSalary / 26.0 * WorkDays + Allowance + Bonus - Deduction) PERSISTED
+);
+
 
 
 GO
