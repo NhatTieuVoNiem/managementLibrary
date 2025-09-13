@@ -36,8 +36,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.txtMaHoaDon = new System.Windows.Forms.TextBox();
             this.txtNgayLap = new System.Windows.Forms.TextBox();
-            this.txtNhanVienLap = new System.Windows.Forms.TextBox();
-            this.txtKhachHang = new System.Windows.Forms.TextBox();
             this.dgvHoaDon = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.btnThem = new System.Windows.Forms.Button();
@@ -45,7 +43,11 @@
             this.btnXoa = new System.Windows.Forms.Button();
             this.btnTimKiem = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.txtGhiChu = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.cbSach = new System.Windows.Forms.ComboBox();
+            this.txtGhiChu = new System.Windows.Forms.TextBox();
+            this.cbNhanVien = new System.Windows.Forms.ComboBox();
+            this.cbKhachHang = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHoaDon)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
@@ -54,28 +56,31 @@
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 4;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.23709F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 59.69518F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10.00678F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.2508F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 59.73564F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10.00678F));
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label3, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.label4, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.label5, 1, 4);
-            this.tableLayoutPanel1.Controls.Add(this.label7, 1, 6);
+            this.tableLayoutPanel1.Controls.Add(this.label7, 1, 7);
             this.tableLayoutPanel1.Controls.Add(this.txtMaHoaDon, 2, 2);
             this.tableLayoutPanel1.Controls.Add(this.txtNgayLap, 2, 3);
-            this.tableLayoutPanel1.Controls.Add(this.txtNhanVienLap, 2, 4);
-            this.tableLayoutPanel1.Controls.Add(this.txtKhachHang, 2, 6);
-            this.tableLayoutPanel1.Controls.Add(this.dgvHoaDon, 3, 7);
-            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 1, 7);
+            this.tableLayoutPanel1.Controls.Add(this.dgvHoaDon, 3, 8);
+            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 1, 8);
             this.tableLayoutPanel1.Controls.Add(this.label2, 1, 5);
+            this.tableLayoutPanel1.Controls.Add(this.label6, 1, 6);
+            this.tableLayoutPanel1.Controls.Add(this.cbSach, 2, 6);
             this.tableLayoutPanel1.Controls.Add(this.txtGhiChu, 2, 5);
+            this.tableLayoutPanel1.Controls.Add(this.cbNhanVien, 2, 4);
+            this.tableLayoutPanel1.Controls.Add(this.cbKhachHang, 2, 7);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Font = new System.Drawing.Font("Times New Roman", 13.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 9;
+            this.tableLayoutPanel1.RowCount = 10;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 43F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 43F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 43F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 43F));
@@ -143,7 +148,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label7.Location = new System.Drawing.Point(121, 258);
+            this.label7.Location = new System.Drawing.Point(121, 301);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(233, 43);
             this.label7.TabIndex = 6;
@@ -169,38 +174,20 @@
             this.txtNgayLap.TabIndex = 9;
             this.txtNgayLap.UseWaitCursor = true;
             // 
-            // txtNhanVienLap
-            // 
-            this.txtNhanVienLap.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtNhanVienLap.Location = new System.Drawing.Point(360, 175);
-            this.txtNhanVienLap.Name = "txtNhanVienLap";
-            this.txtNhanVienLap.Size = new System.Drawing.Size(699, 33);
-            this.txtNhanVienLap.TabIndex = 10;
-            this.txtNhanVienLap.UseWaitCursor = true;
-            // 
-            // txtKhachHang
-            // 
-            this.txtKhachHang.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtKhachHang.Location = new System.Drawing.Point(360, 261);
-            this.txtKhachHang.Name = "txtKhachHang";
-            this.txtKhachHang.Size = new System.Drawing.Size(699, 33);
-            this.txtKhachHang.TabIndex = 11;
-            this.txtKhachHang.UseWaitCursor = true;
-            // 
             // dgvHoaDon
             // 
             this.dgvHoaDon.AllowUserToOrderColumns = true;
-            this.dgvHoaDon.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dgvHoaDon.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvHoaDon.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvHoaDon.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tableLayoutPanel1.SetColumnSpan(this.dgvHoaDon, 4);
             this.dgvHoaDon.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvHoaDon.Location = new System.Drawing.Point(3, 347);
+            this.dgvHoaDon.Location = new System.Drawing.Point(3, 390);
             this.dgvHoaDon.Name = "dgvHoaDon";
             this.dgvHoaDon.ReadOnly = true;
             this.dgvHoaDon.RowHeadersWidth = 51;
             this.dgvHoaDon.RowTemplate.Height = 24;
-            this.dgvHoaDon.Size = new System.Drawing.Size(1175, 89);
+            this.dgvHoaDon.Size = new System.Drawing.Size(1175, 46);
             this.dgvHoaDon.TabIndex = 12;
             this.dgvHoaDon.UseWaitCursor = true;
             this.dgvHoaDon.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvHoaDon_CellClick);
@@ -220,7 +207,7 @@
             this.tableLayoutPanel2.Controls.Add(this.btnXoa, 2, 0);
             this.tableLayoutPanel2.Controls.Add(this.btnTimKiem, 3, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(121, 304);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(121, 347);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -288,15 +275,55 @@
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.label2.UseWaitCursor = true;
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label6.Location = new System.Drawing.Point(121, 258);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(233, 43);
+            this.label6.TabIndex = 16;
+            this.label6.Text = "Sách";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label6.UseWaitCursor = true;
+            // 
+            // cbSach
+            // 
+            this.cbSach.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cbSach.FormattingEnabled = true;
+            this.cbSach.Location = new System.Drawing.Point(360, 261);
+            this.cbSach.Name = "cbSach";
+            this.cbSach.Size = new System.Drawing.Size(699, 33);
+            this.cbSach.TabIndex = 17;
+            this.cbSach.UseWaitCursor = true;
+            // 
             // txtGhiChu
             // 
             this.txtGhiChu.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtGhiChu.FormattingEnabled = true;
             this.txtGhiChu.Location = new System.Drawing.Point(360, 218);
             this.txtGhiChu.Name = "txtGhiChu";
             this.txtGhiChu.Size = new System.Drawing.Size(699, 33);
-            this.txtGhiChu.TabIndex = 15;
+            this.txtGhiChu.TabIndex = 18;
             this.txtGhiChu.UseWaitCursor = true;
+            // 
+            // cbNhanVien
+            // 
+            this.cbNhanVien.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cbNhanVien.FormattingEnabled = true;
+            this.cbNhanVien.Location = new System.Drawing.Point(360, 175);
+            this.cbNhanVien.Name = "cbNhanVien";
+            this.cbNhanVien.Size = new System.Drawing.Size(699, 33);
+            this.cbNhanVien.TabIndex = 19;
+            this.cbNhanVien.UseWaitCursor = true;
+            // 
+            // cbKhachHang
+            // 
+            this.cbKhachHang.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cbKhachHang.FormattingEnabled = true;
+            this.cbKhachHang.Location = new System.Drawing.Point(360, 304);
+            this.cbKhachHang.Name = "cbKhachHang";
+            this.cbKhachHang.Size = new System.Drawing.Size(699, 33);
+            this.cbKhachHang.TabIndex = 20;
             // 
             // QuanLyHoaDon
             // 
@@ -325,7 +352,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtMaHoaDon;
         private System.Windows.Forms.TextBox txtNgayLap;
-        private System.Windows.Forms.TextBox txtNhanVienLap;
         private System.Windows.Forms.DataGridView dgvHoaDon;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Button btnThem;
@@ -333,8 +359,11 @@
         private System.Windows.Forms.Button btnXoa;
         private System.Windows.Forms.Button btnTimKiem;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox txtKhachHang;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox txtGhiChu;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox cbSach;
+        private System.Windows.Forms.TextBox txtGhiChu;
+        private System.Windows.Forms.ComboBox cbNhanVien;
+        private System.Windows.Forms.ComboBox cbKhachHang;
     }
 }
