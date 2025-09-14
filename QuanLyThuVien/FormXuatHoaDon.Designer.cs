@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            Microsoft.Reporting.WinForms.ReportDataSource reportDataSource1 = new Microsoft.Reporting.WinForms.ReportDataSource();
             this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
             this.label1 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -82,6 +83,9 @@
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.reportViewer2, 3);
             this.reportViewer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            reportDataSource1.Name = "libraryManagementDataSet";
+            reportDataSource1.Value = this.ThongTinHoaDonBindingSource;
+            this.reportViewer2.LocalReport.DataSources.Add(reportDataSource1);
             this.reportViewer2.LocalReport.ReportEmbeddedResource = "QuanLyThuVien.ReportHoaDon.rdlc";
             this.reportViewer2.Location = new System.Drawing.Point(3, 93);
             this.reportViewer2.Name = "reportViewer2";
