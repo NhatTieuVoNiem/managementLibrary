@@ -211,12 +211,6 @@
     <Compile Include="Forms\QuanLyHoaDon.Designer.cs">
       <DependentUpon>QuanLyHoaDon.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\QuanLyNhanVien.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\QuanLyNhanVien.Designer.cs">
-      <DependentUpon>QuanLyNhanVien.cs</DependentUpon>
-    </Compile>
     <Compile Include="SqlServerTypes\Loader.cs" />
     <EmbeddedResource Include="Forms\ChiTietHoaDon.resx">
       <DependentUpon>ChiTietHoaDon.cs</DependentUpon>
@@ -232,9 +226,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormDangNhap.resx">
       <DependentUpon>FormDangNhap.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormHome.resx">
-      <DependentUpon>FormHome.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormThongKeNguoiDung.resx">
       <DependentUpon>FormThongKeNguoiDung.cs</DependentUpon>

@@ -86,7 +86,7 @@
             // 
             this.lblUsername.AutoSize = true;
             this.lblUsername.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblUsername.Location = new System.Drawing.Point(159, 58);
+            this.lblUsername.Location = new System.Drawing.Point(159, 52);
             this.lblUsername.Name = "lblUsername";
             this.lblUsername.Size = new System.Drawing.Size(202, 34);
             this.lblUsername.TabIndex = 0;
@@ -96,7 +96,7 @@
             // txtUsername
             // 
             this.txtUsername.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtUsername.Location = new System.Drawing.Point(367, 60);
+            this.txtUsername.Location = new System.Drawing.Point(367, 54);
             this.txtUsername.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(516, 30);
@@ -106,7 +106,7 @@
             // 
             this.lblPassword.AutoSize = true;
             this.lblPassword.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblPassword.Location = new System.Drawing.Point(159, 92);
+            this.lblPassword.Location = new System.Drawing.Point(159, 86);
             this.lblPassword.Name = "lblPassword";
             this.lblPassword.Size = new System.Drawing.Size(202, 34);
             this.lblPassword.TabIndex = 1;
@@ -116,7 +116,7 @@
             // txtPassword
             // 
             this.txtPassword.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtPassword.Location = new System.Drawing.Point(367, 94);
+            this.txtPassword.Location = new System.Drawing.Point(367, 88);
             this.txtPassword.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(516, 30);
@@ -127,7 +127,7 @@
             // 
             this.lblConfirmPassword.AutoSize = true;
             this.lblConfirmPassword.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblConfirmPassword.Location = new System.Drawing.Point(159, 126);
+            this.lblConfirmPassword.Location = new System.Drawing.Point(159, 120);
             this.lblConfirmPassword.Name = "lblConfirmPassword";
             this.lblConfirmPassword.Size = new System.Drawing.Size(202, 34);
             this.lblConfirmPassword.TabIndex = 2;
@@ -137,7 +137,7 @@
             // txtConfirmPassword
             // 
             this.txtConfirmPassword.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtConfirmPassword.Location = new System.Drawing.Point(367, 128);
+            this.txtConfirmPassword.Location = new System.Drawing.Point(367, 122);
             this.txtConfirmPassword.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtConfirmPassword.Name = "txtConfirmPassword";
             this.txtConfirmPassword.Size = new System.Drawing.Size(516, 30);
@@ -148,7 +148,7 @@
             // 
             this.lbFirstName.AutoSize = true;
             this.lbFirstName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbFirstName.Location = new System.Drawing.Point(159, 160);
+            this.lbFirstName.Location = new System.Drawing.Point(159, 154);
             this.lbFirstName.Name = "lbFirstName";
             this.lbFirstName.Size = new System.Drawing.Size(202, 34);
             this.lbFirstName.TabIndex = 3;
@@ -158,7 +158,7 @@
             // txtFirstName
             // 
             this.txtFirstName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtFirstName.Location = new System.Drawing.Point(367, 162);
+            this.txtFirstName.Location = new System.Drawing.Point(367, 156);
             this.txtFirstName.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtFirstName.Name = "txtFirstName";
             this.txtFirstName.Size = new System.Drawing.Size(516, 30);
@@ -168,7 +168,7 @@
             // 
             this.lblEmail.AutoSize = true;
             this.lblEmail.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblEmail.Location = new System.Drawing.Point(159, 230);
+            this.lblEmail.Location = new System.Drawing.Point(159, 224);
             this.lblEmail.Name = "lblEmail";
             this.lblEmail.Size = new System.Drawing.Size(202, 34);
             this.lblEmail.TabIndex = 4;
@@ -178,7 +178,7 @@
             // txtEmail
             // 
             this.txtEmail.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtEmail.Location = new System.Drawing.Point(367, 232);
+            this.txtEmail.Location = new System.Drawing.Point(367, 226);
             this.txtEmail.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(516, 30);
@@ -188,7 +188,7 @@
             // 
             this.lblQuestion1.AutoSize = true;
             this.lblQuestion1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblQuestion1.Location = new System.Drawing.Point(159, 264);
+            this.lblQuestion1.Location = new System.Drawing.Point(159, 258);
             this.lblQuestion1.Name = "lblQuestion1";
             this.lblQuestion1.Size = new System.Drawing.Size(202, 34);
             this.lblQuestion1.TabIndex = 5;
@@ -198,7 +198,7 @@
             // txtQuestion1
             // 
             this.txtQuestion1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtQuestion1.Location = new System.Drawing.Point(367, 266);
+            this.txtQuestion1.Location = new System.Drawing.Point(367, 260);
             this.txtQuestion1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtQuestion1.Name = "txtQuestion1";
             this.txtQuestion1.Size = new System.Drawing.Size(516, 30);
@@ -208,7 +208,7 @@
             // 
             this.lblAnswer1.AutoSize = true;
             this.lblAnswer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblAnswer1.Location = new System.Drawing.Point(159, 298);
+            this.lblAnswer1.Location = new System.Drawing.Point(159, 292);
             this.lblAnswer1.Name = "lblAnswer1";
             this.lblAnswer1.Size = new System.Drawing.Size(202, 34);
             this.lblAnswer1.TabIndex = 6;
@@ -218,7 +218,7 @@
             // txtAnswer1
             // 
             this.txtAnswer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtAnswer1.Location = new System.Drawing.Point(367, 300);
+            this.txtAnswer1.Location = new System.Drawing.Point(367, 294);
             this.txtAnswer1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtAnswer1.Name = "txtAnswer1";
             this.txtAnswer1.Size = new System.Drawing.Size(516, 30);
@@ -228,7 +228,7 @@
             // 
             this.lblQuestion2.AutoSize = true;
             this.lblQuestion2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblQuestion2.Location = new System.Drawing.Point(159, 332);
+            this.lblQuestion2.Location = new System.Drawing.Point(159, 326);
             this.lblQuestion2.Name = "lblQuestion2";
             this.lblQuestion2.Size = new System.Drawing.Size(202, 34);
             this.lblQuestion2.TabIndex = 7;
@@ -238,7 +238,7 @@
             // txtQuestion2
             // 
             this.txtQuestion2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtQuestion2.Location = new System.Drawing.Point(367, 334);
+            this.txtQuestion2.Location = new System.Drawing.Point(367, 328);
             this.txtQuestion2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtQuestion2.Name = "txtQuestion2";
             this.txtQuestion2.Size = new System.Drawing.Size(516, 30);
@@ -248,7 +248,7 @@
             // 
             this.lblAnswer2.AutoSize = true;
             this.lblAnswer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblAnswer2.Location = new System.Drawing.Point(159, 366);
+            this.lblAnswer2.Location = new System.Drawing.Point(159, 360);
             this.lblAnswer2.Name = "lblAnswer2";
             this.lblAnswer2.Size = new System.Drawing.Size(202, 34);
             this.lblAnswer2.TabIndex = 8;
@@ -258,7 +258,7 @@
             // txtAnswer2
             // 
             this.txtAnswer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtAnswer2.Location = new System.Drawing.Point(367, 368);
+            this.txtAnswer2.Location = new System.Drawing.Point(367, 362);
             this.txtAnswer2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtAnswer2.Name = "txtAnswer2";
             this.txtAnswer2.Size = new System.Drawing.Size(516, 30);
@@ -268,7 +268,7 @@
             // 
             this.lblQuestion3.AutoSize = true;
             this.lblQuestion3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblQuestion3.Location = new System.Drawing.Point(159, 400);
+            this.lblQuestion3.Location = new System.Drawing.Point(159, 394);
             this.lblQuestion3.Name = "lblQuestion3";
             this.lblQuestion3.Size = new System.Drawing.Size(202, 34);
             this.lblQuestion3.TabIndex = 9;
@@ -278,7 +278,7 @@
             // txtQuestion3
             // 
             this.txtQuestion3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtQuestion3.Location = new System.Drawing.Point(367, 402);
+            this.txtQuestion3.Location = new System.Drawing.Point(367, 396);
             this.txtQuestion3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtQuestion3.Name = "txtQuestion3";
             this.txtQuestion3.Size = new System.Drawing.Size(516, 30);
@@ -288,7 +288,7 @@
             // 
             this.lblAnswer3.AutoSize = true;
             this.lblAnswer3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblAnswer3.Location = new System.Drawing.Point(159, 434);
+            this.lblAnswer3.Location = new System.Drawing.Point(159, 428);
             this.lblAnswer3.Name = "lblAnswer3";
             this.lblAnswer3.Size = new System.Drawing.Size(202, 34);
             this.lblAnswer3.TabIndex = 10;
@@ -298,7 +298,7 @@
             // txtAnswer3
             // 
             this.txtAnswer3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtAnswer3.Location = new System.Drawing.Point(367, 436);
+            this.txtAnswer3.Location = new System.Drawing.Point(367, 430);
             this.txtAnswer3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtAnswer3.Name = "txtAnswer3";
             this.txtAnswer3.Size = new System.Drawing.Size(516, 30);
@@ -310,7 +310,7 @@
             this.btnRegister.Location = new System.Drawing.Point(3, 2);
             this.btnRegister.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnRegister.Name = "btnRegister";
-            this.btnRegister.Size = new System.Drawing.Size(252, 89);
+            this.btnRegister.Size = new System.Drawing.Size(252, 42);
             this.btnRegister.TabIndex = 12;
             this.btnRegister.Text = "Đăng ký";
             this.btnRegister.UseVisualStyleBackColor = true;
@@ -323,7 +323,7 @@
             this.btnCancel.Location = new System.Drawing.Point(261, 2);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(252, 89);
+            this.btnCancel.Size = new System.Drawing.Size(252, 42);
             this.btnCancel.TabIndex = 13;
             this.btnCancel.Text = "Hủy";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -368,7 +368,7 @@
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 15;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 58F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 52F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -381,9 +381,9 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 18F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1044, 565);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1044, 640);
             this.tableLayoutPanel1.TabIndex = 13;
             // 
             // tittleRegister
@@ -394,7 +394,7 @@
             this.tittleRegister.Font = new System.Drawing.Font("Times New Roman", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.tittleRegister.Location = new System.Drawing.Point(159, 0);
             this.tittleRegister.Name = "tittleRegister";
-            this.tittleRegister.Size = new System.Drawing.Size(724, 58);
+            this.tittleRegister.Size = new System.Drawing.Size(724, 52);
             this.tittleRegister.TabIndex = 13;
             this.tittleRegister.Text = "ĐĂNG KÝ TÀI KHOẢN";
             this.tittleRegister.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -407,20 +407,20 @@
             this.tableLayoutPanel2.Controls.Add(this.btnRegister, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.btnCancel, 1, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(367, 470);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(367, 464);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 93F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(516, 93);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(516, 46);
             this.tableLayoutPanel2.TabIndex = 14;
             // 
             // lbLastName
             // 
             this.lbLastName.AutoSize = true;
             this.lbLastName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbLastName.Location = new System.Drawing.Point(159, 194);
+            this.lbLastName.Location = new System.Drawing.Point(159, 188);
             this.lbLastName.Name = "lbLastName";
             this.lbLastName.Size = new System.Drawing.Size(202, 36);
             this.lbLastName.TabIndex = 15;
@@ -430,7 +430,7 @@
             // txtLastName
             // 
             this.txtLastName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtLastName.Location = new System.Drawing.Point(367, 197);
+            this.txtLastName.Location = new System.Drawing.Point(367, 191);
             this.txtLastName.Name = "txtLastName";
             this.txtLastName.Size = new System.Drawing.Size(516, 30);
             this.txtLastName.TabIndex = 4;
@@ -441,7 +441,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(1044, 565);
+            this.ClientSize = new System.Drawing.Size(1044, 640);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
