@@ -56,14 +56,13 @@ CREATE TABLE Books (
 
 -- Bảng Thành viên
 CREATE TABLE Members (
-    MemberID INT IDENTITY(1,1) PRIMARY KEY,
-    LastName NVARCHAR(100) NOT NULL,   -- Họ
-    FirstName NVARCHAR(100) NOT NULL,  -- Tên
-    Email VARCHAR(100) UNIQUE,
-    Phone VARCHAR(20),
-    Address NVARCHAR(255),
-    JoinDate DATE DEFAULT GETDATE(),
-    Note NVARCHAR(255) NULL            -- Ghi chú
+    MemberID NVARCHAR(10) PRIMARY KEY,
+    FullName NVARCHAR(50) NOT NULL,
+    Gender NVARCHAR(10),
+    BirthDate DATE,
+    Phone NVARCHAR(15),
+    Address NVARCHAR(100),
+    Position NVARCHAR(30)
 );
 
 -- Bảng Phiếu mượn
@@ -139,11 +138,11 @@ GO
 -- them du lieu
 
 INSERT INTO BookLocations (ShelfCode, Floor, Room, Note) VALUES
-('A1', 'Tầng 1', 'Phòng đọc 101', N'Kệ sách văn học'),
-('B2', 'Tầng 2', 'Phòng lưu trữ', N'Sách tham khảo'),
-('C3', 'Tầng 1', 'Phòng đọc 102', N'Sách thiếu nhi'),
-('D4', 'Tầng 3', 'Kho sách', N'Sách cũ'),
-('E5', 'Tầng 2', 'Phòng đọc 201', N'Sách ngoại văn');
+('A1', N'Tầng 1', N'Phòng đọc 101', N'Kệ sách văn học'),
+('B2', N'Tầng 2', N'Phòng lưu trữ', N'Sách tham khảo'),
+('C3', N'Tầng 1', N'Phòng đọc 102', N'Sách thiếu nhi'),
+('D4', N'Tầng 3', N'Kho sách', N'Sách cũ'),
+('E5', N'Tầng 2', N'Phòng đọc 201', N'Sách ngoại văn');
 
 INSERT INTO Authors (LastName, FirstName, Biography, Note) VALUES
 (N'Nguyễn', N'Nhật Ánh', N'Tác giả nổi tiếng với sách thiếu nhi', N'Tiểu thuyết học trò'),
@@ -166,12 +165,12 @@ INSERT INTO Publishers (PublisherName, Address, Phone, Note) VALUES
 (N'NXB Văn Học', N'4 Đinh Lễ, Hà Nội', '02439388888', N'Sách văn học'),
 (N'NXB Tổng Hợp', N'62 Nguyễn Thị Minh Khai, TP.HCM', '02839393939', NULL);
 
-INSERT INTO Books (Title, AuthorID, CategoryID, PublisherID, YearPublished, Quantity, Available, Note, LocationID) VALUES
-(N'Mắt Biếc', 1, 2, 1, 2008, 10, 10, NULL, 1),
-(N'Góc nhỏ tuổi thơ', 2, 1, 2, 2010, 5, 5, N'Sách thơ', 3),
-(N'Bí mật của não bộ', 4, 4, 3, 2015, 7, 7, NULL, 2),
-(N'Chiến tranh và hòa bình', 5, 2, 4, 1990, 3, 3, N'Tác phẩm kinh điển', 4),
-(N'English Grammar in Use', NULL, 5, 5, 2020, 12, 12, N'Sách học tiếng Anh', 5);
+INSERT INTO Books (Title, AuthorID, CategoryID, PublisherID, YearPublished, Quantity, Available, Note, LocationID, Price, BorrowPrice) VALUES
+(N'Mắt Biếc', 1, 2, 6, 2008, 10, 10, NULL, 1, 120000, 15000),
+(N'Góc nhỏ tuổi thơ', 2, 1, 2, 2010, 5, 5, N'Sách thơ', 3, 80000, 10000),
+(N'Bí mật của não bộ', 4, 4, 3, 2015, 7, 7, NULL, 2, 150000, 20000),
+(N'Chiến tranh và hòa bình', 5, 2, 4, 1990, 3, 3, N'Tác phẩm kinh điển', 4, 200000, 25000),
+(N'English Grammar in Use', NULL, 5, 5, 2020, 12, 12, N'Sách học tiếng Anh', 5, 250000, 30000);
 
 INSERT INTO Members (LastName, FirstName, Email, Phone, Address, Note) VALUES
 (N'Nguyễn', N'Lan', 'lan.nguyen@example.com', '0912345678', N'Hà Nội', NULL),
@@ -188,16 +187,9 @@ INSERT INTO Borrowing (MemberID, BorrowDate, DueDate, ReturnDate, Status, Note) 
 (5, '2025-08-22', '2025-08-29', NULL, N'Đang mượn', NULL);
 
 INSERT INTO BorrowingDetails (BorrowID, BookID, Quantity, Note) VALUES
-(1, 1, 1, NULL),
-(2, 2, 1, NULL),
-(3, 3, 2, N'Mượn cho nhóm học'),
-(4, 4, 1, NULL),
-(5, 5, 1, N'Sách học tiếng Anh');
-ALTER TABLE Users
-ADD SecurityQuestion1 NVARCHAR(255) NULL,
-    SecurityAnswerHash1 NVARCHAR(255) NULL,
-    SecurityQuestion2 NVARCHAR(255) NULL,
-    SecurityAnswerHash2 NVARCHAR(255) NULL,
-    SecurityQuestion3 NVARCHAR(255) NULL,
-    SecurityAnswerHash3 NVARCHAR(255) NULL;
+(1, 6, 1, NULL),
+(2, 7, 1, NULL),
+(3, 8, 2, N'Mượn cho nhóm học'),
+(4, 9, 1, NULL),
+(5, 10, 1, N'Sách học tiếng Anh');
 GO
