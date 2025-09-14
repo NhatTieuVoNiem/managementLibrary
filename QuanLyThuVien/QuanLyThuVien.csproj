@@ -111,12 +111,6 @@
       <DependentUpon>ChiTietHoaDon.cs</DependentUpon>
     </Compile>
     <Compile Include="connectData.cs" />
-    <Compile Include="Forms\FormDangNhap.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FormDangNhap.Designer.cs">
-      <DependentUpon>FormDangNhap.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\FormBookLocation.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -146,6 +140,12 @@
     </Compile>
     <Compile Include="Forms\FormDangKy.Designer.cs">
       <DependentUpon>FormDangKy.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormDangNhap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormDangNhap.Designer.cs">
+      <DependentUpon>FormDangNhap.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FormHome.cs">
       <SubType>Form</SubType>
@@ -227,10 +227,11 @@
     <EmbeddedResource Include="Forms\FormBookLocation.resx">
       <DependentUpon>FormBookLocation.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormDangKy.resx">
+      <DependentUpon>FormDangKy.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormDangNhap.resx">
       <DependentUpon>FormDangNhap.cs</DependentUpon>
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>FormDangNhap.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormHome.resx">
       <DependentUpon>FormHome.cs</DependentUpon>

@@ -16,6 +16,18 @@ namespace QuanLyThuVien
             InitializeComponent();
             LoadData();
         }
+        // Kiểm tra tên thể loại đã tồn tại
+        private bool IsCategoryNameExists(string categoryName)
+        {
+            string sql = "SELECT COUNT(*) FROM Categories WHERE CategoryName = @name";
+            using (SqlCommand cmd = new SqlCommand(sql, c.conn))
+            {
+                cmd.Parameters.AddWithValue("@name", categoryName);
+                int count = (int)cmd.ExecuteScalar();
+                return count > 0;
+            }
+        }
+
 
         // Load dữ liệu
         private void LoadData()
@@ -57,6 +69,12 @@ namespace QuanLyThuVien
             try
             {
                 c.connect();
+                // Kiểm tra tên đã tồn tại chưa
+                if (IsCategoryNameExists(txtCategoryName.Text))
+                {
+                    MessageBox.Show("Tên thể loại đã tồn tại!");
+                    return;
+                }
                 string sql = "INSERT INTO Categories (CategoryName, Note) VALUES (@name, @note)";
                 using (SqlCommand cmd = new SqlCommand(sql, c.conn))
                 {

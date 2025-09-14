@@ -17,10 +17,10 @@ namespace QuanLyThuVien.Forms
         }
         private void btnThongKe_Click(object sender, EventArgs e)
         {
-            if (dtpTo.Value.Date < dtpFrom.Value.Date)
+            if (dtpToDate.Value.Date < dtpFromDate.Value.Date)
             {
                 MessageBox.Show("Ngày kết thúc không được nhỏ hơn ngày bắt đầu!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                dtpTo.Focus();
+                dtpToDate.Focus();
                 return;
             }
 
@@ -52,14 +52,14 @@ namespace QuanLyThuVien.Forms
                 ";
 
                 SqlCommand cmd = new SqlCommand(sql, c.conn);
-                cmd.Parameters.AddWithValue("@From", dtpFrom.Value.Date);
-                cmd.Parameters.AddWithValue("@To", dtpTo.Value.Date.AddDays(1).AddSeconds(-1));
+                cmd.Parameters.AddWithValue("@From", dtpFromDate.Value.Date);
+                cmd.Parameters.AddWithValue("@To", dtpToDate.Value.Date.AddDays(1).AddSeconds(-1));
 
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
 
-                dgvThongKe.DataSource = dt;
+                dgvThongKeNguoiDung.DataSource = dt;
 
                 // tính tổng tiền
                 tongTien = 0;
@@ -85,7 +85,7 @@ namespace QuanLyThuVien.Forms
 
         private void btnExportExcel_Click(object sender, EventArgs e)
         {
-            if (dgvThongKe.Rows.Count == 0)
+            if (dgvThongKeNguoiDung.Rows.Count == 0)
             {
                 MessageBox.Show("Không có dữ liệu để xuất!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -106,28 +106,28 @@ namespace QuanLyThuVien.Forms
                         var ws = wb.Worksheets.Add("ThongKeNguoiDung");
 
                         // Ghi chú ngày thống kê
-                        ws.Cell(1, 1).Value = $"Thống kê từ {dtpFrom.Value:dd/MM/yyyy} đến {dtpTo.Value:dd/MM/yyyy}";
-                        ws.Range(1, 1, 1, dgvThongKe.Columns.Count).Merge();
+                        ws.Cell(1, 1).Value = $"Thống kê từ {dtpFromDate.Value:dd/MM/yyyy} đến {dtpToDate.Value:dd/MM/yyyy}";
+                        ws.Range(1, 1, 1, dgvThongKeNguoiDung.Columns.Count).Merge();
                         ws.Cell(1, 1).Style.Font.Bold = true;
                         ws.Cell(1, 1).Style.Alignment.Horizontal = ClosedXML.Excel.XLAlignmentHorizontalValues.Center;
 
                         // Header
-                        for (int i = 0; i < dgvThongKe.Columns.Count; i++)
+                        for (int i = 0; i < dgvThongKeNguoiDung.Columns.Count; i++)
                         {
-                            ws.Cell(2, i + 1).Value = dgvThongKe.Columns[i].HeaderText;
+                            ws.Cell(2, i + 1).Value = dgvThongKeNguoiDung.Columns[i].HeaderText;
                             ws.Cell(2, i + 1).Style.Font.Bold = true;
                         }
 
                         // Data
-                        for (int i = 0; i < dgvThongKe.Rows.Count; i++)
+                        for (int i = 0; i < dgvThongKeNguoiDung.Rows.Count; i++)
                         {
-                            for (int j = 0; j < dgvThongKe.Columns.Count; j++)
+                            for (int j = 0; j < dgvThongKeNguoiDung.Columns.Count; j++)
                             {
                                 var cell = ws.Cell(i + 3, j + 1);
-                                cell.Value = dgvThongKe.Rows[i].Cells[j].Value?.ToString();
+                                cell.Value = dgvThongKeNguoiDung.Rows[i].Cells[j].Value?.ToString();
 
                                 // định dạng ngày mượn
-                                if (dgvThongKe.Columns[j].HeaderText == "NgayMuon" &&
+                                if (dgvThongKeNguoiDung.Columns[j].HeaderText == "NgayMuon" &&
                                     DateTime.TryParse(cell.Value.ToString(), out DateTime date))
                                 {
                                     cell.Value = date;
@@ -137,10 +137,10 @@ namespace QuanLyThuVien.Forms
                         }
 
                         // Dòng tổng tiền
-                        int lastRow = dgvThongKe.Rows.Count + 3;
-                        ws.Cell(lastRow, dgvThongKe.Columns.Count - 1).Value = "Tổng tiền:";
-                        ws.Cell(lastRow, dgvThongKe.Columns.Count).Value = tongTien;
-                        ws.Range(lastRow, dgvThongKe.Columns.Count - 1, lastRow, dgvThongKe.Columns.Count).Style.Font.Bold = true;
+                        int lastRow = dgvThongKeNguoiDung.Rows.Count + 3;
+                        ws.Cell(lastRow, dgvThongKeNguoiDung.Columns.Count - 1).Value = "Tổng tiền:";
+                        ws.Cell(lastRow, dgvThongKeNguoiDung.Columns.Count).Value = tongTien;
+                        ws.Range(lastRow, dgvThongKeNguoiDung.Columns.Count - 1, lastRow, dgvThongKeNguoiDung.Columns.Count).Style.Font.Bold = true;
 
                         ws.Columns().AdjustToContents();
                         wb.SaveAs(sfd.FileName);

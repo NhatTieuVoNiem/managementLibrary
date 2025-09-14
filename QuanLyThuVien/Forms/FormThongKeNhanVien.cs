@@ -31,7 +31,7 @@ namespace QuanLyThuVien.Forms
                 string sql = @"
                     SELECT 
                         m.MemberID,
-                        u.FullName AS NhanVien,
+                      u.FirstName + ' ' + u.LastName AS [NhanVien],
                         b.Title AS TenSach,
                         br.BorrowDate AS NgayMuon,
                         bd.Quantity AS SoLuong,

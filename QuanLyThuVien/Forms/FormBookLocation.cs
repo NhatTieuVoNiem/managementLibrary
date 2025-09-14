@@ -46,6 +46,17 @@ namespace QuanLyThuVien.Forms
             txtRoom.Clear();
             txtNote.Clear();
         }
+        private bool IsShelfCodeExists(string shelfCode)
+        {
+            string sql = "SELECT COUNT(*) FROM BookLocations WHERE ShelfCode = @shelf";
+            using (SqlCommand cmd = new SqlCommand(sql, c.conn))
+            {
+                cmd.Parameters.AddWithValue("@shelf", shelfCode);
+                int count = (int)cmd.ExecuteScalar();
+                return count > 0;
+            }
+        }
+
 
         // Thêm
         private void btnInsert_Click(object sender, EventArgs e)
@@ -61,6 +72,12 @@ namespace QuanLyThuVien.Forms
             try
             {
                 c.connect();
+                // Kiểm tra ShelfCode đã tồn tại chưa
+                if (IsShelfCodeExists(txtShelfCode.Text.Trim()))
+                {
+                    MessageBox.Show("Mã kệ đã tồn tại. Vui lòng nhập mã khác!", "Cảnh báo");
+                    return;
+                }
                 string sql = "INSERT INTO BookLocations (ShelfCode, Floor, Room, Note) " +
                              "VALUES (@shelf, @floor, @room, @note)";
                 using (SqlCommand cmd = new SqlCommand(sql, c.conn))

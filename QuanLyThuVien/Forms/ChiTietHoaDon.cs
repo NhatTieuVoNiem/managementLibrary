@@ -1,17 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Diagnostics;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace QuanLyThuVien
 {
@@ -20,7 +10,6 @@ namespace QuanLyThuVien
         private int borrowId;
         private int detailID;
         connectData c = new connectData();
-        
 
         public ChiTietHoaDon(int id)
         {
@@ -61,14 +50,14 @@ namespace QuanLyThuVien
             try
             {
                 c.connect();
-                string sql = "SELECT UserID, FullName FROM Users";
+                string sql = "SELECT MemberID, FirstName + ' ' + LastName AS FullName FROM Members";
                 SqlDataAdapter da = new SqlDataAdapter(sql, c.conn);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
 
                 cbKhachHang.DataSource = dt;
                 cbKhachHang.DisplayMember = "FullName";
-                cbKhachHang.ValueMember = "UserID";
+                cbKhachHang.ValueMember = "MemberID";
             }
             catch (Exception ex)
             {
@@ -85,14 +74,15 @@ namespace QuanLyThuVien
             try
             {
                 c.connect();
-                string sql = "SELECT MemberID, FirstName + ' ' + LastName AS FullName FROM Members";
+                string sql = "SELECT UserID, FirstName + ' ' + LastName AS FullName FROM Users WHERE Role = 'Staff'";
+
                 SqlDataAdapter da = new SqlDataAdapter(sql, c.conn);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
 
                 cbNhanVien.DataSource = dt;
                 cbNhanVien.DisplayMember = "FullName";
-                cbNhanVien.ValueMember = "MemberID";
+                cbNhanVien.ValueMember = "UserID";
             }
             catch (Exception ex)
             {
@@ -106,30 +96,59 @@ namespace QuanLyThuVien
 
         private void LoadData()
         {
-            c.connect();
-            string sql = @"SELECT BorrowingDetails.Quantity AS [Quantity], BorrowingDetails.Note AS [Note],Borrowing.BorrowID AS [BorrowID], Borrowing.BorrowDate AS [BorrowDate], Members.FirstName AS [NhanVien], Books.Title AS [TenSach], BorrowingDetails.DetailID, Books.Price AS [Price],Users.Email AS [LienHe], Users.FullName AS [KhachHang], (BorrowingDetails.Quantity * Books.Price) AS [ThanhTien] FROM BorrowingDetails INNER JOIN Borrowing ON BorrowingDetails.BorrowID = Borrowing.BorrowID INNER JOIN Books ON Borrowing.BookID = Books.BookID INNER JOIN Members ON Borrowing.MemberID = Members.MemberID INNER JOIN Users ON Borrowing.UserID = Users.UserID WHERE BorrowingDetails.BorrowID = @BorrowID";
-
-            using (SqlCommand cmd = new SqlCommand(sql, c.conn))
+            try
             {
-                cmd.Parameters.AddWithValue("@BorrowID", borrowId);
+                c.connect();
+                string sql = @"
+                    SELECT 
+                        BD.Quantity, 
+                        BD.Note, 
+                        B.BorrowID, 
+                        B.BorrowDate, 
+                       U.FirstName + ' ' + U.LastName AS [NhanVien],
+                        M.FirstName + ' ' + M.LastName AS [KhachHang], 
+                        BK.Title AS [TenSach], 
+                        BD.DetailID, 
+                        BK.Price, 
+                        M.Email AS [LienHe], 
+                        (BD.Quantity * BK.Price) AS [ThanhTien]
+                    FROM BorrowingDetails BD
+                    INNER JOIN Borrowing B ON BD.BorrowID = B.BorrowID
+                    INNER JOIN Books BK ON B.BookID = BK.BookID
+                    INNER JOIN Members M ON B.MemberID = M.MemberID
+                    INNER JOIN Users U ON B.UserID = U.UserID
+                    WHERE BD.BorrowID = @BorrowID";
 
-                using (SqlDataReader reader = cmd.ExecuteReader())
+                using (SqlCommand cmd = new SqlCommand(sql, c.conn))
                 {
-                    if (reader.Read())
+                    cmd.Parameters.AddWithValue("@BorrowID", borrowId);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        detailID = Convert.ToInt32(reader["DetailID"]);
-                        txtMaHD.Text = reader["BorrowID"].ToString();
-                        txtNgayLap.Text = Convert.ToDateTime(reader["BorrowDate"]).ToString("dd/MM/yyyy");
-                        cbNhanVien.Text = reader["NhanVien"].ToString();
-                        cbKhachHang.Text = reader["KhachHang"].ToString();
-                        cbSach.Text = reader["TenSach"].ToString();
-                        txtSoLuong.Text = reader["Quantity"].ToString();
-                        txtGiaBan.Text = reader["Price"].ToString();
-                        txtThanhTien.Text = reader["ThanhTien"].ToString();
-                        txtGhiChu.Text = reader["Note"].ToString();
-                        txtLienHe.Text = reader["LienHe"].ToString();
+                        if (reader.Read())
+                        {
+                            detailID = Convert.ToInt32(reader["DetailID"]);
+                            txtMaHD.Text = reader["BorrowID"].ToString();
+                            txtNgayLap.Text = Convert.ToDateTime(reader["BorrowDate"]).ToString("dd/MM/yyyy");
+                            cbNhanVien.Text = reader["NhanVien"].ToString();     // từ Users
+                            cbKhachHang.Text = reader["KhachHang"].ToString();   // từ Members
+                            cbSach.Text = reader["TenSach"].ToString();
+                            txtSoLuong.Text = reader["Quantity"].ToString();
+                            txtGiaBan.Text = reader["Price"].ToString();
+                            txtThanhTien.Text = reader["ThanhTien"].ToString();
+                            txtGhiChu.Text = reader["Note"].ToString();
+                            txtLienHe.Text = reader["LienHe"].ToString();
+                        }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi tải dữ liệu chi tiết hóa đơn: " + ex.Message);
+            }
+            finally
+            {
+                c.disconnect();
             }
         }
 
@@ -140,17 +159,15 @@ namespace QuanLyThuVien
                 c.connect();
 
                 string sql = @"UPDATE BorrowingDetails 
-                       SET Quantity = @Quantity,
-                           Note = @Note
-                       WHERE DetailID = @DetailID";
+                               SET Quantity = @Quantity,
+                                   Note = @Note
+                               WHERE DetailID = @DetailID";
 
                 using (SqlCommand cmd = new SqlCommand(sql, c.conn))
                 {
                     cmd.Parameters.AddWithValue("@DetailID", detailID);
 
-
-                    int soLuong;
-                    if (!int.TryParse(txtSoLuong.Text, out soLuong))
+                    if (!int.TryParse(txtSoLuong.Text, out int soLuong))
                     {
                         MessageBox.Show("Số lượng không hợp lệ!");
                         return;

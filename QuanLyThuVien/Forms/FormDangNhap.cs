@@ -54,7 +54,7 @@ namespace QuanLyThuVien
             {
                 c.connect();
                 string sql = "SELECT COUNT(*) FROM Users WHERE Username=@user AND PasswordHash=@pass";
-                using (SqlCommand cmd = new SqlCommand(sql ,c.conn))
+                using (SqlCommand cmd = new SqlCommand(sql, c.conn))
                 {
                     cmd.Parameters.AddWithValue("@user", username);
                     cmd.Parameters.AddWithValue("@pass", hashedPassword);
@@ -72,7 +72,7 @@ namespace QuanLyThuVien
                     {
                         MessageBox.Show("Sai tài khoản hoặc mật khẩu!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-                    
+
                 }
             }
             catch (SqlException ex)
@@ -91,7 +91,7 @@ namespace QuanLyThuVien
             txtMatKhau.UseSystemPasswordChar = !chkHienThiMatKhau.Checked;
         }
 
-     
+
 
         private void chkQuenMK_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -123,4 +123,3 @@ namespace QuanLyThuVien
         }
     }
 }
-

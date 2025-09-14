@@ -10,8 +10,6 @@ namespace QuanLyThuVien
     public partial class FormDangKy : Form
     {
         connectData c = new connectData(); // dùng class connectData
-   
-
 
         public FormDangKy()
         {
@@ -47,7 +45,8 @@ namespace QuanLyThuVien
             string username = txtUsername.Text.Trim();
             string password = txtPassword.Text.Trim();
             string confirmPassword = txtConfirmPassword.Text.Trim();
-            string fullName = txtFullName.Text.Trim();
+            string firstName = txtFirstName.Text.Trim();
+            string lastName = txtLastName.Text.Trim();
             string email = txtEmail.Text.Trim();
             string cauhoi1 = txtQuestion1.Text.Trim();
             string traloi1 = txtAnswer1.Text.Trim();
@@ -58,7 +57,8 @@ namespace QuanLyThuVien
 
             // VALIDATE dữ liệu
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) ||
-                string.IsNullOrEmpty(confirmPassword) || string.IsNullOrEmpty(fullName) || string.IsNullOrEmpty(email))
+                string.IsNullOrEmpty(confirmPassword) || string.IsNullOrEmpty(firstName) ||
+                string.IsNullOrEmpty(lastName) || string.IsNullOrEmpty(email))
             {
                 MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -115,19 +115,20 @@ namespace QuanLyThuVien
                 string hashedAns2 = HashPassword(traloi2);
                 string hashedAns3 = HashPassword(traloi3);
 
-                // Lệnh insert
-                string sql = @"INSERT INTO Users (Username, PasswordHash, FullName, Email, 
+                // Lệnh insert (dùng FirstName, LastName thay cho FullName)
+                string sql = @"INSERT INTO Users (Username, PasswordHash, FirstName, LastName, Email, 
                                 SecurityQuestion1, SecurityAnswerHash1, 
                                 SecurityQuestion2, SecurityAnswerHash2, 
                                 SecurityQuestion3, SecurityAnswerHash3, CreatedAt) 
-                               VALUES (@Username, @PasswordHash, @FullName, @Email, 
+                               VALUES (@Username, @PasswordHash, @FirstName, @LastName, @Email, 
                                 @CauHoi1, @TraLoi1, @CauHoi2, @TraLoi2, @CauHoi3, @TraLoi3, GETDATE())";
 
                 using (SqlCommand Lenh = new SqlCommand(sql, c.conn))
                 {
                     Lenh.Parameters.AddWithValue("@Username", username);
                     Lenh.Parameters.AddWithValue("@PasswordHash", hashedPassword);
-                    Lenh.Parameters.AddWithValue("@FullName", fullName);
+                    Lenh.Parameters.AddWithValue("@FirstName", firstName);
+                    Lenh.Parameters.AddWithValue("@LastName", lastName);
                     Lenh.Parameters.AddWithValue("@Email", email);
                     Lenh.Parameters.AddWithValue("@CauHoi1", cauhoi1);
                     Lenh.Parameters.AddWithValue("@TraLoi1", hashedAns1);

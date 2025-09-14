@@ -26,9 +26,9 @@ namespace QuanLyThuVien
             {
                 DataGridViewRow row = dgvHoaDon.Rows[e.RowIndex];
                 txtMaHoaDon.Text = row.Cells["Mã hóa đơn"].Value?.ToString();
-                cbNhanVien.Text = row.Cells["Nhân viên lập"].Value?.ToString();
+                cbNhanVien.Text = row.Cells["Nhân viên lập"].Value?.ToString(); // từ Users
                 txtNgayLap.Text = row.Cells["Ngày tạo"].Value?.ToString();
-                cbKhachHang.Text = row.Cells["Khách hàng"].Value?.ToString();
+                cbKhachHang.Text = row.Cells["Khách hàng"].Value?.ToString();   // từ Members
                 cbSach.Text = row.Cells["Tên sách"].Value?.ToString();
                 txtGhiChu.Text = row.Cells["Ghi chú"].Value?.ToString();
             }
@@ -43,15 +43,15 @@ namespace QuanLyThuVien
                     SELECT 
                         Borrowing.BorrowID AS [Mã hóa đơn], 
                         Borrowing.BorrowDate AS [Ngày tạo], 
-                        Users.FullName AS [Nhân viên lập], 
-                        Members.FirstName + ' ' + Members.LastName AS [Khách hàng], 
-                        Books.Title AS [Tên sách], 
+                       U.FirstName + ' ' + U.LastName AS [Nhân viên lập],
+                        M.FirstName + ' ' + M.LastName AS [Khách hàng], 
+                        B.Title AS [Tên sách], 
                         Borrowing.Note AS [Ghi chú]
                     FROM Borrowing
-                    INNER JOIN Books ON Borrowing.BookID = Books.BookID
-                    INNER JOIN Members ON Borrowing.MemberID = Members.MemberID
-                    INNER JOIN Users ON Borrowing.UserID = Users.UserID
-                    WHERE Users.Role = 'staff'"; // chỉ lấy nhân viên
+                    INNER JOIN Books B ON Borrowing.BookID = B.BookID
+                    INNER JOIN Members M ON Borrowing.MemberID = M.MemberID
+                    INNER JOIN Users U ON Borrowing.UserID = U.UserID
+                    WHERE U.Role = 'Staff'"; // chỉ lấy nhân viên lập
                 da = new SqlDataAdapter(sql, c.conn);
                 dt = new DataTable();
                 da.Fill(dt);
@@ -96,7 +96,7 @@ namespace QuanLyThuVien
             try
             {
                 c.connect();
-                string sql = "SELECT UserID, FullName FROM Users WHERE Role = 'staff'";
+                string sql = "SELECT UserID, FirstName + ' ' + LastName AS FullName FROM Users WHERE Role = 'Staff'";
                 SqlDataAdapter da = new SqlDataAdapter(sql, c.conn);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
@@ -145,15 +145,15 @@ namespace QuanLyThuVien
             {
                 c.connect();
 
-                // 1. Thêm hóa đơn và lấy BorrowID vừa tạo
+                // Thêm hóa đơn (Borrowing)
                 string sql = "INSERT INTO Borrowing (UserID, MemberID, BookID, BorrowDate, Note) " +
                              "VALUES (@UserID, @MemberID, @BookID, @BorrowDate, @Note); " +
                              "SELECT CAST(SCOPE_IDENTITY() AS INT)";
                 int borrowID;
                 using (SqlCommand cmd = new SqlCommand(sql, c.conn))
                 {
-                    cmd.Parameters.AddWithValue("@UserID", cbNhanVien.SelectedValue);
-                    cmd.Parameters.AddWithValue("@MemberID", cbKhachHang.SelectedValue);
+                    cmd.Parameters.AddWithValue("@UserID", cbNhanVien.SelectedValue);   // nhân viên
+                    cmd.Parameters.AddWithValue("@MemberID", cbKhachHang.SelectedValue); // khách hàng
                     cmd.Parameters.AddWithValue("@BookID", cbSach.SelectedValue);
 
                     DateTime borrowDate = string.IsNullOrEmpty(txtNgayLap.Text) ? DateTime.Now : DateTime.Parse(txtNgayLap.Text);
@@ -164,7 +164,7 @@ namespace QuanLyThuVien
                     borrowID = (int)cmd.ExecuteScalar();
                 }
 
-                // 2. Thêm chi tiết hóa đơn
+                // Thêm chi tiết hóa đơn
                 string sqlDetail = "INSERT INTO BorrowingDetails (BorrowID, Quantity, Note) " +
                                    "VALUES (@BorrowID, @Quantity, @Note)";
                 using (SqlCommand cmdDetail = new SqlCommand(sqlDetail, c.conn))
@@ -204,8 +204,8 @@ namespace QuanLyThuVien
                 using (SqlCommand cmd = new SqlCommand(sql, c.conn))
                 {
                     cmd.Parameters.AddWithValue("@BorrowID", txtMaHoaDon.Text);
-                    cmd.Parameters.AddWithValue("@UserID", cbNhanVien.SelectedValue);
-                    cmd.Parameters.AddWithValue("@MemberID", cbKhachHang.SelectedValue);
+                    cmd.Parameters.AddWithValue("@UserID", cbNhanVien.SelectedValue);   // nhân viên
+                    cmd.Parameters.AddWithValue("@MemberID", cbKhachHang.SelectedValue); // khách hàng
                     cmd.Parameters.AddWithValue("@BookID", cbSach.SelectedValue);
 
                     DateTime borrowDate = string.IsNullOrEmpty(txtNgayLap.Text) ? DateTime.Now : DateTime.Parse(txtNgayLap.Text);
@@ -289,12 +289,12 @@ namespace QuanLyThuVien
                     SELECT 
                         Borrowing.BorrowID AS [Mã hóa đơn], 
                         Borrowing.BorrowDate AS [Ngày tạo], 
-                        Users.FullName AS [Nhân viên lập], 
-                        Members.FirstName + ' ' + Members.LastName AS [Khách hàng], 
+                        U.FullName AS [Nhân viên lập], 
+                        M.FirstName + ' ' + M.LastName AS [Khách hàng], 
                         Borrowing.Note AS [Ghi chú]
                     FROM Borrowing
-                    INNER JOIN Members ON Borrowing.MemberID = Members.MemberID
-                    INNER JOIN Users ON Borrowing.UserID = Users.UserID
+                    INNER JOIN Members M ON Borrowing.MemberID = M.MemberID
+                    INNER JOIN Users U ON Borrowing.UserID = U.UserID
                     WHERE Borrowing.BorrowID LIKE @Search";
 
                 using (SqlCommand cmd = new SqlCommand(sql, c.conn))
