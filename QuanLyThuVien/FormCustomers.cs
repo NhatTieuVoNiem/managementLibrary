@@ -50,6 +50,7 @@ namespace QuanLyThuVien
 
             try
             {
+                c.connect();
                 using (SqlCommand cmd = new SqlCommand(query, c.conn))
                 {
                     cmd.Parameters.AddWithValue("@LastName", lastName);
@@ -113,13 +114,19 @@ namespace QuanLyThuVien
                 txtPhone.Text = row.Cells["Phone"].Value?.ToString();
                 txtAddress.Text = row.Cells["Address"].Value?.ToString();
                 txtNote.Text = row.Cells["Note"].Value?.ToString();
+                btnThem.Enabled = false;
             }
         }
 
         private void btnSua_Click_1(object sender, EventArgs e)
         {
-            c.connect();
+            if (string.IsNullOrEmpty(txtCustomerID.Text))
+            {
+                MessageBox.Show("Vui lòng chọn khách hàng cần sửa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
+            int customerID = int.Parse(txtCustomerID.Text);
             string lastName = txtLastName.Text.Trim();
             string firstName = txtFirstName.Text.Trim();
             string email = txtEmail.Text.Trim();
@@ -133,13 +140,17 @@ namespace QuanLyThuVien
                 return;
             }
 
-            string query = @"INSERT INTO Customers (LastName, FirstName, Email, Phone, Address, Note)
-                     VALUES (@LastName, @FirstName, @Email, @Phone, @Address, @Note)";
+            string query = @"UPDATE Customers
+                     SET LastName=@LastName, FirstName=@FirstName, Email=@Email,
+                         Phone=@Phone, Address=@Address, Note=@Note
+                     WHERE CustomerID=@CustomerID";
 
             try
             {
+                c.connect();
                 using (SqlCommand cmd = new SqlCommand(query, c.conn))
                 {
+                    cmd.Parameters.AddWithValue("@CustomerID", customerID);
                     cmd.Parameters.AddWithValue("@LastName", lastName);
                     cmd.Parameters.AddWithValue("@FirstName", firstName);
                     cmd.Parameters.AddWithValue("@Email", string.IsNullOrEmpty(email) ? (object)DBNull.Value : email);
@@ -147,9 +158,13 @@ namespace QuanLyThuVien
                     cmd.Parameters.AddWithValue("@Address", address);
                     cmd.Parameters.AddWithValue("@Note", string.IsNullOrEmpty(note) ? (object)DBNull.Value : note);
 
-                    cmd.ExecuteNonQuery();
+                    int rows = cmd.ExecuteNonQuery();
+                    if (rows > 0)
+                        MessageBox.Show("Sửa khách hàng thành công!");
+                    else
+                        MessageBox.Show("Không tìm thấy khách hàng để sửa!");
                 }
-                MessageBox.Show("Thêm khách hàng thành công!");
+
                 FormCustomers_Load();
             }
             catch (Exception ex)
@@ -205,6 +220,7 @@ namespace QuanLyThuVien
             txtAddress.Clear();
             txtNote.Clear();
             dataGridViewCustomers.ClearSelection();
+            btnThem.Enabled = true;
         }
 
         private void btnTimkiem_Click(object sender, EventArgs e)

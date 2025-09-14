@@ -198,6 +198,7 @@ namespace QuanLyThuVien
             txtAddress.Clear();
             txtNote.Clear();
             txtLastName.Focus();
+            btnThem.Enabled = true;
         }
 
         private void dataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -213,6 +214,7 @@ namespace QuanLyThuVien
                 txtPhone.Text = row.Cells["colPhone"].Value?.ToString();
                 txtAddress.Text = row.Cells["colAddress"].Value?.ToString();
                 txtNote.Text = row.Cells["colNote"].Value?.ToString();
+                btnThem.Enabled = false;
             }
         }
         private void dataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
