@@ -230,10 +230,16 @@
     <EmbeddedResource Include="Forms\FormDangNhap.resx">
       <DependentUpon>FormDangNhap.cs</DependentUpon>
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>FormDangNhap1.Designer.cs</LastGenOutput>
+      <LastGenOutput>FormDangNhap.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormHome.resx">
       <DependentUpon>FormHome.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormThongKeNguoiDung.resx">
+      <DependentUpon>FormThongKeNguoiDung.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormThongKeNhanVien.resx">
+      <DependentUpon>FormThongKeNhanVien.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormThongKeSach.resx">
       <DependentUpon>FormThongKeSach.cs</DependentUpon>
