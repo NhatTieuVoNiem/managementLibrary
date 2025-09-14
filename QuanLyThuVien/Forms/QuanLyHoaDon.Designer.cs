@@ -324,6 +324,7 @@
             this.cbKhachHang.Name = "cbKhachHang";
             this.cbKhachHang.Size = new System.Drawing.Size(699, 33);
             this.cbKhachHang.TabIndex = 20;
+            this.cbKhachHang.UseWaitCursor = true;
             // 
             // QuanLyHoaDon
             // 

@@ -44,10 +44,10 @@
             this.txtGiaBan = new System.Windows.Forms.TextBox();
             this.txtThanhTien = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnXuat = new System.Windows.Forms.Button();
             this.btnSua = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.txtGhiChu = new System.Windows.Forms.TextBox();
-            this.btnXuat = new System.Windows.Forms.Button();
             this.cbSach = new System.Windows.Forms.ComboBox();
             this.cbKhachHang = new System.Windows.Forms.ComboBox();
             this.cbNhanVien = new System.Windows.Forms.ComboBox();
@@ -276,6 +276,18 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(943, 46);
             this.tableLayoutPanel2.TabIndex = 17;
             // 
+            // btnXuat
+            // 
+            this.btnXuat.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnXuat.Font = new System.Drawing.Font("Times New Roman", 13.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnXuat.Location = new System.Drawing.Point(624, 5);
+            this.btnXuat.Name = "btnXuat";
+            this.btnXuat.Size = new System.Drawing.Size(165, 36);
+            this.btnXuat.TabIndex = 2;
+            this.btnXuat.Text = "Xuất phiếu";
+            this.btnXuat.UseVisualStyleBackColor = true;
+            this.btnXuat.Click += new System.EventHandler(this.btnXuat_Click);
+            // 
             // btnSua
             // 
             this.btnSua.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -308,18 +320,6 @@
             this.txtGhiChu.Name = "txtGhiChu";
             this.txtGhiChu.Size = new System.Drawing.Size(742, 33);
             this.txtGhiChu.TabIndex = 19;
-            // 
-            // btnXuat
-            // 
-            this.btnXuat.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnXuat.Font = new System.Drawing.Font("Times New Roman", 13.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnXuat.Location = new System.Drawing.Point(624, 5);
-            this.btnXuat.Name = "btnXuat";
-            this.btnXuat.Size = new System.Drawing.Size(165, 36);
-            this.btnXuat.TabIndex = 2;
-            this.btnXuat.Text = "Xuất phiếu";
-            this.btnXuat.UseVisualStyleBackColor = true;
-            this.btnXuat.Click += new System.EventHandler(this.btnXuat_Click);
             // 
             // cbSach
             // 
