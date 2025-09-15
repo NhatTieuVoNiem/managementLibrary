@@ -349,6 +349,7 @@ namespace QuanLyThuVien.Forms
             this.btnAdd.TabIndex = 0;
             this.btnAdd.Text = "Thêm";
             this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click_1);
             // 
             // btnEdit
             // 
@@ -359,6 +360,7 @@ namespace QuanLyThuVien.Forms
             this.btnEdit.TabIndex = 1;
             this.btnEdit.Text = "Sửa";
             this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click_1);
             // 
             // btnDelete
             // 
@@ -369,6 +371,7 @@ namespace QuanLyThuVien.Forms
             this.btnDelete.TabIndex = 2;
             this.btnDelete.Text = "Xóa";
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click_1);
             // 
             // btnSearch
             // 
@@ -379,6 +382,7 @@ namespace QuanLyThuVien.Forms
             this.btnSearch.TabIndex = 3;
             this.btnSearch.Text = "Tìm kiếm";
             this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click_1);
             // 
             // dgvBook
             // 
@@ -392,6 +396,7 @@ namespace QuanLyThuVien.Forms
             this.dgvBook.RowTemplate.Height = 24;
             this.dgvBook.Size = new System.Drawing.Size(994, 124);
             this.dgvBook.TabIndex = 20;
+            this.dgvBook.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvBook_CellClick_1);
             // 
             // FormBook
             // 

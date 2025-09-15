@@ -28,8 +28,12 @@ namespace QuanLyThuVien
             Form frm = new Form();
             switch (e.ClickedItem.Name)
             {
+                case "menuNhanVien":
+                    FormMembers f_nhanVien = new FormMembers();
+                    frm = f_nhanVien;
+                    break;
                 case "quảnLýKháchHàngToolStripMenuItem":
-                    QuanLyKhachHang f_khachHang = new QuanLyKhachHang();
+                    FormCustomers f_khachHang = new FormCustomers();
                     frm = f_khachHang;
                     break;
                 case "quảnLýHóaĐơnToolStripMenuItem":

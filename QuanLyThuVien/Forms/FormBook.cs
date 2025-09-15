@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DocumentFormat.OpenXml.Bibliography;
+using DocumentFormat.OpenXml.Office.Word;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
@@ -44,8 +46,8 @@ namespace QuanLyThuVien.Forms
         private void LoadComboboxes()
         {
             LoadComboBox(cbAuthor,
-                "SELECT AuthorID, (LastName + ' ' + FirstName) AS AuthorName FROM Authors",
-                "AuthorName", "AuthorID");
+            "SELECT AuthorID, (LastName + ' ' + FirstName) AS AuthorName FROM Authors",
+            "AuthorName", "AuthorID");
 
             LoadComboBox(cbCategory,
                 "SELECT CategoryID, CategoryName FROM Categories",
@@ -88,23 +90,214 @@ namespace QuanLyThuVien.Forms
             if (e.RowIndex >= 0)
             {
                 txtBookTitle.Text = dgvBook.Rows[e.RowIndex].Cells["Title"].Value.ToString();
-                cbAuthor.SelectedValue = dgvBook.Rows[e.RowIndex].Cells["AuthorID"].Value;
-                cbCategory.SelectedValue = dgvBook.Rows[e.RowIndex].Cells["CategoryID"].Value;
-                cbPublisher.SelectedValue = dgvBook.Rows[e.RowIndex].Cells["PublisherID"].Value;
-                txtYear.Text = dgvBook.Rows[e.RowIndex].Cells["YearPublished"].Value.ToString();
-                cbLocation.SelectedValue = dgvBook.Rows[e.RowIndex].Cells["LocationID"].Value;
-                txtQuantity.Text = dgvBook.Rows[e.RowIndex].Cells["Quantity"].Value.ToString();
-                txtAvailable.Text = dgvBook.Rows[e.RowIndex].Cells["Available"].Value.ToString();
-                txtBorrowPrice.Text = dgvBook.Rows[e.RowIndex].Cells["BorrowPrice"].Value.ToString();
-                txtPrice.Text = dgvBook.Rows[e.RowIndex].Cells["Price"].Value.ToString();
-                txtNote.Text = dgvBook.Rows[e.RowIndex].Cells["Note"].Value.ToString();
+            cbAuthor.SelectedValue = dgvBook.Rows[e.RowIndex].Cells["AuthorID"].Value;
+            cbCategory.SelectedValue = dgvBook.Rows[e.RowIndex].Cells["CategoryID"].Value;
+            cbPublisher.SelectedValue = dgvBook.Rows[e.RowIndex].Cells["PublisherID"].Value;
+            txtYear.Text = dgvBook.Rows[e.RowIndex].Cells["YearPublished"].Value.ToString();
+            cbLocation.SelectedValue = dgvBook.Rows[e.RowIndex].Cells["LocationID"].Value;
+            txtQuantity.Text = dgvBook.Rows[e.RowIndex].Cells["Quantity"].Value.ToString();
+            txtAvailable.Text = dgvBook.Rows[e.RowIndex].Cells["Available"].Value.ToString();
+            txtBorrowPrice.Text = dgvBook.Rows[e.RowIndex].Cells["BorrowPrice"].Value.ToString();
+            txtPrice.Text = dgvBook.Rows[e.RowIndex].Cells["Price"].Value.ToString();
+            txtNote.Text = dgvBook.Rows[e.RowIndex].Cells["Note"].Value.ToString();
             }
         }
 
         // ===== Thêm sách =====
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            // Validate
+            
+            if (string.IsNullOrWhiteSpace(txtBookTitle.Text))
+            {
+                MessageBox.Show("Tên sách không được để trống!");
+                return;
+            }
+            if (cbAuthor.SelectedValue == null || cbCategory.SelectedValue == null ||
+                cbPublisher.SelectedValue == null || cbLocation.SelectedValue == null)
+            {
+                MessageBox.Show("Vui lòng chọn đầy đủ Tác giả, Thể loại, NXB, Vị trí!");
+                return;
+            }
+
+            if (!int.TryParse(txtYear.Text, out int year) ||
+                !int.TryParse(txtQuantity.Text, out int quantity) ||
+                !int.TryParse(txtAvailable.Text, out int available) ||
+                !decimal.TryParse(txtBorrowPrice.Text, out decimal borrowPrice) ||
+                !decimal.TryParse(txtPrice.Text, out decimal Price))
+            {
+                MessageBox.Show("Năm, số lượng, có sẵn, giá mượn, giá bán phải là số!");
+                return;
+            }
+
+            try
+            {
+                c.connect();
+                string sql = @"INSERT INTO Books 
+                            (Title, AuthorID, CategoryID, PublisherID, YearPublished, LocationID, 
+                             Quantity, Available, BorrowPrice, Price, Note) 
+                            VALUES (@Title, @AuthorID, @CategoryID, @PublisherID, @YearPublished, 
+                                    @LocationID, @Quantity, @Available, @BorrowPrice, @Price, @Note)";
+                SqlCommand cmd = new SqlCommand(sql, c.conn);
+                cmd.Parameters.AddWithValue("@Title", txtBookTitle.Text);
+                cmd.Parameters.AddWithValue("@AuthorID", cbAuthor.SelectedValue);
+                cmd.Parameters.AddWithValue("@CategoryID", cbCategory.SelectedValue);
+            cmd.Parameters.AddWithValue("@PublisherID", cbPublisher.SelectedValue);
+            cmd.Parameters.AddWithValue("@YearPublished", year);
+            cmd.Parameters.AddWithValue("@LocationID", cbLocation.SelectedValue);
+            cmd.Parameters.AddWithValue("@Quantity", quantity);
+            cmd.Parameters.AddWithValue("@Available", available);
+            cmd.Parameters.AddWithValue("@BorrowPrice", borrowPrice);
+            cmd.Parameters.AddWithValue("@Price", Price);
+            cmd.Parameters.AddWithValue("@Note", txtNote.Text);
+            cmd.ExecuteNonQuery();
+
+            MessageBox.Show("Thêm sách thành công!");
+        }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi thêm: " + ex.Message);
+            }
+            finally
+            {
+                c.disconnect();
+            }
+
+LoadData();
+        }
+
+        // ===== Sửa sách =====
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            if (dgvBook.CurrentRow == null)
+            {
+                MessageBox.Show("Hãy chọn sách để sửa!");
+                return;
+            }
+
+            if (!int.TryParse(txtYear.Text, out int year) ||
+                !int.TryParse(txtQuantity.Text, out int quantity) ||
+                !int.TryParse(txtAvailable.Text, out int available) ||
+                !decimal.TryParse(txtBorrowPrice.Text, out decimal borrowPrice) ||
+                !decimal.TryParse(txtPrice.Text, out decimal Price))
+            {
+                MessageBox.Show("Năm, số lượng, có sẵn, giá mượn, giá bán phải là số!");
+                return;
+            }
+
+            int bookId = Convert.ToInt32(dgvBook.CurrentRow.Cells["BookID"].Value);
+
+            try
+            {
+                c.connect();
+                string sql = @"UPDATE Books 
+                               SET Title=@Title, AuthorID=@AuthorID, CategoryID=@CategoryID, PublisherID=@PublisherID,
+                                   YearPublished=@YearPublished, LocationID=@LocationID, 
+                                   Quantity=@Quantity, Available=@Available, 
+                                   BorrowPrice=@BorrowPrice, Price=@Price, 
+                                   Note=@Note
+                               WHERE BookID=@BookID";
+                SqlCommand cmd = new SqlCommand(sql, c.conn);
+                cmd.Parameters.AddWithValue("@BookID", bookId);
+                cmd.Parameters.AddWithValue("@Title", txtBookTitle.Text);
+                cmd.Parameters.AddWithValue("@AuthorID", cbAuthor.SelectedValue);
+                cmd.Parameters.AddWithValue("@CategoryID", cbCategory.SelectedValue);
+                cmd.Parameters.AddWithValue("@PublisherID", cbPublisher.SelectedValue);
+                cmd.Parameters.AddWithValue("@YearPublished", year);
+                cmd.Parameters.AddWithValue("@LocationID", cbLocation.SelectedValue);
+            cmd.Parameters.AddWithValue("@Quantity", quantity);
+            cmd.Parameters.AddWithValue("@Available", available);
+            cmd.Parameters.AddWithValue("@BorrowPrice", borrowPrice);
+            cmd.Parameters.AddWithValue("@Price", Price);
+            cmd.Parameters.AddWithValue("@Note", txtNote.Text);
+            cmd.ExecuteNonQuery();
+
+            MessageBox.Show("Sửa sách thành công!");
+        }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi sửa: " + ex.Message);
+            }
+            finally
+            {
+                c.disconnect();
+            }
+
+LoadData();
+        }
+        // ===== Xoá sách =====
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (dgvBook.CurrentRow == null)
+            {
+                MessageBox.Show("Hãy chọn sách để xoá!");
+                return;
+            }
+
+            int bookId = Convert.ToInt32(dgvBook.CurrentRow.Cells["BookID"].Value);
+
+            if (MessageBox.Show("Bạn có chắc chắn muốn xoá?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                try
+                {
+                    c.connect();
+                    string sql = "DELETE FROM Books WHERE BookID=@BookID";
+                    SqlCommand cmd = new SqlCommand(sql, c.conn);
+                    cmd.Parameters.AddWithValue("@BookID", bookId);
+                    cmd.ExecuteNonQuery();
+
+                    MessageBox.Show("Xoá thành công!");
+                }
+                catch (SqlException ex)
+                {
+                    if (ex.Number == 547) // FK constraint
+                    {
+                        MessageBox.Show("Không thể xoá sách này!",
+                                        "Lỗi",
+                                        MessageBoxButtons.OK,
+                                        MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Lỗi SQL: " + ex.Message);
+                    }
+                }
+                finally
+                {
+                    c.disconnect();
+                }
+
+                LoadData();
+            }
+        }
+
+        // ===== Tìm kiếm =====
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                c.connect();
+                string sql = "SELECT * FROM Books WHERE Title LIKE @keyword";
+                SqlCommand cmd = new SqlCommand(sql, c.conn);
+                cmd.Parameters.AddWithValue("@keyword", "%" + txtBookTitle.Text.Trim() + "%");
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                dgvBook.DataSource = dt;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi tìm kiếm: " + ex.Message);
+            }
+            finally
+            {
+                c.disconnect();
+            }
+        }
+
+        private void btnAdd_Click_1(object sender, EventArgs e)
+        {
+
+
             if (string.IsNullOrWhiteSpace(txtBookTitle.Text))
             {
                 MessageBox.Show("Tên sách không được để trống!");
@@ -163,8 +356,25 @@ namespace QuanLyThuVien.Forms
             LoadData();
         }
 
-        // ===== Sửa sách =====
-        private void btnEdit_Click(object sender, EventArgs e)
+        private void dgvBook_CellClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                txtBookTitle.Text = dgvBook.Rows[e.RowIndex].Cells["Title"].Value.ToString();
+                cbAuthor.SelectedValue = dgvBook.Rows[e.RowIndex].Cells["AuthorID"].Value;
+                cbCategory.SelectedValue = dgvBook.Rows[e.RowIndex].Cells["CategoryID"].Value;
+                cbPublisher.SelectedValue = dgvBook.Rows[e.RowIndex].Cells["PublisherID"].Value;
+                txtYear.Text = dgvBook.Rows[e.RowIndex].Cells["YearPublished"].Value.ToString();
+                cbLocation.SelectedValue = dgvBook.Rows[e.RowIndex].Cells["LocationID"].Value;
+                txtQuantity.Text = dgvBook.Rows[e.RowIndex].Cells["Quantity"].Value.ToString();
+                txtAvailable.Text = dgvBook.Rows[e.RowIndex].Cells["Available"].Value.ToString();
+                txtBorrowPrice.Text = dgvBook.Rows[e.RowIndex].Cells["BorrowPrice"].Value.ToString();
+                txtPrice.Text = dgvBook.Rows[e.RowIndex].Cells["Price"].Value.ToString();
+                txtNote.Text = dgvBook.Rows[e.RowIndex].Cells["Note"].Value.ToString();
+            }
+        }
+
+        private void btnEdit_Click_1(object sender, EventArgs e)
         {
             if (dgvBook.CurrentRow == null)
             {
@@ -222,8 +432,8 @@ namespace QuanLyThuVien.Forms
 
             LoadData();
         }
-// ===== Xoá sách =====
-private void btnDelete_Click(object sender, EventArgs e)
+
+        private void btnDelete_Click_1(object sender, EventArgs e)
         {
             if (dgvBook.CurrentRow == null)
             {
@@ -245,9 +455,19 @@ private void btnDelete_Click(object sender, EventArgs e)
 
                     MessageBox.Show("Xoá thành công!");
                 }
-                catch (Exception ex)
+                catch (SqlException ex)
                 {
-                    MessageBox.Show("Lỗi khi xoá: " + ex.Message);
+                    if (ex.Number == 547) // FK constraint
+                    {
+                        MessageBox.Show("Không thể xoá sách này!",
+                                        "Lỗi",
+                                        MessageBoxButtons.OK,
+                                        MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Lỗi SQL: " + ex.Message);
+                    }
                 }
                 finally
                 {
@@ -258,8 +478,7 @@ private void btnDelete_Click(object sender, EventArgs e)
             }
         }
 
-        // ===== Tìm kiếm =====
-        private void btnSearch_Click(object sender, EventArgs e)
+        private void btnSearch_Click_1(object sender, EventArgs e)
         {
             try
             {
@@ -281,5 +500,6 @@ private void btnDelete_Click(object sender, EventArgs e)
                 c.disconnect();
             }
         }
-    }
+    } 
+  
 }

@@ -4510,7 +4510,6 @@ namespace QuanLyThuVien {
                 this.columnTenSach.AllowDBNull = false;
                 this.columnTenSach.MaxLength = 255;
                 this.columnSoLuong.AllowDBNull = false;
-                this.columnKhachHang.AllowDBNull = false;
                 this.columnKhachHang.MaxLength = 100;
                 this.columnLienHe.MaxLength = 100;
                 this.columnTenNhanVien.ReadOnly = true;
@@ -6520,7 +6519,12 @@ namespace QuanLyThuVien {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public string KhachHang {
                 get {
-                    return ((string)(this[this.tableThongTinHoaDon.KhachHangColumn]));
+                    try {
+                        return ((string)(this[this.tableThongTinHoaDon.KhachHangColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'KhachHang\' in table \'ThongTinHoaDon\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableThongTinHoaDon.KhachHangColumn] = value;
@@ -6617,6 +6621,18 @@ namespace QuanLyThuVien {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public void SetNgayLapNull() {
                 this[this.tableThongTinHoaDon.NgayLapColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsKhachHangNull() {
+                return this.IsNull(this.tableThongTinHoaDon.KhachHangColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetKhachHangNull() {
+                this[this.tableThongTinHoaDon.KhachHangColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -12034,23 +12050,16 @@ SELECT UserID, Username, PasswordHash, FullName, Email, Role, IsActive, CreatedA
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = @"SELECT Borrowing.BorrowID AS MaHoaDon,
-       Borrowing.BorrowDate AS NgayLap,
-       Books.Title AS TenSach,
-       BorrowingDetails.Quantity AS SoLuong,
-       Users.FullName AS KhachHang,
-       Users.Email AS LienHe,
-       Books.Price AS GiaBanLe,
-       Members.LastName + ' ' + Members.FirstName AS TenNhanVien,
-       Books.Price * BorrowingDetails.Quantity AS ThanhTien,
-       Authors.LastName + ' ' + Authors.FirstName AS TacGia
-FROM Borrowing
-INNER JOIN Members ON Borrowing.MemberID = Members.MemberID
-INNER JOIN Users ON Borrowing.UserID = Users.UserID
-INNER JOIN Books ON Borrowing.BookID = Books.BookID
-INNER JOIN BorrowingDetails ON Borrowing.BorrowID = BorrowingDetails.BorrowID
-INNER JOIN Authors ON Books.AuthorID = Authors.AuthorID
-WHERE Borrowing.BorrowID = @BorrowID;
+            this._commandCollection[0].CommandText = @"SELECT Borrowing.BorrowID AS MaHoaDon, Borrowing.BorrowDate AS NgayLap, Books.Title AS TenSach, BorrowingDetails.Quantity AS SoLuong, Users.Email AS LienHe, Books.Price AS GiaBanLe, 
+                  Members.LastName + ' ' + Members.FirstName AS TenNhanVien, Books.Price * BorrowingDetails.Quantity AS ThanhTien, Authors.LastName + ' ' + Authors.FirstName AS TacGia, 
+                  Users.FirstName + ' ' + Users.LastName AS KhachHang
+FROM     Borrowing INNER JOIN
+                  Members ON Borrowing.MemberID = Members.MemberID INNER JOIN
+                  Users ON Borrowing.UserID = Users.UserID INNER JOIN
+                  Books ON Borrowing.BookID = Books.BookID INNER JOIN
+                  BorrowingDetails ON Borrowing.BorrowID = BorrowingDetails.BorrowID INNER JOIN
+                  Authors ON Books.AuthorID = Authors.AuthorID
+WHERE  (Borrowing.BorrowID = @BorrowID); 
 ";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@BorrowID", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "MaHoaDon", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));

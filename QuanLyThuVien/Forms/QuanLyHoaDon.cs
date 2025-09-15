@@ -289,7 +289,7 @@ namespace QuanLyThuVien
                     SELECT 
                         Borrowing.BorrowID AS [Mã hóa đơn], 
                         Borrowing.BorrowDate AS [Ngày tạo], 
-                        U.FullName AS [Nhân viên lập], 
+                        U.FirstName+ ' ' + U.LastName AS [Nhân viên lập], 
                         M.FirstName + ' ' + M.LastName AS [Khách hàng], 
                         Borrowing.Note AS [Ghi chú]
                     FROM Borrowing
